@@ -23,7 +23,7 @@ const MyRadioGroup = ({ label, name, items, disabled, onChange }) => {
   return (
     <FormControl component="fieldset" fullWidth>
       <FormLabel component="legend">{label}</FormLabel>
-      <RadioGroup name={name} value={value} onChange={handleChange}>
+      <RadioGroup name={name} value={value} onChange={handleChange} row>
         {items.map((x) => (
           <FormControlLabel
             key={x.id}

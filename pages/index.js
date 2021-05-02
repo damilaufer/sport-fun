@@ -1,15 +1,19 @@
 import Head from 'next/head'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { create } from 'jss'
+import rtl from 'jss-rtl'
 import purple from '@material-ui/core/colors/purple'
 import green from '@material-ui/core/colors/green'
+import { StylesProvider, jssPreset } from '@material-ui/core/styles'
 import { Formik, Form, Field } from 'formik'
 import { Button, Container, LinearProgress } from '@material-ui/core'
 import { TextField } from 'formik-material-ui'
+
 import { MyRadioGroup } from '../components/MyRadioGroup'
 import { MySelect } from '../components/MySelect'
-import rtl from 'jss-rtl'
-import { StylesProvider, jssPreset } from '@material-ui/core/styles'
+import { getValidationSchema } from '../lib/validations'
+import { Round } from '../components/Round'
+import { sexes, yesNo } from '../lib/constants'
 
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] })
@@ -24,15 +28,6 @@ const theme = createMuiTheme({
     },
   },
 })
-
-const sexs = [
-  { name: 'זכר', id: 'M' },
-  { name: 'נקבה', id: 'F' },
-]
-const yesNo = [
-  { name: 'לא', id: 'N' },
-  { name: 'כן', id: 'Y' },
-]
 
 const initialValues = {
   firstName: '',
@@ -56,12 +51,15 @@ const initialValues = {
   comments: '',
   firstRound: '',
   busForth: '',
+  busForthComments: '',
   lunchId: '',
   secondRound: '',
   secondRoundBus: '',
+  secondRoundBusComments: '',
   secondRoundLunchId: '',
   thirdRound: '',
   thirdRoundBus: '',
+  thirdRoundBusComments: '',
   thirdRoundLunchId: '',
 }
 
@@ -83,7 +81,6 @@ function Home({ dictionaries }) {
   return (
     <StylesProvider jss={jss}>
       <ThemeProvider theme={theme}>
-        {/* <div className="container"> */}
         <Container maxWidth="sm">
           <Head>
             <title>Sport-Fun</title>
@@ -92,19 +89,7 @@ function Home({ dictionaries }) {
           <main>
             <Formik
               initialValues={initialValues}
-              validate={(values) => {
-                const errors = {}
-                if (!values.email) {
-                  errors.email = 'Required'
-                } else if (
-                  !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
-                    values.email,
-                  )
-                ) {
-                  errors.email = 'Invalid email address'
-                }
-                return errors
-              }}
+              validationSchema={getValidationSchema()}
               onSubmit={(values, { setSubmitting }) => {
                 setTimeout(() => {
                   setSubmitting(false)
@@ -121,26 +106,30 @@ function Home({ dictionaries }) {
                       component={TextField}
                       label="שם פרטי"
                       name="firstName"
+                      required
                       fullWidth
                     />
                     <Field
                       component={TextField}
                       label="שם משפחה"
                       name="lastName"
+                      required
                       fullWidth
                     />
-                    <MyRadioGroup label="מין" name="sex" items={sexs} />
+                    <MyRadioGroup label="מין" name="sex" items={sexes} />
 
                     <Field
                       component={TextField}
-                      label="נייד אמא"
+                      label="נייד הורה 1"
                       name="motherCellPhone"
+                      required
                       fullWidth
                     />
                     <Field
                       component={TextField}
-                      label="נייד אבא"
+                      label="נייד הורה 2"
                       name="fatherCellPhone"
+                      required
                       fullWidth
                     />
                     <Field
@@ -160,6 +149,7 @@ function Home({ dictionaries }) {
                       label="אימייל"
                       name="email"
                       type="email"
+                      required
                       fullWidth
                     />
                     <Field
@@ -173,8 +163,18 @@ function Home({ dictionaries }) {
                       name="sportId"
                       items={sports}
                     /> */}
-                    <MySelect label="כיתה" name="classId" items={classes} />
-                    <MySelect label={'ביה"ס'} name="schoolId" items={schools} />
+                    <MySelect
+                      label="כיתה"
+                      name="classId"
+                      items={classes}
+                      required
+                    />
+                    <MySelect
+                      label={'ביה"ס'}
+                      name="schoolId"
+                      items={schools}
+                      required
+                    />
                     <Field
                       component={TextField}
                       label="כתובת"
@@ -215,59 +215,28 @@ function Home({ dictionaries }) {
                       name="comments"
                       fullWidth
                     />
-                    <Field
-                      component={TextField}
-                      label="מחזור ראשון"
-                      name="firstRound"
-                      fullWidth
+                    <Round
+                      values={values}
+                      roundLabel="מחזור ראשון (1/4 עד 5/4)"
+                      roundName="firstRound"
+                      busName="busForth"
+                      lunchName="lunchId"
                     />
-                    <Field
-                      component={TextField}
-                      label="הסעה"
-                      name="busForth"
-                      fullWidth
+
+                    <Round
+                      values={values}
+                      roundLabel="מחזור שני (6/4 עד 10/4)"
+                      roundName="secondRound"
+                      busName="secondRoundBus"
+                      lunchName="secondRoundLunchId"
                     />
-                    <Field
-                      component={TextField}
-                      label="צהרון"
-                      name="lunchId"
-                      fullWidth
-                    />
-                    <Field
-                      component={TextField}
-                      label="מחזור שני"
-                      name="secondRound"
-                      fullWidth
-                    />
-                    <Field
-                      component={TextField}
-                      label="הסעה"
-                      name="secondRoundBus"
-                      fullWidth
-                    />
-                    <Field
-                      component={TextField}
-                      label="צהרון"
-                      name="secondRoundLunchId"
-                      fullWidth
-                    />
-                    <Field
-                      component={TextField}
-                      label="מחזור שלישי"
-                      name="thirdRound"
-                      fullWidth
-                    />
-                    <Field
-                      component={TextField}
-                      label="הסעה"
-                      name="thirdRoundBus"
-                      fullWidth
-                    />
-                    <Field
-                      component={TextField}
-                      label="צהרון"
-                      name="thirdRoundLunchId"
-                      fullWidth
+
+                    <Round
+                      values={values}
+                      roundLabel="מחזור שלישי (12/4 עד 15/4)"
+                      roundName="thirdRound"
+                      busName="thirdRoundBus"
+                      lunchName="thirdRoundLunchId"
                     />
 
                     {isSubmitting && <LinearProgress />}
@@ -285,50 +254,13 @@ function Home({ dictionaries }) {
               }}
             </Formik>
           </main>
-          <footer>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Powered by <img src="/vercel.svg" alt="Vercel Logo" />
-            </a>
-          </footer>
 
           <style jsx>{`
-            .container {
-              min-height: 100vh;
-              padding: 0 0.5rem;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-            }
-
             main {
               padding: 5rem 0;
               flex: 1;
               display: flex;
               flex-direction: column;
-              justify-content: center;
-              align-items: center;
-            }
-
-            footer {
-              width: 100%;
-              height: 100px;
-              border-top: 1px solid #eaeaea;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-            }
-
-            footer img {
-              margin-left: 0.5rem;
-            }
-
-            footer a {
-              display: flex;
               justify-content: center;
               align-items: center;
             }
@@ -353,77 +285,7 @@ function Home({ dictionaries }) {
               margin: 0;
               line-height: 1.15;
               font-size: 4rem;
-            }
-
-            .title,
-            .description {
               text-align: center;
-            }
-
-            .description {
-              line-height: 1.5;
-              font-size: 1.5rem;
-            }
-
-            code {
-              background: #fafafa;
-              border-radius: 5px;
-              padding: 0.75rem;
-              font-size: 1.1rem;
-              font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-                DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
-                monospace;
-            }
-
-            .grid {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              flex-wrap: wrap;
-
-              max-width: 800px;
-              margin-top: 3rem;
-            }
-
-            .card {
-              margin: 1rem;
-              flex-basis: 45%;
-              padding: 1.5rem;
-              text-align: left;
-              color: inherit;
-              text-decoration: none;
-              border: 1px solid #eaeaea;
-              border-radius: 10px;
-              transition: color 0.15s ease, border-color 0.15s ease;
-            }
-
-            .card:hover,
-            .card:focus,
-            .card:active {
-              color: #0070f3;
-              border-color: #0070f3;
-            }
-
-            .card h3 {
-              margin: 0 0 1rem 0;
-              font-size: 1.5rem;
-            }
-
-            .card p {
-              margin: 0;
-              font-size: 1.25rem;
-              line-height: 1.5;
-            }
-
-            .logo {
-              height: 1em;
-            }
-
-            @media (max-width: 600px) {
-              .grid {
-                width: 100%;
-                flex-direction: column;
-              }
             }
           `}</style>
 
