@@ -1,16 +1,16 @@
-import Head from 'next/head';
+import Head from 'next/head'
 
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
-import { Formik, Form, Field } from 'formik';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import purple from '@material-ui/core/colors/purple'
+import green from '@material-ui/core/colors/green'
+import { Formik, Form, Field } from 'formik'
 import {
   Button,
   LinearProgress,
   FormControlLabel,
   Radio,
-} from '@material-ui/core';
-import { TextField, RadioGroup } from 'formik-material-ui';
+} from '@material-ui/core'
+import { TextField, RadioGroup } from 'formik-material-ui'
 
 const theme = createMuiTheme({
   palette: {
@@ -21,42 +21,73 @@ const theme = createMuiTheme({
       main: green[500],
     },
   },
-});
+})
 
-export default function Home() {
+const initialValues = {
+  firstName: '',
+  lastName: '',
+  sex: '',
+  motherCellPhone: '',
+  fatherCellPhone: '',
+  phone: '',
+  emergencyPhone: '',
+  email: '',
+  friends: '',
+  sportId: '',
+  classId: '',
+  schoolId: '',
+  address: '',
+  settlementId: '',
+  neighbourhoodId: '',
+  vegetarian: '',
+  parkHaMaimSubscriber: '',
+  swims: '',
+  comments: '',
+  firstRound: '',
+  busForth: '',
+  lunchId: '',
+  secondRound: '',
+  secondRoundBus: '',
+  secondRoundLunchId: '',
+  thirdRound: '',
+  thirdRoundBus: '',
+  thirdRoundLunchId: '',
+}
+
+function Home({ dictionaries }) {
+  console.log('dictionaries: ', dictionaries)
+
   return (
     <ThemeProvider theme={theme}>
       <div className="container">
         <Head>
-          <title>Create Next App</title>
+          <title>Sport-Fun</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <main>
+          {JSON.stringify(dictionaries)}
           <Formik
-            initialValues={{
-              email: '',
-              password: '',
-            }}
+            initialValues={initialValues}
             validate={(values) => {
-              const errors = {};
+              const errors = {}
               if (!values.email) {
-                errors.email = 'Required';
+                errors.email = 'Required'
               } else if (
                 !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
               ) {
-                errors.email = 'Invalid email address';
+                errors.email = 'Invalid email address'
               }
-              return errors;
+              return errors
             }}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
-                setSubmitting(false);
-                alert(JSON.stringify(values, null, 2));
-              }, 500);
+                setSubmitting(false)
+                alert(JSON.stringify(values, null, 2))
+              }, 500)
             }}
           >
             {({ values, submitForm, isSubmitting }) => {
-              console.log(values);
+              // console.log(values)
               return (
                 <Form>
                   <Field
@@ -71,13 +102,7 @@ export default function Home() {
                     name="lastName"
                     fullWidth
                   />
-                  <Field
-                    component={TextField}
-                    label="מין"
-                    name="sex"
-                    fullWidth
-                  />
-                  <Field component={RadioGroup} name="מין">
+                  <Field component={RadioGroup} name="sex">
                     <FormControlLabel
                       value="M"
                       control={<Radio disabled={isSubmitting} />}
@@ -254,7 +279,7 @@ export default function Home() {
                     Submit
                   </Button>
                 </Form>
-              );
+              )
             }}
           </Formik>
         </main>
@@ -264,8 +289,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Powered by{' '}
-            <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
+            Powered by <img src="/vercel.svg" alt="Vercel Logo" />
           </a>
         </footer>
 
@@ -416,5 +440,17 @@ export default function Home() {
         `}</style>
       </div>
     </ThemeProvider>
-  );
+  )
 }
+
+// This gets called on every request
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch(`https://jsonplaceholder.typicode.com/todos`)
+  const dictionaries = await res.json()
+
+  // Pass data to the page via props
+  return { props: { dictionaries } }
+}
+
+export default Home
