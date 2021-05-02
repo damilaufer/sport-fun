@@ -65,8 +65,21 @@ const initialValues = {
   thirdRoundLunchId: '',
 }
 
+const filterAndSort = (items) => {
+  return items
+    .filter((x) => x.name !== '---')
+    .sort((a, b) => a.name.localeCompare(b.name))
+}
+
 function Home({ dictionaries }) {
   console.log(dictionaries)
+
+  const neighbourhoods = filterAndSort(dictionaries.neighbourhoods)
+  // const sports = filterAndSort(dictionaries.sports)
+  const classes = filterAndSort(dictionaries.classes)
+  const schools = filterAndSort(dictionaries.schools)
+  const settlements = filterAndSort(dictionaries.settlements)
+
   return (
     <StylesProvider jss={jss}>
       <ThemeProvider theme={theme}>
@@ -100,12 +113,8 @@ function Home({ dictionaries }) {
               }}
             >
               {({ values, submitForm, isSubmitting }) => {
-                console.log(values)
-                const neighbourhoods = dictionaries.neighbourhoods.filter(
-                  (x) => x.settlementId === values.settlementId,
-                )
-                console.log(neighbourhoods)
-                console.log(values.settlementId)
+                // console.log(values)
+
                 return (
                   <Form>
                     <Field
@@ -159,21 +168,13 @@ function Home({ dictionaries }) {
                       name="friends"
                       fullWidth
                     />
-                    <MySelect
+                    {/* <MySelect
                       label="ספורט"
                       name="sportId"
-                      items={dictionaries.sports}
-                    />
-                    <MySelect
-                      label="כיתה"
-                      name="classId"
-                      items={dictionaries.classes}
-                    />
-                    <MySelect
-                      label={'ביה"ס'}
-                      name="schoolId"
-                      items={dictionaries.schools}
-                    />
+                      items={sports}
+                    /> */}
+                    <MySelect label="כיתה" name="classId" items={classes} />
+                    <MySelect label={'ביה"ס'} name="schoolId" items={schools} />
                     <Field
                       component={TextField}
                       label="כתובת"
@@ -183,12 +184,14 @@ function Home({ dictionaries }) {
                     <MySelect
                       label="יישוב"
                       name="settlementId"
-                      items={dictionaries.settlements}
+                      items={settlements}
                     />
                     <MySelect
                       label="שכונה"
                       name="neighbourhoodId"
-                      items={neighbourhoods}
+                      items={neighbourhoods.filter(
+                        (x) => x.settlementId === values.settlementId,
+                      )}
                       disabled={neighbourhoods.length === 0}
                     />
                     <MyRadioGroup
