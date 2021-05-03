@@ -11,25 +11,30 @@ import {
 import { MyRadioGroup } from './MyRadioGroup'
 import { yesNo } from '../lib/constants'
 
-const Round = ({ values, roundLabel, roundName, busName, lunchName }) => (
-  <Accordion expanded={values[roundName] === 'Y'}>
-    <AccordionSummary>
-      <MyRadioGroup label={roundLabel} name={roundName} items={yesNo} />
-    </AccordionSummary>
-    <AccordionDetails>
-      <MyRadioGroup label="הסעה" name={busName} items={yesNo} />
-      <Field
-        component={TextField}
-        label="הערות"
-        name={`${busName}Comments`}
-        disabled={values[busName] !== 'Y'}
-        helperText="למשל: רק הלוך"
-        fullWidth
-      />
-      <Field component={TextField} label="צהרון" name={lunchName} fullWidth />
-    </AccordionDetails>
-  </Accordion>
-)
+const Round = ({ values, roundLabel, roundName, busName, lunchName }) => {
+  return (
+    <Accordion
+      expanded={values[roundName] === 'Y'}
+      style={{ marginBotom: '20px' }}
+    >
+      <AccordionSummary>
+        <MyRadioGroup label={roundLabel} name={roundName} items={yesNo} />
+      </AccordionSummary>
+      <AccordionDetails>
+        <MyRadioGroup label="הסעה" name={busName} items={yesNo} />
+        <Field
+          component={TextField}
+          label="הערות"
+          name={`${busName}Comments`}
+          disabled={values[busName] !== 'Y'}
+          helperText="למשל: רק הלוך"
+          fullWidth
+        />
+        <Field component={TextField} label="צהרון" name={lunchName} fullWidth />
+      </AccordionDetails>
+    </Accordion>
+  )
+}
 
 Round.propTypes = {
   values: PropTypes.object.isRequired,

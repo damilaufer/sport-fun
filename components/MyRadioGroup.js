@@ -9,8 +9,8 @@ import {
   RadioGroup,
 } from '@material-ui/core'
 
-const MyRadioGroup = ({ label, name, items, disabled, onChange }) => {
-  const [{}, { value }, { setValue }] = useField(name)
+const MyRadioGroup = ({ label, name, items, disabled, required, onChange }) => {
+  const [{}, { error, value }, { setValue }] = useField(name)
 
   const handleChange = (ev) => {
     const value = ev.target.value
@@ -20,9 +20,10 @@ const MyRadioGroup = ({ label, name, items, disabled, onChange }) => {
     }
   }
 
+  const finalLabel = required ? `${label}*` : label
   return (
-    <FormControl component="fieldset" fullWidth>
-      <FormLabel component="legend">{label}</FormLabel>
+    <FormControl component="fieldset" fullWidth style={{ marginBotom: '20px' }}>
+      <FormLabel component="legend">{finalLabel}</FormLabel>
       <RadioGroup name={name} value={value} onChange={handleChange} row>
         {items.map((x) => (
           <FormControlLabel
@@ -33,6 +34,9 @@ const MyRadioGroup = ({ label, name, items, disabled, onChange }) => {
           />
         ))}
       </RadioGroup>
+      <span className="MuiFormHelperText-root Mui-error Mui-required">
+        {error}
+      </span>
     </FormControl>
   )
 }
@@ -42,6 +46,7 @@ MyRadioGroup.propTypes = {
   name: PropTypes.string.isRequired,
   items: PropTypes.array.isRequired,
   disabled: PropTypes.bool,
+  required: PropTypes.bool,
   onChange: PropTypes.func,
 }
 

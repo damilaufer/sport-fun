@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import Image from 'next/image'
 import { create } from 'jss'
 import rtl from 'jss-rtl'
 import purple from '@material-ui/core/colors/purple'
@@ -14,6 +15,7 @@ import { MySelect } from '../components/MySelect'
 import { getValidationSchema } from '../lib/validations'
 import { Round } from '../components/Round'
 import { sexes, yesNo } from '../lib/constants'
+import { MyTextField } from '../components/MyTextField'
 
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] })
@@ -87,6 +89,9 @@ function Home({ dictionaries }) {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <main>
+            <div style={{ marginBottom: '20px' }}>
+              <Image src="/logo.jpg" alt="Sport-fun" width="350" height="200" />
+            </div>
             <Formik
               initialValues={initialValues}
               validationSchema={getValidationSchema()}
@@ -97,67 +102,37 @@ function Home({ dictionaries }) {
                 }, 500)
               }}
             >
-              {({ values, submitForm, isSubmitting }) => {
-                // console.log(values)
+              {({ values, errors, submitForm, isSubmitting }) => {
+                console.log('Values:', values)
+                if (errors) {
+                  console.warn('Errors:', errors)
+                }
 
                 return (
                   <Form>
-                    <Field
-                      component={TextField}
-                      label="שם פרטי"
-                      name="firstName"
-                      required
-                      fullWidth
-                    />
-                    <Field
-                      component={TextField}
-                      label="שם משפחה"
-                      name="lastName"
-                      required
-                      fullWidth
-                    />
+                    <MyTextField label="שם פרטי" name="firstName" required />
+                    <MyTextField label="שם משפחה" name="lastName" required />
                     <MyRadioGroup label="מין" name="sex" items={sexes} />
 
-                    <Field
-                      component={TextField}
+                    <MyTextField
                       label="נייד הורה 1"
                       name="motherCellPhone"
                       required
-                      fullWidth
                     />
-                    <Field
-                      component={TextField}
+                    <MyTextField
                       label="נייד הורה 2"
                       name="fatherCellPhone"
                       required
-                      fullWidth
                     />
-                    <Field
-                      component={TextField}
-                      label="טלפון"
-                      name="phone"
-                      fullWidth
-                    />
-                    <Field
-                      component={TextField}
-                      label="חירום"
-                      name="emergencyPhone"
-                      fullWidth
-                    />
-                    <Field
-                      component={TextField}
+                    <MyTextField label="טלפון" name="phone" />
+                    <MyTextField label="חירום" name="emergencyPhone" />
+                    <MyTextField
                       label="אימייל"
                       name="email"
                       type="email"
                       required
-                      fullWidth
                     />
-                    <Field
-                      component={TextField}
-                      label="חברים בקייטנה"
-                      name="friends"
-                      fullWidth
-                    />
+                    <MyTextField label="חברים בקייטנה" name="friends" />
                     {/* <MySelect
                       label="ספורט"
                       name="sportId"
@@ -175,12 +150,7 @@ function Home({ dictionaries }) {
                       items={schools}
                       required
                     />
-                    <Field
-                      component={TextField}
-                      label="כתובת"
-                      name="address"
-                      fullWidth
-                    />
+                    <MyTextField label="כתובת" name="address" />
                     <MySelect
                       label="יישוב"
                       name="settlementId"
@@ -208,13 +178,9 @@ function Home({ dictionaries }) {
                       label="יודע לשחות"
                       name="swims"
                       items={yesNo}
+                      required
                     />
-                    <Field
-                      component={TextField}
-                      label="הערות"
-                      name="comments"
-                      fullWidth
-                    />
+                    <MyTextField label="הערות" name="comments" />
                     <Round
                       values={values}
                       roundLabel="מחזור ראשון (1/4 עד 5/4)"

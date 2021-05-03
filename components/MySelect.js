@@ -1,18 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Field } from 'formik'
+import { Field, useField } from 'formik'
 import { FormControl, InputLabel, MenuItem } from '@material-ui/core'
 import { Select } from 'formik-material-ui'
 
-const MySelect = ({ label, name, items, disabled, onChange }) => {
+const MySelect = ({ label, name, items, disabled, required }) => {
+  const [{}, { error }, {}] = useField(name)
+
+  const finalLabel = required ? `${label}*` : label
   return (
-    <FormControl fullWidth disabled>
-      <InputLabel htmlFor={name}>{label}</InputLabel>
+    <FormControl fullWidth disabled style={{ marginBotom: '20px' }}>
+      <InputLabel htmlFor={name}>{finalLabel}</InputLabel>
       <Field
         component={Select}
         name={name}
         disabled={disabled}
         inputProps={{ id: name }}
+        required
       >
         {items.map((x) => (
           <MenuItem key={x.id} value={x.id}>
@@ -20,6 +24,9 @@ const MySelect = ({ label, name, items, disabled, onChange }) => {
           </MenuItem>
         ))}
       </Field>
+      <span className="MuiFormHelperText-root Mui-error Mui-required">
+        {error}
+      </span>
     </FormControl>
   )
 }
@@ -29,7 +36,7 @@ MySelect.propTypes = {
   name: PropTypes.string.isRequired,
   items: PropTypes.array.isRequired,
   disabled: PropTypes.bool,
-  onChange: PropTypes.func,
+  required: PropTypes.bool,
 }
 
 export { MySelect }
