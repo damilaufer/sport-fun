@@ -20,8 +20,9 @@ const Round = ({
 }) => {
   return (
     <Accordion
+      elevation={4}
       expanded={values[roundName] === 'Y'}
-      style={{ marginBotom: '20px' }}
+      style={{ marginBottom: '20px' }}
     >
       <AccordionSummary>
         <MyRadioGroup
@@ -32,25 +33,24 @@ const Round = ({
         />
       </AccordionSummary>
       <AccordionDetails style={{ display: 'block' }}>
-        <div>
-          <MyRadioGroup
-            label="הסעה"
-            name={busName}
-            items={yesNo}
-            disabled={disabled}
-          />
-        </div>
-        <div>
-          <MyTextField
-            label="הערות"
-            name={`${busName}Comments`}
-            disabled={disabled || values[busName] !== 'Y'}
-            helperText="למשל: רק הלוך"
-          />
-        </div>
-        <div>
-          <MyTextField label="צהרון" name={lunchName} disabled={disabled} />
-        </div>
+        <MyRadioGroup
+          label="הסעה"
+          name={busName}
+          items={yesNo}
+          disabled={disabled}
+        />
+        <MyTextField
+          label="הערות"
+          name={`${busName}Comments`}
+          disabled={disabled || values[busName] !== 'Y'}
+          helperText="למשל: רק הלוך"
+        />
+        <MyRadioGroup
+          label="צהרון"
+          name={lunchName}
+          items={yesNo}
+          disabled={disabled}
+        />
       </AccordionDetails>
     </Accordion>
   )
