@@ -99,7 +99,7 @@ function Home({ dictionaries }) {
                 setTimeout(() => {
                   setSubmitting(false)
                   alert(JSON.stringify(values, null, 2))
-                }, 500)
+                }, 5000)
               }}
             >
               {({ values, errors, submitForm, isSubmitting }) => {
@@ -110,29 +110,59 @@ function Home({ dictionaries }) {
 
                 return (
                   <Form>
-                    <MyTextField label="שם פרטי" name="firstName" required />
-                    <MyTextField label="שם משפחה" name="lastName" required />
-                    <MyRadioGroup label="מין" name="sex" items={sexes} />
+                    <MyTextField
+                      label="שם פרטי"
+                      name="firstName"
+                      disabled={isSubmitting}
+                      required
+                    />
+                    <MyTextField
+                      label="שם משפחה"
+                      name="lastName"
+                      disabled={isSubmitting}
+                      required
+                    />
+                    <MyRadioGroup
+                      label="מין"
+                      name="sex"
+                      items={sexes}
+                      disabled={isSubmitting}
+                    />
 
                     <MyTextField
                       label="נייד הורה 1"
                       name="motherCellPhone"
+                      disabled={isSubmitting}
                       required
                     />
                     <MyTextField
                       label="נייד הורה 2"
                       name="fatherCellPhone"
+                      disabled={isSubmitting}
                       required
                     />
-                    <MyTextField label="טלפון" name="phone" />
-                    <MyTextField label="חירום" name="emergencyPhone" />
+                    <MyTextField
+                      label="טלפון"
+                      name="phone"
+                      disabled={isSubmitting}
+                    />
+                    <MyTextField
+                      label="חירום"
+                      name="emergencyPhone"
+                      disabled={isSubmitting}
+                    />
                     <MyTextField
                       label="אימייל"
                       name="email"
                       type="email"
+                      disabled={isSubmitting}
                       required
                     />
-                    <MyTextField label="חברים בקייטנה" name="friends" />
+                    <MyTextField
+                      label="חברים בקייטנה"
+                      name="friends"
+                      disabled={isSubmitting}
+                    />
                     {/* <MySelect
                       label="ספורט"
                       name="sportId"
@@ -142,19 +172,26 @@ function Home({ dictionaries }) {
                       label="כיתה"
                       name="classId"
                       items={classes}
+                      disabled={isSubmitting}
                       required
                     />
                     <MySelect
                       label={'ביה"ס'}
                       name="schoolId"
                       items={schools}
+                      disabled={isSubmitting}
                       required
                     />
-                    <MyTextField label="כתובת" name="address" />
+                    <MyTextField
+                      label="כתובת"
+                      name="address"
+                      disabled={isSubmitting}
+                    />
                     <MySelect
                       label="יישוב"
                       name="settlementId"
                       items={settlements}
+                      disabled={isSubmitting}
                     />
                     <MySelect
                       label="שכונה"
@@ -162,31 +199,39 @@ function Home({ dictionaries }) {
                       items={neighbourhoods.filter(
                         (x) => x.settlementId === values.settlementId,
                       )}
-                      disabled={neighbourhoods.length === 0}
+                      disabled={isSubmitting || neighbourhoods.length === 0}
                     />
                     <MyRadioGroup
                       label="צמחוני"
                       name="vegetarian"
                       items={yesNo}
+                      disabled={isSubmitting}
                     />
                     <MyRadioGroup
                       label="מנוי לפארק המים"
                       name="parkHaMaimSubscriber"
                       items={yesNo}
+                      disabled={isSubmitting}
                     />
                     <MyRadioGroup
                       label="יודע לשחות"
                       name="swims"
                       items={yesNo}
+                      disabled={isSubmitting}
                       required
                     />
-                    <MyTextField label="הערות" name="comments" />
+                    <MyTextField
+                      label="הערות"
+                      name="comments"
+                      disabled={isSubmitting}
+                    />
                     <Round
                       values={values}
                       roundLabel="מחזור ראשון (1/4 עד 5/4)"
                       roundName="firstRound"
                       busName="busForth"
                       lunchName="lunchId"
+                      disabled={isSubmitting}
                     />
 
                     <Round
@@ -195,6 +240,7 @@ function Home({ dictionaries }) {
                       roundName="secondRound"
                       busName="secondRoundBus"
                       lunchName="secondRoundLunchId"
+                      disabled={isSubmitting}
                     />
 
                     <Round
@@ -203,6 +249,7 @@ function Home({ dictionaries }) {
                       roundName="thirdRound"
                       busName="thirdRoundBus"
                       lunchName="thirdRoundLunchId"
+                      disabled={isSubmitting}
                     />
 
                     {isSubmitting && <LinearProgress />}
@@ -288,3 +335,5 @@ export async function getServerSideProps() {
 }
 
 export default Home
+// @@@ school: hay un campo "ajer". Si se elige ese, se puede completar a mano
+// tzaaron: yes no?
