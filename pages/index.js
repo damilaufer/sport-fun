@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { create } from 'jss'
 import rtl from 'jss-rtl'
 import purple from '@material-ui/core/colors/purple'
@@ -25,11 +26,18 @@ const theme = createMuiTheme({
 })
 
 function Home({ dictionaries }) {
-  const handleSubmit = (values, { setSubmitting }) => {
-    setTimeout(() => {
-      setSubmitting(false)
-      alert(JSON.stringify(values, null, 2))
-    }, 5000)
+  const router = useRouter()
+  const handleSubmit = async (values, { setSubmitting }) => {
+    const response = await fetch(`/api/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ values }),
+    })
+    const json = await response.json() // parses JSON response into native JavaScript objects
+    setSubmitting(false)
+    router.push('/thankYou')
   }
 
   return (

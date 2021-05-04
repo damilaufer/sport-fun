@@ -11,34 +11,36 @@ import { sexes, yesNo } from '../../lib/constants'
 import { MyTextField } from '../../components/MyTextField'
 
 const initialValues = {
-  firstName: '',
-  lastName: '',
+  firstName: '' || 'dami',
+  lastName: '' || 'laufer',
   sex: '',
-  motherCellPhone: '',
-  fatherCellPhone: '',
+  motherCellPhone: '' || '054-12312',
+  fatherCellPhone: '' || '054-12312',
   phone: '',
   emergencyPhone: '',
-  email: '',
+  email: '' || 'damilaufer@gmail.com',
   friends: '',
   sportId: '',
-  classId: '',
-  schoolId: '',
+  classId: '' || '2',
+  schoolId: '' || '2',
   address: '',
   settlementId: '',
   neighbourhoodId: '',
   vegetarian: '',
   parkHaMaimSubscriber: '',
-  swims: '',
+  swims: '' || 'Y',
   comments: '',
-  firstRound: '',
-  busForth: '',
-  busForthComments: '',
-  lunchId: '',
-  secondRound: '',
+  medicalComments: '',
+  medicalCommentsYesNo: '' || 'Y',
+  firstRound: '' || 'Y',
+  busForth: '' || 'Y',
+  busForthComments: '' || 'one way',
+  lunchId: '' || '2',
+  secondRound: '' || 'N',
   secondRoundBus: '',
   secondRoundBusComments: '',
   secondRoundLunchId: '',
-  thirdRound: '',
+  thirdRound: '' || 'N',
   thirdRoundBus: '',
   thirdRoundBusComments: '',
   thirdRoundLunchId: '',
@@ -178,9 +180,20 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               name="comments"
               disabled={isSubmitting}
             />
+            <MyRadioGroup
+              label="הבן/בת שלי בריא/ה"
+              name="medicalCommentsYesNo"
+              items={yesNo}
+              disabled={isSubmitting}
+            />
+            <MyTextField
+              label="הערות רפואיות"
+              name="medicalComments"
+              disabled={isSubmitting || values.medicalCommentsYesNo === 'Y'}
+            />
             <Round
               values={values}
-              roundLabel="מחזור ראשון (1/4 עד 5/4)"
+              roundLabel="מחזור ראשון (4/7 - 15/7)"
               roundName="firstRound"
               busName="busForth"
               lunchName="lunchId"
@@ -189,7 +202,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
 
             <Round
               values={values}
-              roundLabel="מחזור שני (6/4 עד 10/4)"
+              roundLabel="מחזור שני (18/7 - 29/7)"
               roundName="secondRound"
               busName="secondRoundBus"
               lunchName="secondRoundLunchId"
@@ -198,7 +211,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
 
             <Round
               values={values}
-              roundLabel="מחזור שלישי (12/4 עד 15/4)"
+              roundLabel="מחזור שלישי (1/8 - 12/8)"
               roundName="thirdRound"
               busName="thirdRoundBus"
               lunchName="thirdRoundLunchId"
