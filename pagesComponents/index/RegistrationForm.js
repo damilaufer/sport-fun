@@ -23,6 +23,7 @@ const initialValues = {
   sportId: '',
   classId: '' || '2',
   schoolId: '' || '2',
+  otherSchool: '',
   address: '',
   settlementId: '',
   neighbourhoodId: '',
@@ -45,6 +46,8 @@ const initialValues = {
   thirdRoundBusComments: '',
   thirdRoundLunchId: '',
 }
+
+const otherSchoolId = 18
 
 const RegistrationForm = ({ dictionaries, onSubmit }) => {
   const filterAndSort = (items) => {
@@ -122,11 +125,6 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               name="friends"
               disabled={isSubmitting}
             />
-            {/* <MySelect
-          label="ספורט"
-          name="sportId"
-          items={sports}
-        /> */}
             <MySelect
               label="כיתה"
               name="classId"
@@ -141,6 +139,14 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               disabled={isSubmitting}
               required
             />
+            {values.schoolId === otherSchoolId && (
+              <MyTextField
+                label="שם ביה״ס"
+                name="otherSchool"
+                disabled={isSubmitting}
+                required
+              />
+            )}
             <MyTextField label="כתובת" name="address" disabled={isSubmitting} />
             <MySelect
               label="יישוב"

@@ -125,4 +125,3 @@ export async function getServerSideProps() {
 }
 
 export default Home
-// @@@ school: hay un campo "ajer". Si se elige ese, se puede completar a mano
