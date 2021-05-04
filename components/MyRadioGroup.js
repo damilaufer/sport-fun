@@ -22,7 +22,11 @@ const MyRadioGroup = ({ label, name, items, disabled, required, onChange }) => {
 
   const finalLabel = required ? `${label}*` : label
   return (
-    <FormControl component="fieldset" fullWidth style={{ marginBotom: '20px' }}>
+    <FormControl
+      component="fieldset"
+      fullWidth
+      style={{ marginBottom: '20px' }}
+    >
       <FormLabel component="legend">{finalLabel}</FormLabel>
       <RadioGroup name={name} value={value} onChange={handleChange} row>
         {items.map((x) => (

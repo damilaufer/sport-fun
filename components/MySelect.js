@@ -9,7 +9,7 @@ const MySelect = ({ label, name, items, disabled, required }) => {
 
   const finalLabel = required ? `${label}*` : label
   return (
-    <FormControl fullWidth disabled style={{ marginBotom: '20px' }}>
+    <FormControl fullWidth disabled style={{ marginBottom: '20px' }}>
       <InputLabel htmlFor={name}>{finalLabel}</InputLabel>
       <Field
         component={Select}
