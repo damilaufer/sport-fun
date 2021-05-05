@@ -4,7 +4,12 @@ import { Field, Formik, Form } from 'formik'
 import { Button, LinearProgress } from '@material-ui/core'
 import { CheckboxWithLabel } from 'formik-material-ui'
 
-import { otherSchoolId, sexes, yesNo } from '../../lib/constants'
+import {
+  otherSchoolId,
+  sexes,
+  yesNo,
+  modiinSettlementId,
+} from '../../lib/constants'
 import { hasBus } from '../../lib/utils'
 import { getValidationSchema } from '../../lib/validations'
 import { MyTextField } from '../../components/MyTextField'
@@ -50,6 +55,7 @@ const initialValues = {
   thirdRoundBusComments: '',
   thirdRoundLunchId: '',
   termsAndConditions: false,
+  roundSelected: '', // Special field (not editable)
 }
 
 const RegistrationForm = ({ dictionaries, onSubmit }) => {
@@ -178,7 +184,9 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               name="settlementId"
               items={settlements}
               disabled={isSubmitting}
-              required={addressRequired}
+              required={
+                addressRequired && values.settlements === modiinSettlementId
+              }
             />
             <MySelect
               label="שכונה"
@@ -256,6 +264,10 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               lunchName="thirdRoundLunchId"
               disabled={isSubmitting}
             />
+            <span className="MuiFormHelperText-root Mui-error Mui-required">
+              {errors.roundSelected}
+            </span>
+
             <MyTextField
               label="הערות כלליות"
               name="comments"

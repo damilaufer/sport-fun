@@ -106,6 +106,15 @@ function Home({ dictionaries }) {
               box-sizing: border-box;
             }
           `}</style>
+
+          {/* Material UI overrides */}
+          <style jsx global>
+            {`
+              .MuiFormHelperText-root {
+                font-size: 1rem !important;
+              }
+            `}
+          </style>
         </Container>
       </ThemeProvider>
     </StylesProvider>
