@@ -1,19 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Formik, Form } from 'formik'
+import { Field, Formik, Form } from 'formik'
 import { Button, LinearProgress } from '@material-ui/core'
+import { CheckboxWithLabel } from 'formik-material-ui'
 
-import { MyRadioGroup } from '../../components/MyRadioGroup'
-import { MySelect } from '../../components/MySelect'
+import { otherSchoolId, sexes, yesNo } from '../../lib/constants'
+import { hasBus } from '../../lib/utils'
 import { getValidationSchema } from '../../lib/validations'
-import { Round } from '../../components/Round'
-import { sexes, yesNo } from '../../lib/constants'
 import { MyTextField } from '../../components/MyTextField'
+import { MySelect } from '../../components/MySelect'
+import { MyRadioGroup } from '../../components/MyRadioGroup'
+import { Round } from '../../components/Round'
 
 const initialValues = {
   firstName: '' || 'dami',
   lastName: '' || 'laufer',
-  sex: '',
+  sex: '' || 'M',
   motherCellPhone: '' || '054-12312',
   fatherCellPhone: '' || '054-12312',
   phone: '',
@@ -21,15 +23,17 @@ const initialValues = {
   email: '' || 'damilaufer@gmail.com',
   friends: '',
   sportId: '',
-  classId: '' || '2',
+  classId: '' || '3',
   schoolId: '' || '2',
   otherSchool: '',
   address: '',
   settlementId: '',
   neighbourhoodId: '',
   vegetarian: '',
+  vegetarianComments: '',
   parkHaMaimSubscriber: '',
   swims: '' || 'Y',
+  swimsComments: '',
   comments: '',
   medicalComments: '',
   medicalCommentsYesNo: '' || 'Y',
@@ -45,9 +49,8 @@ const initialValues = {
   thirdRoundBus: '',
   thirdRoundBusComments: '',
   thirdRoundLunchId: '',
+  termsAndConditions: false,
 }
-
-const otherSchoolId = 18
 
 const RegistrationForm = ({ dictionaries, onSubmit }) => {
   const filterAndSort = (items) => {
@@ -69,21 +72,38 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
       onSubmit={onSubmit}
     >
       {({ values, errors, submitForm, isSubmitting }) => {
-        // console.log('Values:', values)
         if (Object.keys(errors).length > 0) {
+          console.log('Values:', values)
           console.warn('Errors:', errors)
         }
+
+        const addressRequired = hasBus(
+          values.busForth,
+          values.secondRoundBus,
+          values.thirdRoundBus,
+        )
+
+        const showBusWarning =
+          (values.firstRound === 'Y' &&
+            values.busForth === 'Y' &&
+            values.lunchId === 'Y') ||
+          (values.secondRound === 'Y' &&
+            values.secondRoundBus === 'Y' &&
+            values.secondRoundLunchId === 'Y') ||
+          (values.thirdRound === 'Y' &&
+            values.thirdRoundBus === 'Y' &&
+            values.thirdRoundLunchId === 'Y')
 
         return (
           <Form>
             <MyTextField
-              label="שם פרטי"
+              label="שם פרטי של הילד/ה"
               name="firstName"
               disabled={isSubmitting}
               required
             />
             <MyTextField
-              label="שם משפחה"
+              label="שם משפחה של הילד/ה"
               name="lastName"
               disabled={isSubmitting}
               required
@@ -120,13 +140,8 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               disabled={isSubmitting}
               required
             />
-            <MyTextField
-              label="חברים בקייטנה"
-              name="friends"
-              disabled={isSubmitting}
-            />
             <MySelect
-              label="כיתה"
+              label="מסיים כיתה"
               name="classId"
               items={classes}
               disabled={isSubmitting}
@@ -147,12 +162,23 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
                 required
               />
             )}
-            <MyTextField label="כתובת" name="address" disabled={isSubmitting} />
+            <MyTextField
+              label="חברים בקייטנה"
+              name="friends"
+              disabled={isSubmitting}
+            />
+            <MyTextField
+              label="כתובת"
+              name="address"
+              disabled={isSubmitting}
+              required={addressRequired}
+            />
             <MySelect
               label="יישוב"
               name="settlementId"
               items={settlements}
               disabled={isSubmitting}
+              required={addressRequired}
             />
             <MySelect
               label="שכונה"
@@ -161,12 +187,18 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
                 (x) => x.settlementId === values.settlementId,
               )}
               disabled={isSubmitting || neighbourhoods.length === 0}
+              required={addressRequired}
             />
             <MyRadioGroup
-              label="צמחוני"
+              label="אלרגיה למזון"
               name="vegetarian"
               items={yesNo}
               disabled={isSubmitting}
+            />
+            <MyTextField
+              label="אם כן , לפרט"
+              name="vegetarianComments"
+              disabled={isSubmitting || values.vegetarian !== 'Y'}
             />
             <MyRadioGroup
               label="מנוי לפארק המים"
@@ -182,12 +214,13 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               required
             />
             <MyTextField
-              label="הערות"
-              name="comments"
-              disabled={isSubmitting}
+              label="הערות לגבי בריכה"
+              name="swimsComments"
+              disabled={isSubmitting || values.swims !== 'Y'}
             />
             <MyRadioGroup
-              label="הבן/בת שלי בריא/ה"
+              label="אין לבני/בתי כל מגבלה רפואית ויכול/ה להשתתף בפעילויות
+              ספורט והקייטנה"
               name="medicalCommentsYesNo"
               items={yesNo}
               disabled={isSubmitting}
@@ -195,7 +228,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
             <MyTextField
               label="הערות רפואיות"
               name="medicalComments"
-              disabled={isSubmitting || values.medicalCommentsYesNo === 'Y'}
+              disabled={isSubmitting}
             />
             <Round
               values={values}
@@ -223,6 +256,36 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               lunchName="thirdRoundLunchId"
               disabled={isSubmitting}
             />
+            <MyTextField
+              label="הערות כלליות"
+              name="comments"
+              disabled={isSubmitting}
+            />
+
+            {showBusWarning && (
+              <h3 style={{ color: 'red' }}>אין הסעה חזור ב 16:00</h3>
+            )}
+
+            <div style={{ marginBottom: '20px' }}>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="termsAndConditions"
+                Label={{
+                  label: (
+                    <span>
+                      אני מאשר/ת כי כל הפרטים נכונים ומאשר/ת את רישום בני/בתי
+                      לקייטנה לאחר שקראתי את כל הפרטים והתנאים המופיעים בדף
+                      המידע להורים באתר הקייטנה{' '}
+                      <a href="sportfun.co.il">ACAAA</a>
+                    </span>
+                  ),
+                }}
+              />
+              <span className="MuiFormHelperText-root Mui-error Mui-required">
+                {errors.termsAndConditions}
+              </span>
+            </div>
 
             {isSubmitting && <LinearProgress />}
             <br />

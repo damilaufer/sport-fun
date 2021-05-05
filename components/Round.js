@@ -18,10 +18,11 @@ const Round = ({
   lunchName,
   disabled,
 }) => {
+  const registeredForThisRound = values[roundName] === 'Y'
   return (
     <Accordion
       elevation={4}
-      expanded={values[roundName] === 'Y'}
+      expanded={registeredForThisRound}
       style={{ marginBottom: '20px' }}
     >
       <AccordionSummary>
@@ -38,6 +39,7 @@ const Round = ({
           name={busName}
           items={yesNo}
           disabled={disabled}
+          required={registeredForThisRound}
         />
         <MyTextField
           label="הערות"
@@ -50,6 +52,7 @@ const Round = ({
           name={lunchName}
           items={yesNo}
           disabled={disabled}
+          required={registeredForThisRound}
         />
       </AccordionDetails>
     </Accordion>
