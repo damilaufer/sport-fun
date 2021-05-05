@@ -276,8 +276,8 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
                     <span>
                       אני מאשר/ת כי כל הפרטים נכונים ומאשר/ת את רישום בני/בתי
                       לקייטנה לאחר שקראתי את כל הפרטים והתנאים המופיעים בדף
-                      המידע להורים באתר הקייטנה{' '}
-                      <a href="sportfun.co.il">ACAAA</a>
+                      המידע להורים{' '}
+                      <a href="http://sportfun.co.il">באתר הקייטנה</a>
                     </span>
                   ),
                 }}
