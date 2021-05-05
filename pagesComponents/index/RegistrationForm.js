@@ -81,12 +81,17 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
         if (Object.keys(errors).length > 0) {
           console.log('Values:', values)
           console.warn('Errors:', errors)
+        } else {
+          console.log('No errors')
         }
 
         const addressRequired = hasBus(
           values.busForth,
           values.secondRoundBus,
           values.thirdRoundBus,
+          values.firstRound,
+          values.secondRound,
+          values.thirdRound,
         )
 
         const showBusWarning =
