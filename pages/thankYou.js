@@ -14,9 +14,11 @@ const ThankYou = () => {
           <Image src="/logo.jpg" alt="Sport-fun" width="350" height="200" />
         </div>
 
-        <h1 style={{ color: 'green' }}>ההרשמה הצליחה</h1>
+        <h1 style={{ marginTop: '50px', color: 'green' }}>
+          ההרשמה בוצעה בהצלחה.
+        </h1>
         <h3 style={{ color: 'violet' }}>
-          הצוות של Sport-fun יצור איתכם קשר בקרוב
+          צוות ספורטפאן יהיה עמכם בקשר לביצוע תשלום והמשך הליך הרישום.
         </h3>
       </main>
     </Container>
