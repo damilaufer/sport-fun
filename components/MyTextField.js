@@ -4,15 +4,17 @@ import { Field } from 'formik'
 import { TextField } from 'formik-material-ui'
 
 const MyTextField = ({ label, name, disabled, required }) => (
-  <Field
-    component={TextField}
-    label={label}
-    name={name}
-    required={required}
-    disabled={disabled}
-    fullWidth
-    style={{ marginBottom: '20px' }}
-  />
+  <div style={{ marginBottom: '20px' }}>
+    <Field
+      component={TextField}
+      label={label}
+      name={name}
+      required={required}
+      disabled={disabled}
+      fullWidth
+      style={{ marginBottom: '20px' }}
+    />
+  </div>
 )
 
 MyTextField.propTypes = {
