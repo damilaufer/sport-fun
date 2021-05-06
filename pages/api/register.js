@@ -2,70 +2,68 @@ export default async function handler(req, res) {
   const values = req.body.values
 
   const kid = {
-    id: '-1', // Some negative number for a new kid
-    vegetarian: values.vegetarian,
-    vegetarianComments: values.vegetarianComments,
-    parkHaMaimSubscriber: values.parkHaMaimSubscriber,
-    email: values.email,
-    swims: values.swims,
-    swimsComments: values.swimsComments,
-    motherCellPhone: values.motherCellPhone,
-    firstName: values.firstName,
-    lastName: values.lastName,
-    sex: values.sex,
-    phone: values.phone,
-    fatherCellPhone: values.fatherCellPhone,
-    emergencyPhone: values.emergencyPhone,
-    schoolId: values.schoolId,
-    otherSchool: values.otherSchool,
-    classId: values.classId,
-    sportId: values.sportId,
-    friends: values.friends,
+    id: -1, // Some negative number for a new kid
     address: values.address,
     busStop: values.busStop,
-    settlementId: values.settlementId,
-    neighbourhoodId: values.neighbourhoodId,
+    classId: Number(values.classId),
     comments: values.comments,
+    email: values.email,
+    emergencyPhone: values.emergencyPhone,
+    fatherCellPhone: values.fatherCellPhone,
+    firstName: values.firstName,
+    friends: values.friends,
+    lastName: values.lastName,
     medicalComments: values.medicalComments,
     medicalCommentsYesNo: values.medicalCommentsYesNo,
+    motherCellPhone: values.motherCellPhone,
+    neighbourhoodId: Number(values.neighbourhoodId || 0),
+    otherSchool: values.otherSchool,
+    parkHaMaimSubscriber: values.parkHaMaimSubscriber === 'Y',
+    phone: values.phone,
+    schoolId: Number(values.schoolId),
+    settlementId: Number(values.settlementId),
+    sex: values.sex,
+    sportId: Number(values.sportId),
+    swims: values.swims === 'Y',
+    swimsComments: values.swimsComments,
+    vegetarian: values.vegetarian === 'Y',
+    vegetarianComments: values.vegetarianComments,
   }
 
   const round = {
     groupId: 29, // 2021
-    busForth: values.busForth,
+    amount: values.amount,
+    busForth: values.busForth === 'Y',
     busForthComments: values.busForthComments,
     busPaid: values.busPaid,
-    lunchId: values.lunchId,
-    amount: values.amount,
     cashPaid: values.cashPaid,
-    chequePaid: values.chequePaid,
-    ccPaid: values.ccPaid,
-    ccNumber: values.ccNumber,
     ccExpiration: values.ccExpiration,
+    ccNumber: values.ccNumber,
     ccOwnerID: values.ccOwnerID,
     ccOwnerName: values.ccOwnerName,
+    ccPaid: values.ccPaid,
+    chequePaid: values.chequePaid,
+    firstRound: values.firstRound === 'Y',
+    lunchId: values.lunchId === 'Y',
     receiptNumber: values.receiptNumber,
-    secondRound: values.secondRound,
-    secondRoundLunchId: values.secondRoundLunchId,
-    secondRoundBus: values.secondRoundBus,
+    secondRound: values.secondRound === 'Y',
+    secondRoundBus: values.secondRoundBus === 'Y',
     secondRoundBusComments: values.secondRoundBusComments,
-    thirdRound: values.thirdRound,
-    thirdRoundLunchId: values.thirdRoundLunchId,
-    thirdRoundBus: values.thirdRoundBus,
+    secondRoundLunchId: values.secondRoundLunchId === 'Y',
+    thirdRound: values.thirdRound === 'Y',
+    thirdRoundBus: values.thirdRoundBus === 'Y',
     thirdRoundBusComments: values.thirdRoundBusComments,
-    firstRound: values.firstRound,
+    thirdRoundLunchId: values.thirdRoundLunchId === 'Y',
   }
+
   try {
-    const response = await fetch(
-      'https://summer-camp-manager.herokuapp.com/api/kids',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ kid, round }),
+    const response = await fetch('http://localhost:5000/api/kids', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    )
+      body: JSON.stringify({ kid, round }),
+    })
     const contentType = response.headers.get('Content-Type')
     if (response.status !== 200) {
       let message

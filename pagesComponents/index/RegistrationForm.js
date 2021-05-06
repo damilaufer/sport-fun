@@ -27,7 +27,7 @@ const initialValues = {
   emergencyPhone: '',
   email: '' || 'damilaufer@gmail.com',
   friends: '',
-  sportId: '',
+  sportId: '0',
   classId: '' || '3',
   schoolId: '' || '2',
   otherSchool: '',
@@ -46,6 +46,7 @@ const initialValues = {
   busForth: '' || 'Y',
   busForthComments: '' || 'one way',
   lunchId: '' || '2',
+  busStop: '',
   secondRound: '' || 'N',
   secondRoundBus: '',
   secondRoundBusComments: '',
@@ -56,6 +57,17 @@ const initialValues = {
   thirdRoundLunchId: '',
   termsAndConditions: false,
   roundSelected: '', // Special field (not editable)
+  // non visible fields (to be compatible with the old API)
+  busPaid: false,
+  amount: 0,
+  cashPaid: false,
+  chequePaid: false,
+  ccPaid: false,
+  ccNumber: '',
+  ccExpiration: '',
+  ccOwnerID: '',
+  ccOwnerName: '',
+  receiptNumber: '',
 }
 
 const RegistrationForm = ({ dictionaries, onSubmit }) => {
