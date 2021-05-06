@@ -57,13 +57,17 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch('http://localhost:5000/api/kids', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      'https://summer-camp-manager.herokuapp.com/api/kids',
+      // 'http://localhost:5000/api/kids',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ kid, round }),
       },
-      body: JSON.stringify({ kid, round }),
-    })
+    )
     const contentType = response.headers.get('Content-Type')
     if (response.status !== 200) {
       let message

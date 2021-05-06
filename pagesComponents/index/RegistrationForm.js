@@ -44,8 +44,8 @@ const initialValues = {
   medicalCommentsYesNo: '' || 'Y',
   firstRound: '' || 'Y',
   busForth: '' || 'Y',
-  busForthComments: '' || 'one way',
-  lunchId: '' || '2',
+  busForthComments: '' || 'One way',
+  lunchId: '' || '',
   busStop: '',
   secondRound: '' || 'N',
   secondRoundBus: '',
@@ -89,7 +89,12 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
       validationSchema={getValidationSchema()}
       onSubmit={onSubmit}
     >
-      {({ values, errors, submitForm, isSubmitting }) => {
+      {({ values, errors, submitForm, isSubmitting, setFieldValue }) => {
+        function clearField(yesNoValue, fieldNameToClear) {
+          if (yesNoValue === 'N') {
+            setFieldValue(fieldNameToClear, '', false)
+          }
+        }
         if (Object.keys(errors).length > 0) {
           console.log('Values:', values)
           console.warn('Errors:', errors)
@@ -208,6 +213,16 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               required={
                 addressRequired && values.settlements === modiinSettlementId
               }
+              onChange={(value) => {
+                // TODO: make it generic. If no neighbours for the new value, clear it
+                // Clear the neighbourhood if not modiin
+                if (
+                  value !== modiinSettlementId &&
+                  values.neighbourhoodId !== ''
+                ) {
+                  setFieldValue('neighbourhoodId', '')
+                }
+              }}
             />
             <MySelect
               label="שכונה"
@@ -221,6 +236,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               name="vegetarian"
               items={yesNo}
               disabled={isSubmitting}
+              onChange={(value) => clearField(value, 'vegetarianComments')}
             />
             <MyTextField
               label="אם כן , לפרט"
@@ -264,6 +280,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               busName="busForth"
               lunchName="lunchId"
               disabled={isSubmitting}
+              clearField={clearField}
             />
 
             <Round
@@ -273,6 +290,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               busName="secondRoundBus"
               lunchName="secondRoundLunchId"
               disabled={isSubmitting}
+              clearField={clearField}
             />
 
             <Round
@@ -282,6 +300,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               busName="thirdRoundBus"
               lunchName="thirdRoundLunchId"
               disabled={isSubmitting}
+              clearField={clearField}
             />
             <span className="MuiFormHelperText-root Mui-error Mui-required">
               {errors.roundSelected}
@@ -347,6 +366,3 @@ RegistrationForm.propTypes = {
 }
 
 export { RegistrationForm }
-// @@@ a veces no se ven en rojo los errores
-// @@@ Hacer desaparecer los comentarios de los YESNO que hacen disable (ejemplo: asaa, vegetarian)
-// @@@ Borrar el barrio si cambia a NO-modiin (hoy no lo muestra, pero está)

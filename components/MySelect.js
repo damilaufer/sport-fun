@@ -4,8 +4,16 @@ import { Field, useField } from 'formik'
 import { FormControl, InputLabel, MenuItem } from '@material-ui/core'
 import { Select } from 'formik-material-ui'
 
-const MySelect = ({ label, name, items, disabled, required }) => {
-  const [{}, { error }, {}] = useField(name)
+const MySelect = ({ label, name, items, disabled, required, onChange }) => {
+  const [{}, { error }, { setValue }] = useField(name)
+
+  const handleChange = (ev) => {
+    const value = ev.target.value
+    setValue(value)
+    if (onChange) {
+      onChange(value)
+    }
+  }
 
   const finalLabel = required ? `${label}*` : label
   return (
@@ -17,6 +25,7 @@ const MySelect = ({ label, name, items, disabled, required }) => {
         disabled={disabled}
         inputProps={{ id: name }}
         required
+        onChange={handleChange}
       >
         {items.map((x) => (
           <MenuItem key={x.id} value={x.id}>
@@ -37,6 +46,7 @@ MySelect.propTypes = {
   items: PropTypes.array.isRequired,
   disabled: PropTypes.bool,
   required: PropTypes.bool,
+  onChange: PropTypes.func,
 }
 
 export { MySelect }

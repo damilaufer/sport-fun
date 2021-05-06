@@ -17,6 +17,7 @@ const Round = ({
   busName,
   lunchName,
   disabled,
+  clearField,
 }) => {
   const registeredForThisRound = values[roundName] === 'Y'
   return (
@@ -40,6 +41,7 @@ const Round = ({
           items={yesNo}
           disabled={disabled}
           required={registeredForThisRound}
+          onChange={(value) => clearField(value, `${busName}Comments`)}
         />
         <MyTextField
           label="הערות"
@@ -66,6 +68,7 @@ Round.propTypes = {
   busName: PropTypes.string.isRequired,
   lunchName: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  clearField: PropTypes.func.isRequired,
 }
 
 export { Round }

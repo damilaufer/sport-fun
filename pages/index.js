@@ -28,16 +28,27 @@ const theme = createMuiTheme({
 function Home({ dictionaries }) {
   const router = useRouter()
   const handleSubmit = async (values, { setSubmitting }) => {
-    const response = await fetch(`/api/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ values }),
-    })
-    const json = await response.json() // parses JSON response into native JavaScript objects
-    setSubmitting(false)
-    router.push('/thankYou')
+    try {
+      const response = await fetch(`/api/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ values }),
+      })
+      const json = await response.json() // parses JSON response into native JavaScript objects
+      setSubmitting(false)
+      if (json.kid && json.rounds) {
+        router.push('/thankYou')
+      } else {
+        console.log(json)
+        throw new Error('The save operation failed: unknown response schema')
+      }
+    } catch (error) {
+      console.error(error)
+      //@@@ cambiar
+      alert('קרתה שגיאה')
+    }
   }
 
   return (
@@ -112,6 +123,7 @@ function Home({ dictionaries }) {
             {`
               .MuiFormHelperText-root {
                 font-size: 1rem !important;
+                color: #f44336;
               }
             `}
           </style>
