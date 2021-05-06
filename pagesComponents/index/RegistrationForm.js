@@ -31,8 +31,8 @@ const initialValues = {
   classId: '' || '3',
   schoolId: '' || '2',
   otherSchool: '',
-  address: '',
-  settlementId: '',
+  address: 'Some street 5',
+  settlementId: '2',
   neighbourhoodId: '',
   vegetarian: '',
   vegetarianComments: '',
@@ -104,6 +104,10 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
           (values.thirdRound === 'Y' &&
             values.thirdRoundBus === 'Y' &&
             values.thirdRoundLunchId === 'Y')
+
+        const settlementNeighbourhoods = neighbourhoods.filter(
+          (x) => x.settlementId === values.settlementId,
+        )
 
         return (
           <Form>
@@ -196,10 +200,8 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
             <MySelect
               label="שכונה"
               name="neighbourhoodId"
-              items={neighbourhoods.filter(
-                (x) => x.settlementId === values.settlementId,
-              )}
-              disabled={isSubmitting || neighbourhoods.length === 0}
+              items={settlementNeighbourhoods}
+              disabled={isSubmitting || settlementNeighbourhoods.length === 0}
               required={addressRequired}
             />
             <MyRadioGroup
@@ -229,7 +231,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
             <MyTextField
               label="הערות לגבי בריכה"
               name="swimsComments"
-              disabled={isSubmitting || values.swims !== 'Y'}
+              disabled={isSubmitting}
             />
             <MyRadioGroup
               label="אין לבני/בתי כל מגבלה רפואית ויכול/ה להשתתף בפעילויות
@@ -333,3 +335,6 @@ RegistrationForm.propTypes = {
 }
 
 export { RegistrationForm }
+// @@@ a veces no se ven en rojo los errores
+// @@@ Hacer desaparecer los comentarios de los YESNO que hacen disable (ejemplo: asaa, vegetarian)
+// @@@ Borrar el barrio si cambia a NO-modiin (hoy no lo muestra, pero está)
