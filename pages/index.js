@@ -46,6 +46,7 @@ function Home({ dictionaries }) {
       }
     } catch (error) {
       console.error(error)
+      // @@@ Falta hacer que en los errores de select y group sean en rojo también los textos
       //@@@ cambiar
       alert('קרתה שגיאה')
     }
