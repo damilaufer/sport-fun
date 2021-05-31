@@ -47,10 +47,10 @@ const initialValues = {
   busForthComments: '',
   lunchId: '',
   busStop: '',
-  secondRound: '',
-  secondRoundBus: '',
+  secondRound: 'N',
+  secondRoundBus: 'N',
   secondRoundBusComments: '',
-  secondRoundLunchId: '',
+  secondRoundLunchId: 'N',
   thirdRound: 'N',
   thirdRoundBus: 'N',
   thirdRoundBusComments: '',
@@ -285,11 +285,11 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
 
             <Round
               values={values}
-              roundLabel="מחזור שני (18/7 - 29/7)"
+              roundLabel="מחזור שני (מלא)"
               roundName="secondRound"
               busName="secondRoundBus"
               lunchName="secondRoundLunchId"
-              disabled={isSubmitting}
+              disabled={true}
               clearField={clearField}
             />
 
