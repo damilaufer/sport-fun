@@ -64,12 +64,12 @@ function Home({ dictionaries }) {
             <div style={{ marginBottom: '20px' }}>
               <Image src="/logo.jpg" alt="Sport-fun" width="350" height="200" />
             </div>
-            <h1>ההרשמה סגורה</h1>
-            <h2>לפרטים: 052-367-0576</h2>
-            {/* <RegistrationForm
+            {/* <h1>ההרשמה סגורה</h1>
+            <h2>לפרטים: 052-367-0576</h2> */}
+            <RegistrationForm
               dictionaries={dictionaries}
               onSubmit={handleSubmit}
-            /> */}
+            />
           </main>
 
           <style jsx>{`
