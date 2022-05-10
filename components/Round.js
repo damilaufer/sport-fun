@@ -34,11 +34,12 @@ const Round = ({
           disabled={disabled}
         />
 
-        {(roundName === 'thirdRound' || roundName === 'secondRound') && (
-          <span style={{ color: 'rgba(0, 0, 0, 0.54)' }}>
-            מחזור שלישי מלא. לרישום לרשימת המתנה צרו קשר עם 052-3670576
-          </span>
-        )}
+        {disabled &&
+          (roundName === 'thirdRound' || roundName === 'secondRound') && (
+            <span style={{ color: 'rgba(0, 0, 0, 0.54)' }}>
+              מחזור שלישי מלא. לרישום לרשימת המתנה צרו קשר עם 052-3670576
+            </span>
+          )}
       </AccordionSummary>
       <AccordionDetails style={{ display: 'block' }}>
         <MyRadioGroup

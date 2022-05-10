@@ -39,8 +39,7 @@ function Home({ dictionaries }) {
       const json = await response.json() // parses JSON response into native JavaScript objects
       setSubmitting(false)
       if (json.kid && json.rounds) {
-        // router.push('/thankYou')
-        window.location = 'https://sportfun.co.il/collections/all'
+        router.push('/thankYou')
       } else {
         console.log(json)
         throw new Error('The save operation failed: unknown response schema')
