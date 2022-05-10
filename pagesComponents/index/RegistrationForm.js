@@ -47,14 +47,14 @@ const initialValues = {
   busForthComments: '',
   lunchId: '',
   busStop: '',
-  secondRound: 'N',
-  secondRoundBus: 'N',
+  secondRound: '',
+  secondRoundBus: '',
   secondRoundBusComments: '',
-  secondRoundLunchId: 'N',
-  thirdRound: 'N',
-  thirdRoundBus: 'N',
+  secondRoundLunchId: '',
+  thirdRound: '',
+  thirdRoundBus: '',
   thirdRoundBusComments: '',
-  thirdRoundLunchId: 'N',
+  thirdRoundLunchId: '',
   termsAndConditions: false,
   roundSelected: '', // Special field (not editable)
   // non visible fields (to be compatible with the old API)
@@ -157,7 +157,6 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               label="נייד הורה 2"
               name="fatherCellPhone"
               disabled={isSubmitting}
-              required
             />
             <MyTextField label="טלפון" name="phone" disabled={isSubmitting} />
             <MyTextField
@@ -173,7 +172,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               required
             />
             <MySelect
-              label="מסיים כיתה"
+              label="עולה לכיתה"
               name="classId"
               items={classes}
               disabled={isSubmitting}
@@ -265,7 +264,10 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               label="אין לבני/בתי כל מגבלה רפואית ויכול/ה להשתתף בפעילויות
               ספורט והקייטנה"
               name="medicalCommentsYesNo"
-              items={yesNo}
+              items={[
+                { name: 'אין מגבלה', id: 'Y' },
+                { name: 'יש מגבלה (לפרט מטה)', id: 'N' },
+              ]}
               disabled={isSubmitting}
             />
             <MyTextField
@@ -273,9 +275,10 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               name="medicalComments"
               disabled={isSubmitting}
             />
+
             <Round
               values={values}
-              roundLabel="מחזור ראשון (4/7 - 15/7)"
+              roundLabel="מחזור ראשון (3/7 - 14/7)"
               roundName="firstRound"
               busName="busForth"
               lunchName="lunchId"
@@ -285,21 +288,21 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
 
             <Round
               values={values}
-              roundLabel="מחזור שני (מלא)"
+              roundLabel="מחזור שני (17/7 - 28/7)"
               roundName="secondRound"
               busName="secondRoundBus"
               lunchName="secondRoundLunchId"
-              disabled={true}
+              disabled={isSubmitting}
               clearField={clearField}
             />
 
             <Round
               values={values}
-              roundLabel="מחזור שלישי (מלא)"
+              roundLabel="מחזור שלישי (31/7 - 11/8)"
               roundName="thirdRound"
               busName="thirdRoundBus"
               lunchName="thirdRoundLunchId"
-              disabled={true}
+              disabled={isSubmitting}
               clearField={clearField}
             />
             <span className="MuiFormHelperText-root Mui-error Mui-required">

@@ -1,6 +1,6 @@
 {
-  "name": "learn-starter",
-  "version": "1.0.0",
+  "name": "sport-fun",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 next dev",
