@@ -11,6 +11,7 @@ const buttonStyle = {
   fontSize: '2em',
   color: '#2D6BB5',
   backgroundColor: 'transparent',
+  cursor: 'pointer',
 }
 
 const ThankYou = () => {
@@ -33,8 +34,9 @@ const ThankYou = () => {
         </div>
 
         <button style={buttonStyle} onClick={goToPayments}>
-          הפרטים נקלטו בהצלחה, לחץ כאן לחזרה לעמוד הקייטנה להשלמת הרישום
-          והתשלום.
+          פרטים נקלטו בהצלחה.
+          <br />
+          לחץ כאן למעבר לדף התשלום
         </button>
       </main>
     </Container>
