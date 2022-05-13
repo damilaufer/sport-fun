@@ -18,7 +18,7 @@ const ThankYou = () => {
 
   function goToPayments() {
     // Goes to one of the product pages
-    window.location = `https://private.invoice4u.co.il/ClearingNew/Invoice4UClearing.aspx?ProductId=${router.query.productId}`
+    window.location = `https://private.invoice4u.co.il/ClearingNew/Invoice4UClearing.aspx?productId=${router.query.productId}`
   }
 
   return (
