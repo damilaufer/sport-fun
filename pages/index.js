@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { create } from 'jss'
@@ -13,7 +13,7 @@ import { RegistrationForm } from '../pagesComponents/index/RegistrationForm'
 
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] })
-const theme = createMuiTheme({
+const theme = createTheme({
   direction: 'rtl',
   palette: {
     primary: {
