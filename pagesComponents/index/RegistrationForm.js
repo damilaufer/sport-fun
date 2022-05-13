@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Field, Formik, Form } from 'formik'
-import { Button, LinearProgress } from '@material-ui/core'
+import { Button, Collapse, LinearProgress } from '@material-ui/core'
 import { CheckboxWithLabel } from 'formik-material-ui'
 
 import {
@@ -37,6 +37,11 @@ const initialValues = {
   vegetarian: '',
   vegetarianComments: '',
   parkHaMaimSubscriber: '',
+  parkHaMaimSubscriberName: '',
+  parkHaMaimSubscriberId: '',
+  groupRegistration: '',
+  groupRegistrationName: '',
+  groupRegistrationCode: '',
   swims: '',
   swimsComments: '',
   comments: '',
@@ -146,7 +151,6 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               items={sexes}
               disabled={isSubmitting}
             />
-
             <MyTextField
               label="נייד הורה 1"
               name="motherCellPhone"
@@ -242,12 +246,51 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               name="vegetarianComments"
               disabled={isSubmitting || values.vegetarian !== 'Y'}
             />
+
             <MyRadioGroup
               label="מנוי לפארק המים"
               name="parkHaMaimSubscriber"
               items={yesNo}
               disabled={isSubmitting}
+              required
             />
+            <Collapse in={values.parkHaMaimSubscriber === 'Y'}>
+              <MyTextField
+                label="שם ושם משפחה של בעל המנוי"
+                name="parkHaMaimSubscriberName"
+                disabled={isSubmitting}
+                required
+              />
+              <MyTextField
+                label="מספר תעודת זהות של בעל המנוי"
+                name="parkHaMaimSubscriberId"
+                disabled={isSubmitting}
+                required
+              />
+            </Collapse>
+
+            <MyRadioGroup
+              label="הרשמה ברישום קבוצתי"
+              name="groupRegistration"
+              items={yesNo}
+              disabled={isSubmitting}
+              required
+            />
+            <Collapse in={values.groupRegistration === 'Y'}>
+              <MyTextField
+                label="שם הקבוצה"
+                name="groupRegistrationName"
+                disabled={isSubmitting}
+                required
+              />
+              <MyTextField
+                label="קוד הנחה"
+                name="groupRegistrationCode"
+                disabled={isSubmitting}
+                required
+              />
+            </Collapse>
+
             <MyRadioGroup
               label="יודע לשחות"
               name="swims"
@@ -275,7 +318,6 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               name="medicalComments"
               disabled={isSubmitting}
             />
-
             <Round
               values={values}
               roundLabel="מחזור ראשון (3/7 - 14/7)"
@@ -285,7 +327,6 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               disabled={isSubmitting}
               clearField={clearField}
             />
-
             <Round
               values={values}
               roundLabel="מחזור שני (17/7 - 28/7)"
@@ -295,7 +336,6 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               disabled={isSubmitting}
               clearField={clearField}
             />
-
             <Round
               values={values}
               roundLabel="מחזור שלישי (31/7 - 11/8)"
@@ -308,17 +348,14 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
             <span className="MuiFormHelperText-root Mui-error Mui-required">
               {errors.roundSelected}
             </span>
-
             <MyTextField
               label="הערות כלליות"
               name="comments"
               disabled={isSubmitting}
             />
-
             {showBusWarning && (
               <h3 style={{ color: 'red' }}>אין הסעה חזור ב 16:00</h3>
             )}
-
             <div style={{ marginBottom: '20px' }}>
               <Field
                 component={CheckboxWithLabel}
@@ -345,7 +382,6 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
                 {errors.termsAndConditions}
               </span>
             </div>
-
             {isSubmitting && <LinearProgress />}
             <br />
             <Button
