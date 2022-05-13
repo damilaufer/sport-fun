@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { Container } from '@material-ui/core'
 
 const buttonStyle = {
@@ -13,8 +14,11 @@ const buttonStyle = {
 }
 
 const ThankYou = () => {
+  const router = useRouter()
+
   function goToPayments() {
-    window.location = 'https://sportfun.co.il/collections/all'
+    // Goes to one of the product pages
+    window.location = `https://private.invoice4u.co.il/ClearingNew/Invoice4UClearing.aspx?ProductId=${router.query.productId}`
   }
 
   return (

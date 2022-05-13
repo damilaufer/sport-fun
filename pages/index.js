@@ -39,7 +39,10 @@ function Home({ dictionaries }) {
       const json = await response.json() // parses JSON response into native JavaScript objects
       setSubmitting(false)
       if (json.kid && json.rounds) {
-        router.push('/thankYou')
+        router.push({
+          pathname: '/thankYou',
+          query: router.query,
+        })
       } else {
         console.log(json)
         throw new Error('The save operation failed: unknown response schema')
