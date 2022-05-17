@@ -56,10 +56,10 @@ const initialValues = {
   secondRoundBus: '',
   secondRoundBusComments: '',
   secondRoundLunchId: '',
-  thirdRound: '',
-  thirdRoundBus: '',
+  thirdRound: 'N',
+  thirdRoundBus: 'N',
   thirdRoundBusComments: '',
-  thirdRoundLunchId: '',
+  thirdRoundLunchId: 'N',
   termsAndConditions: false,
   roundSelected: '', // Special field (not editable)
   // non visible fields (to be compatible with the old API)
@@ -342,7 +342,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               roundName="thirdRound"
               busName="thirdRoundBus"
               lunchName="thirdRoundLunchId"
-              disabled={isSubmitting}
+              disabled
               clearField={clearField}
             />
             <span className="MuiFormHelperText-root Mui-error Mui-required">
