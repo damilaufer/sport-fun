@@ -37,7 +37,8 @@ const Round = ({
         {/* || roundName === 'secondRound' */}
         {roundName === 'thirdRound' && (
           <span style={{ color: 'rgba(0, 0, 0, 0.54)' }}>
-            מחזור שלישי מלא. לרישום לרשימת המתנה צרו קשר עם 052-3670576
+            המחזור השלישי מלא
+            <br />. לקבלת קישור לרישום לרשימת המתנה שילחו הודעה ל : 052-3670576
           </span>
         )}
       </AccordionSummary>
