@@ -34,7 +34,12 @@ const Round = ({
           disabled={disabled}
         />
 
-        {/* || roundName === 'secondRound' */}
+        {roundName === 'secondRound' && (
+          <span style={{ color: 'rgba(0, 0, 0, 0.54)' }}>
+            המחזור השני מלא
+            <br />. לקבלת קישור לרישום לרשימת המתנה שילחו הודעה ל : 052-3670576
+          </span>
+        )}
         {roundName === 'thirdRound' && (
           <span style={{ color: 'rgba(0, 0, 0, 0.54)' }}>
             המחזור השלישי מלא

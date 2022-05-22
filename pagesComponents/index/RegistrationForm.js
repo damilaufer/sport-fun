@@ -47,15 +47,15 @@ const initialValues = {
   comments: '',
   medicalComments: '',
   medicalCommentsYesNo: '',
-  firstRound: '',
+  firstRound: 'Y',
   busForth: '',
   busForthComments: '',
   lunchId: '',
   busStop: '',
-  secondRound: '',
-  secondRoundBus: '',
+  secondRound: 'N',
+  secondRoundBus: 'N',
   secondRoundBusComments: '',
-  secondRoundLunchId: '',
+  secondRoundLunchId: 'N',
   thirdRound: 'N',
   thirdRoundBus: 'N',
   thirdRoundBusComments: '',
@@ -333,7 +333,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               roundName="secondRound"
               busName="secondRoundBus"
               lunchName="secondRoundLunchId"
-              disabled={isSubmitting}
+              disabled
               clearField={clearField}
             />
             <Round
