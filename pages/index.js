@@ -67,12 +67,25 @@ function Home({ dictionaries }) {
             <div style={{ marginBottom: '20px' }}>
               <Image src="/logo.jpg" alt="Sport-fun" width="350" height="200" />
             </div>
-            {/* <h1>ההרשמה סגורה</h1>
-            <h2>לפרטים: 052-367-0576</h2> */}
-            <RegistrationForm
+            <div style={{ textAlign: 'center' }}>
+              <h1>הרישום הסתיים</h1>
+              <h2>
+                ניתן להירשם לרשימת המתנה{' '}
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSdUIcrKz3m2S25OkITOc_4ObDLBi8c0tpUx7-efqUuyzk6UIw/viewform?usp=sf_link"
+                  rel="noopener noreferrer"
+                  style={{ color: 'blue' }}
+                >
+                  בקישור הזה
+                </a>
+              </h2>
+              <h2>לפרטים: 052-367-0576</h2>
+            </div>
+
+            {/* <RegistrationForm
               dictionaries={dictionaries}
               onSubmit={handleSubmit}
-            />
+            /> */}
           </main>
 
           <style jsx>{`
