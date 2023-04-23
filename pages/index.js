@@ -67,7 +67,7 @@ function Home({ dictionaries }) {
             <div style={{ marginBottom: '20px' }}>
               <Image src="/logo.jpg" alt="Sport-fun" width="350" height="200" />
             </div>
-            <div style={{ textAlign: 'center' }}>
+            {/* <div style={{ textAlign: 'center' }}>
               <h1>הרישום הסתיים</h1>
               <h2>
                 ניתן להירשם לרשימת המתנה{' '}
@@ -80,12 +80,12 @@ function Home({ dictionaries }) {
                 </a>
               </h2>
               <h2>לפרטים: 052-367-0576</h2>
-            </div>
+            </div> */}
 
-            {/* <RegistrationForm
+            <RegistrationForm
               dictionaries={dictionaries}
               onSubmit={handleSubmit}
-            /> */}
+            />
           </main>
 
           <style jsx>{`
