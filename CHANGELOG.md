@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+- Update node to 18
+
 ## 1.1.0
 
 - En vez de מסיים כיתה poner עולה לכיתה
