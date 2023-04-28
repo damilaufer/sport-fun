@@ -65,7 +65,13 @@ function Home({ dictionaries }) {
           </Head>
           <main>
             <div style={{ marginBottom: '20px' }}>
-              <Image src="/logo.jpg" alt="Sport-fun" width="350" height="200" />
+              <Image
+                src="/logo.jpg"
+                alt="Sport-fun"
+                width="350"
+                height="200"
+                priority="true"
+              />
             </div>
             {/* <div style={{ textAlign: 'center' }}>
               <h1>הרישום הסתיים</h1>

@@ -18,7 +18,9 @@ const Round = ({
   lunchName,
   disabled,
   clearField,
+  full,
 }) => {
+  const finalDisabled = disabled || full
   const registeredForThisRound = values[roundName] === 'Y'
   return (
     <Accordion
@@ -31,16 +33,16 @@ const Round = ({
           label={roundLabel}
           name={roundName}
           items={yesNo}
-          disabled={disabled}
+          disabled={finalDisabled}
         />
 
-        {roundName === 'secondRound' && (
+        {full && roundName === 'secondRound' && (
           <span style={{ color: 'rgba(0, 0, 0, 0.54)' }}>
             המחזור השני מלא
             <br />. לקבלת קישור לרישום לרשימת המתנה שילחו הודעה ל : 052-3670576
           </span>
         )}
-        {roundName === 'thirdRound' && (
+        {full && roundName === 'thirdRound' && (
           <span style={{ color: 'rgba(0, 0, 0, 0.54)' }}>
             המחזור השלישי מלא
             <br />. לקבלת קישור לרישום לרשימת המתנה שילחו הודעה ל : 052-3670576
@@ -52,21 +54,21 @@ const Round = ({
           label="הסעה"
           name={busName}
           items={yesNo}
-          disabled={disabled}
+          disabled={finalDisabled}
           required={registeredForThisRound}
           onChange={(value) => clearField(value, `${busName}Comments`)}
         />
-        <MyTextField
+        {/* <MyTextField
           label="הערות"
           name={`${busName}Comments`}
-          disabled={disabled || values[busName] !== 'Y'}
+          disabled={finalDisabled || values[busName] !== 'Y'}
           helperText="למשל: רק הלוך"
-        />
+        /> */}
         <MyRadioGroup
           label="צהרון"
           name={lunchName}
           items={yesNo}
-          disabled={disabled}
+          disabled={finalDisabled}
           required={registeredForThisRound}
         />
       </AccordionDetails>
@@ -80,7 +82,8 @@ Round.propTypes = {
   roundName: PropTypes.string.isRequired,
   busName: PropTypes.string.isRequired,
   lunchName: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
+  full: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
   clearField: PropTypes.func.isRequired,
 }
 

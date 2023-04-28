@@ -2,12 +2,20 @@
 
 # Changelog
 
+## 1.2.0
+
+- Version 2023
+- 3 formularios (normal, socios del parque y groupal)
+- Agregar un link al formularios de socios si está en el normal
+- Sacar comentarios de micro (הסעות)
+
 ## 1.1.1
 
 - Update node to 18
 
 ## 1.1.0
 
+- Version 2022
 - En vez de מסיים כיתה poner עולה לכיתה
 - Cuando termina de registrarse ir a una página de pagar, segun parámetro que
   manda Yuval

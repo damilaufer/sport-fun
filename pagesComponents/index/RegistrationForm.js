@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { Field, Formik, Form } from 'formik'
 import { Button, Collapse, LinearProgress } from '@material-ui/core'
 import { CheckboxWithLabel } from 'formik-material-ui'
@@ -17,7 +19,14 @@ import { MySelect } from '../../components/MySelect'
 import { MyRadioGroup } from '../../components/MyRadioGroup'
 import { Round } from '../../components/Round'
 
-const initialValues = {
+const styles = {
+  title: { color: '#3668AB', textAlign: 'center' },
+  warning: { color: 'red' },
+  termsAndConditions: { marginBottom: '20px' },
+  link: { color: '#FA9D16', marginBottom: 20, display: 'block' },
+}
+
+const getInitialValues = (isSubscriber, isGroupal) => ({
   firstName: '',
   lastName: '',
   sex: '',
@@ -36,10 +45,10 @@ const initialValues = {
   neighbourhoodId: '',
   vegetarian: '',
   vegetarianComments: '',
-  parkHaMaimSubscriber: '',
+  parkHaMaimSubscriber: isSubscriber ? 'Y' : 'N',
   parkHaMaimSubscriberName: '',
   parkHaMaimSubscriberId: '',
-  groupRegistration: '',
+  groupRegistration: isGroupal ? 'Y' : 'N',
   groupRegistrationName: '',
   groupRegistrationCode: '',
   swims: '',
@@ -73,9 +82,24 @@ const initialValues = {
   ccOwnerID: '',
   ccOwnerName: '',
   receiptNumber: '',
-}
+})
 
 const RegistrationForm = ({ dictionaries, onSubmit }) => {
+  const router = useRouter()
+  const isSubscriber = router.query.form === '2'
+  const isGroupal = router.query.form === '3'
+
+  console.log(router.query.form, isSubscriber, isGroupal)
+
+  let title
+  if (isSubscriber) {
+    title = 'למנויי פארק המים רעות'
+  } else if (isGroupal) {
+    title = 'לרישום קבוצתי'
+  } else {
+    title = ''
+  }
+
   const filterAndSort = (items) => {
     return items
       .filter((x) => x.name !== '---')
@@ -90,7 +114,8 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
 
   return (
     <Formik
-      initialValues={initialValues}
+      enableReinitialize
+      initialValues={getInitialValues(isSubscriber, isGroupal)}
       validationSchema={getValidationSchema()}
       onSubmit={onSubmit}
     >
@@ -133,6 +158,66 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
 
         return (
           <Form>
+            <h2 style={styles.title}>טופס הרשמה</h2>
+            <h2 style={styles.title}>{title}</h2>
+
+            {!isSubscriber && !isGroupal && (
+              <Link
+                href={{
+                  pathname: '/',
+                  query: { ...router.query, form: '2' },
+                }}
+              >
+                <a style={styles.link}>
+                  אם את/ה מנוי/ה של פארק המיים , תלחץ/צי פה
+                </a>
+              </Link>
+            )}
+
+            {/* <MyRadioGroup
+              label="מנוי לפארק המים"
+              name="parkHaMaimSubscriber"
+              items={yesNo}
+              disabled={isSubmitting}
+              required
+            /> */}
+            <Collapse in={values.parkHaMaimSubscriber === 'Y'}>
+              <MyTextField
+                label="שם ושם משפחה של בעל המנוי"
+                name="parkHaMaimSubscriberName"
+                disabled={isSubmitting}
+                required
+              />
+              <MyTextField
+                label="מספר תעודת זהות של בעל המנוי"
+                name="parkHaMaimSubscriberId"
+                disabled={isSubmitting}
+                required
+              />
+            </Collapse>
+
+            {/* <MyRadioGroup
+              label="הרשמה ברישום קבוצתי"
+              name="groupRegistration"
+              items={yesNo}
+              disabled={isSubmitting}
+              required
+            /> */}
+            <Collapse in={values.groupRegistration === 'Y'}>
+              <MyTextField
+                label="שם הקבוצה"
+                name="groupRegistrationName"
+                disabled={isSubmitting}
+                required
+              />
+              <MyTextField
+                label="קוד הנחה"
+                name="groupRegistrationCode"
+                disabled={isSubmitting}
+                required
+              />
+            </Collapse>
+
             <MyTextField
               label="שם פרטי של הילד/ה"
               name="firstName"
@@ -248,50 +333,6 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
             />
 
             <MyRadioGroup
-              label="מנוי לפארק המים"
-              name="parkHaMaimSubscriber"
-              items={yesNo}
-              disabled={isSubmitting}
-              required
-            />
-            <Collapse in={values.parkHaMaimSubscriber === 'Y'}>
-              <MyTextField
-                label="שם ושם משפחה של בעל המנוי"
-                name="parkHaMaimSubscriberName"
-                disabled={isSubmitting}
-                required
-              />
-              <MyTextField
-                label="מספר תעודת זהות של בעל המנוי"
-                name="parkHaMaimSubscriberId"
-                disabled={isSubmitting}
-                required
-              />
-            </Collapse>
-
-            <MyRadioGroup
-              label="הרשמה ברישום קבוצתי"
-              name="groupRegistration"
-              items={yesNo}
-              disabled={isSubmitting}
-              required
-            />
-            <Collapse in={values.groupRegistration === 'Y'}>
-              <MyTextField
-                label="שם הקבוצה"
-                name="groupRegistrationName"
-                disabled={isSubmitting}
-                required
-              />
-              <MyTextField
-                label="קוד הנחה"
-                name="groupRegistrationCode"
-                disabled={isSubmitting}
-                required
-              />
-            </Collapse>
-
-            <MyRadioGroup
               label="יודע לשחות"
               name="swims"
               items={yesNo}
@@ -326,6 +367,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               lunchName="lunchId"
               disabled={isSubmitting}
               clearField={clearField}
+              full={false}
             />
             <Round
               values={values}
@@ -333,8 +375,9 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               roundName="secondRound"
               busName="secondRoundBus"
               lunchName="secondRoundLunchId"
-              disabled
+              disabled={isSubmitting}
               clearField={clearField}
+              full={false}
             />
             <Round
               values={values}
@@ -342,8 +385,9 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               roundName="thirdRound"
               busName="thirdRoundBus"
               lunchName="thirdRoundLunchId"
-              disabled
+              disabled={isSubmitting}
               clearField={clearField}
+              full={false}
             />
             <span className="MuiFormHelperText-root Mui-error Mui-required">
               {errors.roundSelected}
@@ -354,9 +398,9 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               disabled={isSubmitting}
             />
             {showBusWarning && (
-              <h3 style={{ color: 'red' }}>אין הסעה חזור ב 16:00</h3>
+              <h3 style={styles.warning}>אין הסעה חזור ב 16:00</h3>
             )}
-            <div style={{ marginBottom: '20px' }}>
+            <div style={styles.termsAndConditions}>
               <Field
                 component={CheckboxWithLabel}
                 type="checkbox"
@@ -390,7 +434,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               disabled={isSubmitting}
               onClick={submitForm}
             >
-              Submit
+              הרשם
             </Button>
           </Form>
         )
