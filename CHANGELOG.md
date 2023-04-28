@@ -9,6 +9,7 @@
 - Agregar un link al formularios de socios si está en el normal
 - Sacar comentarios de micro (הסעות)
 - Download directo de la hoja para padres
+- Validación de códigos de descuento en el formulario grupal
 
 ## 1.1.1
 
