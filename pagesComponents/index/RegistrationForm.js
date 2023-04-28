@@ -409,14 +409,13 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
                   label: (
                     <span>
                       אני מאשר/ת כי כל הפרטים נכונים ומאשר/ת את רישום בני/בתי
-                      לקייטנה לאחר שקראתי את כל הפרטים והתנאים המופיעים בדף
-                      המידע להורים{' '}
+                      לקייטנה לאחר שקראתי את כל הפרטים והתנאים המופיעים ב-
                       <a
-                        href="http://sportfun.co.il"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        download="דף הורים 2023.pdf"
+                        href="/דף הורים 2023.pdf"
+                        style={{ display: 'block' }}
                       >
-                        באתר הקייטנה
+                        דף המידע להורים
                       </a>
                     </span>
                   ),

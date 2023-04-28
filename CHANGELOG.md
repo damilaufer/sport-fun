@@ -8,6 +8,7 @@
 - 3 formularios (normal, socios del parque y groupal)
 - Agregar un link al formularios de socios si está en el normal
 - Sacar comentarios de micro (הסעות)
+- Download directo de la hoja para padres
 
 ## 1.1.1
 
