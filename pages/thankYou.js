@@ -41,7 +41,10 @@ const ThankYou = () => {
         <button style={styles.button} onClick={goToPayments}>
           פרטי הרישום נקלטו בהצלחה.
           <br />
-          לחצו כאן למעבר לעמוד התשלום המאובטח.
+          <b>
+            <u>לחצו כאן</u>
+          </b>{' '}
+          למעבר לעמוד התשלום המאובטח.
           <div style={styles.warning}>
             יש להקפיד להוסיף לעגלת התשלום את כל הפריטים שנבחרו בדף הרישום.
           </div>
