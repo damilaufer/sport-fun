@@ -18,6 +18,7 @@ import { MyTextField } from '../../components/MyTextField'
 import { MySelect } from '../../components/MySelect'
 import { MyRadioGroup } from '../../components/MyRadioGroup'
 import { Round } from '../../components/Round'
+import { configuration } from '../../configuration'
 
 const styles = {
   title: { color: '#3668AB', textAlign: 'center' },
@@ -361,33 +362,33 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
             />
             <Round
               values={values}
-              roundLabel="מחזור ראשון (3/7 - 14/7)"
+              roundLabel={configuration.rounds[0].label}
               roundName="firstRound"
               busName="busForth"
               lunchName="lunchId"
               disabled={isSubmitting}
               clearField={clearField}
-              full={false}
+              full={configuration.rounds[0].full}
             />
             <Round
               values={values}
-              roundLabel="מחזור שני (17/7 - 28/7)"
+              roundLabel={configuration.rounds[1].label}
               roundName="secondRound"
               busName="secondRoundBus"
               lunchName="secondRoundLunchId"
               disabled={isSubmitting}
               clearField={clearField}
-              full={false}
+              full={configuration.rounds[1].full}
             />
             <Round
               values={values}
-              roundLabel="מחזור שלישי (31/7 - 11/8)"
+              roundLabel={configuration.rounds[2].label}
               roundName="thirdRound"
               busName="thirdRoundBus"
               lunchName="thirdRoundLunchId"
               disabled={isSubmitting}
               clearField={clearField}
-              full={false}
+              full={configuration.rounds[2].full}
             />
             <span className="MuiFormHelperText-root Mui-error Mui-required">
               {errors.roundSelected}

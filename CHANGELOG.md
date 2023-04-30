@@ -11,6 +11,7 @@
 - Download directo de la hoja para padres
 - Validación de códigos de descuento en el formulario grupal
 - Nuevo text en la página de thankYou
+- Added configuration for rounds: dates and disable
 
 ## 1.1.1
 
