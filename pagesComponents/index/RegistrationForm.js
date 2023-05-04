@@ -57,7 +57,7 @@ const getInitialValues = (isSubscriber, isGroupal) => ({
   comments: '',
   medicalComments: '',
   medicalCommentsYesNo: '',
-  firstRound: 'Y',
+  firstRound: 'N',
   busForth: '',
   busForthComments: '',
   lunchId: '',
@@ -96,7 +96,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
   } else if (isGroupal) {
     title = 'לרישום קבוצתי'
   } else {
-    title = ''
+    title = 'לכלל הנרשמים'
   }
 
   const filterAndSort = (items) => {
