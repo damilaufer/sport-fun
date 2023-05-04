@@ -12,6 +12,8 @@
 - Validación de códigos de descuento en el formulario grupal
 - Nuevo text en la página de thankYou
 - Added configuration for rounds: dates and disable
+- Limitar telefonos a 9 o 10 numeros
+- Agregar moreshet a los barrios de Modiin
 
 ## 1.1.1
 

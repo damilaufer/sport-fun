@@ -8,7 +8,11 @@ import {
 
 import { yesNo } from '../lib/constants'
 import { MyRadioGroup } from './MyRadioGroup'
-import { MyTextField } from './MyTextField'
+// import { MyTextField } from './MyTextField'
+
+const styles = {
+  warning: { color: 'red' },
+}
 
 const Round = ({
   values,
@@ -22,6 +26,12 @@ const Round = ({
 }) => {
   const finalDisabled = disabled || full
   const registeredForThisRound = values[roundName] === 'Y'
+
+  const showBusWarning =
+    registeredForThisRound &&
+    values[busName] === 'Y' &&
+    values[lunchName] === 'Y'
+
   return (
     <Accordion
       elevation={4}
@@ -71,6 +81,9 @@ const Round = ({
           disabled={finalDisabled}
           required={registeredForThisRound}
         />
+        {showBusWarning && (
+          <h3 style={styles.warning}>אין הסעה חזור ב 16:00</h3>
+        )}
       </AccordionDetails>
     </Accordion>
   )

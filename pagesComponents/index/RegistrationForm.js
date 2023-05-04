@@ -18,11 +18,11 @@ import { MyTextField } from '../../components/MyTextField'
 import { MySelect } from '../../components/MySelect'
 import { MyRadioGroup } from '../../components/MyRadioGroup'
 import { Round } from '../../components/Round'
+import { Telephone } from '../../components/Telephone'
 import { configuration } from '../../configuration'
 
 const styles = {
   title: { color: '#3668AB', textAlign: 'center' },
-  warning: { color: 'red' },
   termsAndConditions: { marginBottom: '20px' },
   link: { color: '#FA9D16', marginBottom: 20, display: 'block' },
 }
@@ -87,14 +87,12 @@ const getInitialValues = (isSubscriber, isGroupal) => ({
 
 const RegistrationForm = ({ dictionaries, onSubmit }) => {
   const router = useRouter()
-  const isSubscriber = router.query.form === '2'
-  const isGroupal = router.query.form === '3'
-
-  console.log(router.query.form, isSubscriber, isGroupal)
+  const isSubscriber = router.query.form === 'manui'
+  const isGroupal = router.query.form === 'group'
 
   let title
   if (isSubscriber) {
-    title = 'למנויי פארק המים רעות'
+    title = 'למנויי פארק המים רעות בלבד'
   } else if (isGroupal) {
     title = 'לרישום קבוצתי'
   } else {
@@ -127,10 +125,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
           }
         }
         if (Object.keys(errors).length > 0) {
-          console.log('Values:', values)
           console.warn('Errors:', errors)
-        } else {
-          console.log('No errors')
         }
 
         const addressRequired = hasBus(
@@ -141,17 +136,6 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
           values.secondRound,
           values.thirdRound,
         )
-
-        const showBusWarning =
-          (values.firstRound === 'Y' &&
-            values.busForth === 'Y' &&
-            values.lunchId === 'Y') ||
-          (values.secondRound === 'Y' &&
-            values.secondRoundBus === 'Y' &&
-            values.secondRoundLunchId === 'Y') ||
-          (values.thirdRound === 'Y' &&
-            values.thirdRoundBus === 'Y' &&
-            values.thirdRoundLunchId === 'Y')
 
         const settlementNeighbourhoods = neighbourhoods.filter(
           (x) => x.settlementId === values.settlementId,
@@ -166,7 +150,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               <Link
                 href={{
                   pathname: '/',
-                  query: { ...router.query, form: '2' },
+                  query: { ...router.query, form: 'manui' },
                 }}
               >
                 <a style={styles.link}>
@@ -237,19 +221,27 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               items={sexes}
               disabled={isSubmitting}
             />
-            <MyTextField
+            <Telephone
+              type="tel"
               label="נייד הורה 1"
               name="motherCellPhone"
               disabled={isSubmitting}
               required
             />
-            <MyTextField
+            <Telephone
+              type="tel"
               label="נייד הורה 2"
               name="fatherCellPhone"
               disabled={isSubmitting}
             />
-            <MyTextField label="טלפון" name="phone" disabled={isSubmitting} />
-            <MyTextField
+            <Telephone
+              type="tel"
+              label="טלפון"
+              name="phone"
+              disabled={isSubmitting}
+            />
+            <Telephone
+              type="tel"
               label="חירום"
               name="emergencyPhone"
               disabled={isSubmitting}
@@ -346,12 +338,11 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               disabled={isSubmitting}
             />
             <MyRadioGroup
-              label="אין לבני/בתי כל מגבלה רפואית ויכול/ה להשתתף בפעילויות
-              ספורט והקייטנה"
+              label="אין לבני/בתי כל בעיה רפואית המגבילה אותו/ה בפעילות ספורט ובהשתתפות בקייטנה "
               name="medicalCommentsYesNo"
               items={[
                 { name: 'אין מגבלה', id: 'Y' },
-                { name: 'יש מגבלה (לפרט מטה)', id: 'N' },
+                { name: 'יש מגבלה (ציין מטה)', id: 'N' },
               ]}
               disabled={isSubmitting}
             />
@@ -398,9 +389,6 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               name="comments"
               disabled={isSubmitting}
             />
-            {showBusWarning && (
-              <h3 style={styles.warning}>אין הסעה חזור ב 16:00</h3>
-            )}
             <div style={styles.termsAndConditions}>
               <Field
                 component={CheckboxWithLabel}

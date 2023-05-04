@@ -1,173 +1,63 @@
 import Head from 'next/head'
-import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 import Image from 'next/image'
+import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import { create } from 'jss'
-import rtl from 'jss-rtl'
-import purple from '@material-ui/core/colors/purple'
-import green from '@material-ui/core/colors/green'
-import { StylesProvider, jssPreset } from '@material-ui/core/styles'
-import { Container } from '@material-ui/core'
+import { Container, Link } from '@material-ui/core'
 
-import { RegistrationForm } from '../pagesComponents/index/RegistrationForm'
-
-// Configure JSS
-const jss = create({ plugins: [...jssPreset().plugins, rtl()] })
-const theme = createTheme({
-  direction: 'rtl',
-  palette: {
-    primary: {
-      main: purple[500],
-    },
-    secondary: {
-      main: green[500],
-    },
+const styles = {
+  main: { textAlign: 'center', padding: '1rem 0 5rem 0' },
+  image: { marginBottom: '20px' },
+  question: {
+    marginTop: '50px',
+    padding: '20px',
+    fontSize: '26px',
+    color: '#2D6BB5',
   },
-})
+  link: {
+    margin: '30px',
+    padding: '10px',
+    border: '2px solid #2D6BB5',
+    borderRadius: '10px',
+    fontSize: '26px',
+    color: '#2D6BB5',
+  },
+}
 
-function Home({ dictionaries }) {
+const Home = () => {
   const router = useRouter()
-  const handleSubmit = async (values, { setSubmitting }) => {
-    try {
-      const response = await fetch(`/api/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ values }),
-      })
-      const json = await response.json() // parses JSON response into native JavaScript objects
-      setSubmitting(false)
-      if (json.kid && json.rounds) {
-        router.push({
-          pathname: '/thankYou',
-          query: router.query,
-        })
-      } else {
-        console.log(json)
-        throw new Error('The save operation failed: unknown response schema')
-      }
-    } catch (error) {
-      console.error(error)
-      // @@@ Falta hacer que en los errores de select y group sean en rojo también los textos
-      //@@@ cambiar
-      alert('קרתה שגיאה')
-    }
+
+  if (router.query.form === 'manui') {
+    router.push(`/register?form=manui&productId=${router.query.productId}`)
+    return 'Redirecting...'
   }
 
   return (
-    <StylesProvider jss={jss}>
-      <ThemeProvider theme={theme}>
-        <Container maxWidth="sm">
-          <Head>
-            <title>Sport-Fun</title>
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
-          <main>
-            <div style={{ marginBottom: '20px' }}>
-              <Image
-                src="/logo.jpg"
-                alt="Sport-fun"
-                width="350"
-                height="200"
-                priority="true"
-              />
-            </div>
-            {/* <div style={{ textAlign: 'center' }}>
-              <h1>הרישום הסתיים</h1>
-              <h2>
-                ניתן להירשם לרשימת המתנה{' '}
-                <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSdUIcrKz3m2S25OkITOc_4ObDLBi8c0tpUx7-efqUuyzk6UIw/viewform?usp=sf_link"
-                  rel="noopener noreferrer"
-                  style={{ color: 'blue' }}
-                >
-                  בקישור הזה
-                </a>
-              </h2>
-              <h2>לפרטים: 052-367-0576</h2>
-            </div> */}
+    <Container maxWidth="sm">
+      <Head>
+        <title>Sport-Fun</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <main style={styles.main}>
+        <div style={styles.image}>
+          <Image src="/logo.jpg" alt="Sport-fun" width="350" height="200" />
+        </div>
 
-            <RegistrationForm
-              dictionaries={dictionaries}
-              onSubmit={handleSubmit}
-            />
-          </main>
-
-          <style jsx>{`
-            main {
-              padding: 1rem 0 5rem 0;
-              flex: 1;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-            }
-
-            a {
-              color: inherit;
-              text-decoration: none;
-            }
-
-            .title a {
-              color: #0070f3;
-              text-decoration: none;
-            }
-
-            .title a:hover,
-            .title a:focus,
-            .title a:active {
-              text-decoration: underline;
-            }
-
-            .title {
-              margin: 0;
-              line-height: 1.15;
-              font-size: 4rem;
-              text-align: center;
-            }
-          `}</style>
-
-          <style jsx global>{`
-            html,
-            body {
-              padding: 0;
-              margin: 0;
-              font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-                Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-                sans-serif;
-            }
-
-            * {
-              box-sizing: border-box;
-            }
-          `}</style>
-
-          {/* Material UI overrides */}
-          <style jsx global>
-            {`
-              .MuiFormHelperText-root {
-                font-size: 1rem !important;
-                color: #f44336;
-              }
-            `}
-          </style>
-        </Container>
-      </ThemeProvider>
-    </StylesProvider>
+        <div style={styles.question}>האם את/ה מנוי/ה של פארק המים?</div>
+        <NextLink
+          href={`/register?form=manui&productId=${router.query.productId}`}
+          passHref
+        >
+          <Link style={styles.link}>כן</Link>
+        </NextLink>
+        <NextLink
+          href={`/register?form=${router.query.form}&productId=${router.query.productId}`}
+          passHref
+        >
+          <Link style={styles.link}>לא</Link>
+        </NextLink>
+      </main>
+    </Container>
   )
-}
-
-// This gets called on every request
-export async function getServerSideProps() {
-  // Fetch data from external API
-  const res = await fetch(
-    `https://summer-camp-manager.herokuapp.com/api/dictionaries`,
-  )
-  const dictionaries = await res.json()
-
-  // Pass data to the page via props
-  return { props: { dictionaries } }
 }
 
 export default Home
