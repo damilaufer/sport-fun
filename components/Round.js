@@ -11,7 +11,7 @@ import { MyRadioGroup } from './MyRadioGroup'
 // import { MyTextField } from './MyTextField'
 
 const styles = {
-  warning: { color: 'red' },
+  warning: { color: '#FA9D16' },
 }
 
 const Round = ({

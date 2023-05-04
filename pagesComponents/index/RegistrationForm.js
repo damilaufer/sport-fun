@@ -25,6 +25,7 @@ const styles = {
   title: { color: '#3668AB', textAlign: 'center' },
   termsAndConditions: { marginBottom: '20px' },
   link: { color: '#FA9D16', marginBottom: 20, display: 'block' },
+  warning: { color: 'red', fontSize: '20px', marginTop: 10 },
 }
 
 const getInitialValues = (isSubscriber, isGroupal) => ({
@@ -124,9 +125,12 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
             setFieldValue(fieldNameToClear, '', false)
           }
         }
-        if (Object.keys(errors).length > 0) {
+        const hasErrors = Object.keys(errors).length > 0
+        if (hasErrors) {
           console.warn('Errors:', errors)
         }
+
+        console.log(typeof values.schoolId, values.schoolId === otherSchoolId)
 
         const addressRequired = hasBus(
           values.busForth,
@@ -419,11 +423,14 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
             <Button
               variant="contained"
               color="primary"
-              disabled={isSubmitting}
+              disabled={isSubmitting || hasErrors}
               onClick={submitForm}
             >
               הרשם
             </Button>
+            {hasErrors && (
+              <div style={styles.warning}>יש שגיאה במילוי הטופס</div>
+            )}
           </Form>
         )
       }}
