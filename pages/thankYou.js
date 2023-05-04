@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Container } from '@material-ui/core'
 
+import { configuration } from '../configuration'
+
 const styles = {
   main: { textAlign: 'center', padding: '1rem 0 5rem 0' },
   image: { marginBottom: '20px' },
@@ -24,7 +26,10 @@ const ThankYou = () => {
 
   function goToPayments() {
     // Goes to one of the product pages
-    window.location = `https://private.invoice4u.co.il/newsite/he/clearing/public/i4u-clearing?ProductGuid=${router.query.productId}`
+
+    const paymentUrl = configuration.getPaymentUrl(router.query.form)
+
+    window.location = paymentUrl
   }
 
   return (

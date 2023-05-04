@@ -27,7 +27,7 @@ const Home = () => {
   const router = useRouter()
 
   if (router.query.form === 'manui') {
-    router.push(`/register?form=manui&productId=${router.query.productId}`)
+    router.push('/register?form=manui')
     return 'Redirecting...'
   }
 
@@ -43,16 +43,10 @@ const Home = () => {
         </div>
 
         <div style={styles.question}>האם את/ה מנוי/ה של פארק המים?</div>
-        <NextLink
-          href={`/register?form=manui&productId=${router.query.productId}`}
-          passHref
-        >
+        <NextLink href={'/register?form=manui'} passHref>
           <Link style={styles.link}>כן</Link>
         </NextLink>
-        <NextLink
-          href={`/register?form=${router.query.form}&productId=${router.query.productId}`}
-          passHref
-        >
+        <NextLink href={`/register?form=${router.query.form}`} passHref>
           <Link style={styles.link}>לא</Link>
         </NextLink>
       </main>

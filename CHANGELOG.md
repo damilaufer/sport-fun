@@ -5,6 +5,7 @@
 ## 1.2.0
 
 - Version 2023
+- Yuval does not need to send the productId (the logic is here now)
 - 3 formularios (normal, socios del parque y groupal)
 - Agregar un link al formularios de socios si está en el normal
 - Sacar comentarios de micro (הסעות)
