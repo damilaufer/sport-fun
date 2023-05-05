@@ -26,8 +26,8 @@ const styles = {
 const Home = () => {
   const router = useRouter()
 
-  if (router.query.form === 'manui') {
-    router.push('/register?form=manui')
+  if (router.query.form === 'group') {
+    router.push('/register?form=group')
     return 'Redirecting...'
   }
 
