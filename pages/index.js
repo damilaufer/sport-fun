@@ -42,7 +42,7 @@ const Home = () => {
           <Image src="/logo.jpg" alt="Sport-fun" width="350" height="200" />
         </div>
 
-        <div style={styles.question}>האם את/ה מנוי/ה של פארק המים?</div>
+        <div style={styles.question}>האם אתם מנויים בפארק המים רעות?</div>
         <NextLink href={'/register?form=manui'} passHref>
           <Link style={styles.link}>כן</Link>
         </NextLink>

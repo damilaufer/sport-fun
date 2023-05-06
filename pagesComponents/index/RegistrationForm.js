@@ -158,7 +158,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
                 }}
               >
                 <a style={styles.link}>
-                  אם את/ה מנוי/ה של פארק המיים , תלחץ/צי פה
+                  במידה ואתם מנויים של פארק המים רעות, לחצו כאן
                 </a>
               </Link>
             )}
