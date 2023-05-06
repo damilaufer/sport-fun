@@ -10,6 +10,7 @@ function getPaymentUrl(form) {
 }
 
 const configuration = {
+  currentGroup: 30, // 2023
   rounds: [
     {
       label: 'מחזור ראשון (13/7 - 2/7)',

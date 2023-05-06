@@ -1,3 +1,5 @@
+import { configuration } from '../../configuration'
+
 export default async function handler(req, res) {
   const values = req.body.values
 
@@ -31,7 +33,7 @@ export default async function handler(req, res) {
   }
 
   const round = {
-    groupId: 29, // 2021
+    groupId: configuration.currentGroup,
     amount: values.amount,
     busForth: values.busForth === 'Y',
     busForthComments: values.busForthComments,
