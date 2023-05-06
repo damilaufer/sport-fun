@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import { Container, Link } from '@material-ui/core'
+import { Button, CircularProgress, Container } from '@material-ui/core'
+import { useState } from 'react'
 
 const styles = {
   main: { textAlign: 'center', padding: '1rem 0 5rem 0' },
@@ -20,15 +20,22 @@ const styles = {
     borderRadius: '10px',
     fontSize: '26px',
     color: '#2D6BB5',
+    textDecoration: 'none',
   },
 }
 
 const Home = () => {
   const router = useRouter()
+  const [redirecting, setRedirecting] = useState(false)
 
   if (router.query.form === 'group') {
     router.push('/register?form=group')
     return 'Redirecting...'
+  }
+
+  function redirect(url) {
+    router.push(url)
+    setRedirecting(true)
   }
 
   return (
@@ -42,13 +49,25 @@ const Home = () => {
           <Image src="/logo.jpg" alt="Sport-fun" width="350" height="200" />
         </div>
 
-        <div style={styles.question}>האם אתם מנויים בפארק המים רעות?</div>
-        <NextLink href={'/register?form=manui'} passHref>
-          <Link style={styles.link}>כן</Link>
-        </NextLink>
-        <NextLink href={`/register?form=${router.query.form}`} passHref>
-          <Link style={styles.link}>לא</Link>
-        </NextLink>
+        {redirecting && <CircularProgress style={{ marginTop: 100 }} />}
+
+        {!redirecting && (
+          <div>
+            <div style={styles.question}>האם אתם מנויים בפארק המים רעות?</div>
+            <Button
+              style={styles.link}
+              onClick={() => redirect('/register?form=manui')}
+            >
+              כן
+            </Button>
+            <Button
+              style={styles.link}
+              onClick={() => redirect(`/register?form=${router.query.form}`)}
+            >
+              לא
+            </Button>
+          </div>
+        )}
       </main>
     </Container>
   )
