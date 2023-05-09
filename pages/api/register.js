@@ -86,7 +86,7 @@ export default async function handler(req, res) {
       }
       res.status(500).json({ message })
     } else {
-      sendRegistrationMail(kid.email)
+      sendRegistrationMail(kid.email, kid.firstName, kid.lastName)
       const json = await response.json() // parses JSON response into native JavaScript objects
       res.status(200).json(json)
     }

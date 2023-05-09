@@ -28,3 +28,7 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Do not store the package-lock.json if you do `npm i` from PP.
+# It will have the PP registry (even when it shouldn't) and the deployment will fail.
+package-lock.json
