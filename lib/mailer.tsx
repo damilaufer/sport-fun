@@ -2,9 +2,8 @@ import nodemailer from 'nodemailer'
 
 function sendRegistrationMail(to: string, firstName: string, lastName: string) {
   const transporter = nodemailer.createTransport({
-    host: '@@@smtppro.zoho.com',
-    // some
-    port: 587000,
+    host: 'smtppro.zoho.com',
+    port: 587,
     secure: false,
     auth: {
       user: 'basura4390@gmail.com',
