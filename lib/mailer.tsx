@@ -11,13 +11,12 @@ function sendRegistrationMail(to: string, firstName: string, lastName: string) {
     },
   })
 
-  try {
-    var message = {
-      from: 'sportfun@walla.co.il',
-      to,
-      subject: 'הרשמה לספורטפאן',
-      text: 'Plaintext version of the message',
-      html: `<body dir="rtl">
+  var message = {
+    from: 'sportfun@walla.co.il',
+    to,
+    subject: 'הרשמה לספורטפאן',
+    text: 'Plaintext version of the message',
+    html: `<body dir="rtl">
               <img src="https://sfilev2.f-static.com/image/users/645683/ftp/my_files/sop-resize-400-sportfun%20logo-2.jpg?sopC=1493653147873" alt="sport-fun" />
               <p>תודה על הרשמתכם לקייטנת ספורטפאן קיץ 2023</p>
 
@@ -43,19 +42,8 @@ function sendRegistrationMail(to: string, firstName: string, lastName: string) {
               
               <div>מנהל קייטנת ספורטפאן</div>
             </body>'`,
-    }
-    transporter.sendMail(message, (err: any, info: any) => {
-      if (err) {
-        console.log('Error sending email', err)
-      } else {
-        console.log('email sent')
-        console.log(info)
-      }
-    })
-  } catch (error) {
-    console.log('ERROR')
-    console.log(error)
   }
+  return transporter.sendMail(message)
 }
 
 export { sendRegistrationMail }
