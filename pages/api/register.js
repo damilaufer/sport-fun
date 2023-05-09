@@ -1,4 +1,5 @@
 import { configuration } from '../../configuration'
+import { sendRegistrationMail } from '../../lib/mailer'
 
 export default async function handler(req, res) {
   const values = req.body.values
@@ -85,6 +86,7 @@ export default async function handler(req, res) {
       }
       res.status(500).json({ message })
     } else {
+      sendRegistrationMail(kid.email)
       const json = await response.json() // parses JSON response into native JavaScript objects
       res.status(200).json(json)
     }

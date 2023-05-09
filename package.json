@@ -1,6 +1,6 @@
 {
   "name": "sport-fun",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "scripts": {
     "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 next dev",
@@ -15,6 +15,7 @@
     "formik-material-ui": "^3.0.1",
     "jss-rtl": "^0.3.0",
     "next": "^12.1.6",
+    "nodemailer": "^6.9.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "yup": "^0.32.11"

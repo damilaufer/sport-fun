@@ -2,6 +2,10 @@
 
 # Changelog
 
+## 1.2.1
+
+- Send email after registration
+
 ## 1.2.0
 
 - Version 2023
