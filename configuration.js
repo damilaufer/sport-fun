@@ -22,7 +22,7 @@ const configuration = {
     },
     {
       label: 'מחזור שלישי (10/8 - 30/7)',
-      full: false,
+      full: true,
     },
   ],
   getPaymentUrl: getPaymentUrl,
