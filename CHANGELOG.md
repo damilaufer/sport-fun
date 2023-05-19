@@ -5,6 +5,7 @@
 ## 1.2.1
 
 - Send email after registration
+- coco
 
 ## 1.2.0
 
