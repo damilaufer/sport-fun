@@ -404,8 +404,8 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
                       אני מאשר/ת כי כל הפרטים נכונים ומאשר/ת את רישום בני/בתי
                       לקייטנה לאחר שקראתי את כל הפרטים והתנאים המופיעים ב-
                       <a
-                        download="דף הורים 2023.pdf"
-                        href="/דף הורים 2023.pdf"
+                        download="דף הורים 2024.pdf"
+                        href="/דף הורים 2024.pdf"
                         style={{ display: 'block' }}
                       >
                         דף המידע להורים
