@@ -7,6 +7,7 @@
 - New links for registration
 - Fix: vegetarian and medical comments were not mandatory if they weren't
   touched
+- The submit button is always enabled (sometimes errors weren't shown)
 
 ## 1.2.1
 

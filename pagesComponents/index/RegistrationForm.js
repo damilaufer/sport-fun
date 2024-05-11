@@ -432,7 +432,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
             <Button
               variant="contained"
               color="primary"
-              disabled={isSubmitting || hasErrors}
+              disabled={isSubmitting}
               onClick={submitForm}
             >
               הרשם
