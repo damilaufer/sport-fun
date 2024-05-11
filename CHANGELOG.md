@@ -2,10 +2,15 @@
 
 # Changelog
 
+## 1.2.2 - Version 2024
+
+- New links for registration
+- Fix: vegetarian and medical comments were not mandatory if they weren't
+  touched
+
 ## 1.2.1
 
 - Send email after registration
-- coco
 
 ## 1.2.0
 

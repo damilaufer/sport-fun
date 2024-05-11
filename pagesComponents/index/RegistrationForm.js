@@ -119,10 +119,18 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
       validationSchema={getValidationSchema()}
       onSubmit={onSubmit}
     >
-      {({ values, errors, submitForm, isSubmitting, setFieldValue }) => {
+      {({
+        values,
+        errors,
+        submitForm,
+        isSubmitting,
+        setFieldValue,
+        setFieldTouched,
+      }) => {
         function clearField(yesNoValue, fieldNameToClear) {
           if (yesNoValue === 'N') {
             setFieldValue(fieldNameToClear, '', false)
+            setFieldTouched(fieldNameToClear, true, false)
           }
         }
         const hasErrors = Object.keys(errors).length > 0
@@ -349,6 +357,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
                 { name: 'יש מגבלה (ציין מטה)', id: 'N' },
               ]}
               disabled={isSubmitting}
+              onChange={(value) => clearField(value, 'medicalComments')}
             />
             <MyTextField
               label="הערות רפואיות"
