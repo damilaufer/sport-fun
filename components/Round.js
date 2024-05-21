@@ -21,6 +21,7 @@ const Round = ({
   busName,
   lunchName,
   disabled,
+  disableLunch,
   clearField,
   full,
 }) => {
@@ -78,7 +79,7 @@ const Round = ({
           label="צהרון"
           name={lunchName}
           items={yesNo}
-          disabled={finalDisabled}
+          disabled={finalDisabled || disableLunch}
           required={registeredForThisRound}
         />
         {showBusWarning && (
@@ -97,6 +98,7 @@ Round.propTypes = {
   lunchName: PropTypes.string.isRequired,
   full: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
+  disableLunch: PropTypes.bool,
   clearField: PropTypes.func.isRequired,
 }
 

@@ -2,6 +2,12 @@
 
 # Changelog
 
+## 1.2.3
+
+- New links for registration (no more early bird discounts)
+- Cerró 3er turno
+- Cerró tzaharon para el 1er turno
+
 ## 1.2.2 - Version 2024
 
 - New links for registration

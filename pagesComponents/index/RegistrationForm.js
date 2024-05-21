@@ -371,6 +371,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               busName="busForth"
               lunchName="lunchId"
               disabled={isSubmitting}
+              disableLunch
               clearField={clearField}
               full={configuration.rounds[0].full}
             />
