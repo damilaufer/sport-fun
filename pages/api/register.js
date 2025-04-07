@@ -90,7 +90,8 @@ export default async function handler(req, res) {
     }
     
     const kidData = await kidResponse.json()
-    
+    values.amount = 10;
+    values.ccPaid = true;
     // If payment is needed, process with Invoice4U
     if (values.amount > 0 && values.ccPaid) {
       try {
