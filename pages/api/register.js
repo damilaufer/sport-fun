@@ -61,35 +61,48 @@ export default async function handler(req, res) {
 
   try {
     // First register the kid with the existing backend
-    const kidResponse = await fetch(
-      'https://summer-camp-manager.herokuapp.com/api/kids',
-      // 'http://localhost:5000/api/kids',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ kid, round }),
+    // const kidResponse = await fetch(
+    //   'https://summer-camp-manager.herokuapp.com/api/kids',
+    //   // 'http://localhost:5000/api/kids',
+    //   {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ kid, round }),
+    //   },
+    // )
+    
+    // const contentType = kidResponse.headers.get('Content-Type')
+    // if (kidResponse.status !== 200) {
+    //   let message
+    //   if (contentType.startsWith('text/html')) {
+    //     const text = await kidResponse.text()
+    //     console.log(text)
+    //     message = /<pre>(.*?)<br>/gm.exec(text)?.[1] || 'Unknown error'
+    //   } else {
+    //     const json = await kidResponse.json()
+    //     message = json.statusCode
+    //       ? ` ${json.statusCode}-${json.statusText}`
+    //       : json.statusText
+    //   }
+    //   return res.status(500).json({ message })
+    // }
+    
+    // Create a mock kidData object with the properties expected by the client
+    const kidData = {
+      id: Date.now(), // Use timestamp as a temporary ID
+      kid: {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email
+        // Add other properties as needed
       },
-    )
-    
-    const contentType = kidResponse.headers.get('Content-Type')
-    if (kidResponse.status !== 200) {
-      let message
-      if (contentType.startsWith('text/html')) {
-        const text = await kidResponse.text()
-        console.log(text)
-        message = /<pre>(.*?)<br>/gm.exec(text)?.[1] || 'Unknown error'
-      } else {
-        const json = await kidResponse.json()
-        message = json.statusCode
-          ? ` ${json.statusCode}-${json.statusText}`
-          : json.statusText
-      }
-      return res.status(500).json({ message })
+      rounds: [{
+        groupId: configuration.currentGroup,
+        // Add other round properties as needed
+      }]
     }
-    
-    const kidData = await kidResponse.json()
     values.amount = 10;
     values.ccPaid = true;
     // If payment is needed, process with Invoice4U
@@ -98,7 +111,7 @@ export default async function handler(req, res) {
         // Prepare Invoice4U API request
         const invoice4uRequest = {
           request: {
-            Invoice4UUserApiKey: configuration.invoice4u?.apiKey || 'YOUR_API_KEY_HERE',
+            Invoice4UUserApiKey: configuration.invoice4u?.apiKey || '85d06623-cfae-4015-9bbd-cee3c2ca4798', //Prod token: b41718a4-6739-443e-838d-3065985c73be
             Type: '1', // Regular clearing
             CreditCardCompanyType: '1', // Default company type
             FullName: `${values.firstName} ${values.lastName}`,
@@ -120,7 +133,7 @@ export default async function handler(req, res) {
             DocItemName: 'Sport Fun Registration Fee',
             IsGeneralClient: 'false',
             IsAutoCreateCustomer: 'true',
-            ReturnUrl: `${req.headers.origin}/registration-complete`, // Adjust to your success page
+            ReturnUrl: `${req.headers.origin}:3000/registration-complete`, // Adjust to your success page
             AddToken: 'false',
             AddTokenAndCharge: 'false',
             ChargeWithToken: 'false',
@@ -164,14 +177,17 @@ export default async function handler(req, res) {
           });
         }
         
-        // Return success with payment redirect URL
+        // Return success with payment redirect URL and instruct client to open popup
         return res.status(200).json({
           ...kidData,
-          paymentRedirectUrl: invoice4uData.ClearingRedirectUrl,
+          kid: kidData.kid, // Ensure kid property is included
+          rounds: kidData.rounds, // Ensure rounds property is included
+          paymentRedirectUrl: invoice4uData.d.ClearingRedirectUrl,
+          openInPopup: true, // Flag for client to know it should open in popup
           paymentInfo: {
-            paymentId: invoice4uData.OpenInfo?.find(i => i.Key === 'PaymentId')?.Value,
-            clearingLogId: invoice4uData.OpenInfo?.find(i => i.Key === 'I4UClearingLogId')?.Value,
-            clearingTraceId: invoice4uData.OpenInfo?.find(i => i.Key === 'ClearingTraceId')?.Value
+            paymentId: invoice4uData.d.OpenInfo?.find(i => i.Key === 'PaymentId')?.Value,
+            clearingLogId: invoice4uData.d.OpenInfo?.find(i => i.Key === 'I4UClearingLogId')?.Value,
+            clearingTraceId: invoice4uData.d.OpenInfo?.find(i => i.Key === 'ClearingTraceId')?.Value
           }
         });
       } catch (paymentError) {
@@ -179,6 +195,8 @@ export default async function handler(req, res) {
         // Return kid data even if payment processing failed
         return res.status(200).json({
           ...kidData,
+          kid: kidData.kid, // Ensure kid property is included
+          rounds: kidData.rounds, // Ensure rounds property is included
           paymentError: {
             message: 'Failed to process payment, but registration was successful',
             error: paymentError.message
@@ -189,7 +207,11 @@ export default async function handler(req, res) {
     
     // If no payment needed or not using credit card, just return kid data
     // await sendRegistrationMail(kid.email, kid.firstName, kid.lastName)
-    return res.status(200).json(kidData);
+    return res.status(200).json({
+      ...kidData,
+      kid: kidData.kid, // Ensure kid property is included
+      rounds: kidData.rounds // Ensure rounds property is included
+    });
   } catch (error) {
     console.error('Registration error:', error);
     return res.status(500).json({ message: 'Registration failed', error: error.message });
