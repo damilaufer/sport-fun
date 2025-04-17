@@ -1,25 +1,25 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { Field, Formik, Form } from 'formik'
 import { Button, Collapse, LinearProgress } from '@material-ui/core'
+import { Field, Form, Formik } from 'formik'
 import { CheckboxWithLabel } from 'formik-material-ui'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import PropTypes from 'prop-types'
+import React from 'react'
 
-import {
-  otherSchoolId,
-  sexes,
-  yesNo,
-  modiinSettlementId,
-} from '../../lib/constants'
-import { hasBus } from '../../lib/utils'
-import { getValidationSchema } from '../../lib/validations'
-import { MyTextField } from '../../components/MyTextField'
-import { MySelect } from '../../components/MySelect'
 import { MyRadioGroup } from '../../components/MyRadioGroup'
+import { MySelect } from '../../components/MySelect'
+import { MyTextField } from '../../components/MyTextField'
 import { Round } from '../../components/Round'
 import { Telephone } from '../../components/Telephone'
 import { configuration } from '../../configuration'
+import {
+  modiinSettlementId,
+  otherSchoolId,
+  sexes,
+  yesNo,
+} from '../../lib/constants'
+import { hasBus } from '../../lib/utils'
+import { getValidationSchema } from '../../lib/validations'
 
 const styles = {
   title: { color: '#3668AB', textAlign: 'center' },
@@ -30,36 +30,36 @@ const styles = {
 
 const getInitialValues = (isSubscriber, isGroupal) => ({
   firstName: '',
-  lastName: '',
-  sex: '',
-  motherCellPhone: '',
-  fatherCellPhone: '',
-  phone: '',
+  lastName: 'laufer',
+  sex: 'M',
+  motherCellPhone: '0542428888',
+  fatherCellPhone: '0542428889',
+  phone: '0542428890',
   emergencyPhone: '',
-  email: '',
+  email: 'coco@gmail.com',
   friends: '',
-  sportId: '0',
-  classId: '',
-  schoolId: '',
+  sportId: '2',
+  classId: '1',
+  schoolId: '1',
   otherSchool: '',
-  address: '',
-  settlementId: '',
+  address: 'miau 292',
+  settlementId: '2',
   neighbourhoodId: '',
-  vegetarian: '',
+  vegetarian: 'N',
   vegetarianComments: '',
   parkHaMaimSubscriber: isSubscriber ? 'Y' : 'N',
-  parkHaMaimSubscriberName: '',
-  parkHaMaimSubscriberId: '',
+  parkHaMaimSubscriberName: 'xxxxx',
+  parkHaMaimSubscriberId: '33',
   groupRegistration: isGroupal ? 'Y' : 'N',
   groupRegistrationName: '',
   groupRegistrationCode: '',
-  swims: '',
+  swims: 'Y',
   swimsComments: '',
-  comments: '',
-  medicalComments: '',
-  medicalCommentsYesNo: '',
-  firstRound: 'N',
-  busForth: 'N',
+  comments: 'comm',
+  medicalComments: 'mediccomm',
+  medicalCommentsYesNo: 'N',
+  firstRound: 'Y',
+  busForth: 'Y',
   busForthComments: '',
   lunchId: 'N',
   busStop: '',
@@ -137,8 +137,6 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
         if (hasErrors) {
           console.warn('Errors:', errors)
         }
-
-        console.log(typeof values.schoolId, values.schoolId === otherSchoolId)
 
         const addressRequired = hasBus(
           values.busForth,

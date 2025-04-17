@@ -1,13 +1,18 @@
-import Head from 'next/head'
-import { createTheme, ThemeProvider } from '@material-ui/core/styles'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
+import { Container } from '@material-ui/core'
+import green from '@material-ui/core/colors/green'
+import purple from '@material-ui/core/colors/purple'
+import {
+  createTheme,
+  jssPreset,
+  StylesProvider,
+  ThemeProvider,
+} from '@material-ui/core/styles'
 import { create } from 'jss'
 import rtl from 'jss-rtl'
-import purple from '@material-ui/core/colors/purple'
-import green from '@material-ui/core/colors/green'
-import { StylesProvider, jssPreset } from '@material-ui/core/styles'
-import { Container } from '@material-ui/core'
+import Head from 'next/head'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 import { RegistrationForm } from '../pagesComponents/index/RegistrationForm'
 
@@ -27,6 +32,10 @@ const theme = createTheme({
 
 function register({ dictionaries }) {
   const router = useRouter()
+  const [paymentUrl, setPaymentUrl] = useState(null)
+  const [showPaymentFrame, setShowPaymentFrame] = useState(false)
+  const [registrationComplete, setRegistrationComplete] = useState(false)
+
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const response = await fetch(`/api/register`, {
@@ -38,7 +47,16 @@ function register({ dictionaries }) {
       })
       const json = await response.json() // parses JSON response into native JavaScript objects
       setSubmitting(false)
-      if (json.kid && json.rounds) {
+
+      // Check if payment redirect URL exists
+      if (json.paymentRedirectUrl) {
+        // Set the payment URL and show the iframe
+        setPaymentUrl(json.paymentRedirectUrl)
+        setShowPaymentFrame(true)
+        setRegistrationComplete(true)
+        // Don't redirect to thank you page yet - we'll do that after payment
+      } else if (json.kid && json.rounds) {
+        // No payment needed, go directly to thank you page
         router.push({
           pathname: '/thankYou',
           query: router.query,
@@ -55,10 +73,19 @@ function register({ dictionaries }) {
     }
   }
 
+  // Function to handle completion of payment
+  const handlePaymentComplete = () => {
+    setShowPaymentFrame(false)
+    router.push({
+      pathname: '/thankYou',
+      query: router.query,
+    })
+  }
+
   return (
     <StylesProvider jss={jss}>
       <ThemeProvider theme={theme}>
-        <Container maxWidth="sm">
+        <Container maxWidth={showPaymentFrame ? 'md' : 'sm'}>
           <Head>
             <title>Sport-Fun</title>
             <link rel="icon" href="/favicon.ico" />
@@ -88,10 +115,57 @@ function register({ dictionaries }) {
               <h2>לפרטים: 052-367-0576</h2>
             </div> */}
 
-            <RegistrationForm
-              dictionaries={dictionaries}
-              onSubmit={handleSubmit}
-            />
+            {!registrationComplete ? (
+              <RegistrationForm
+                dictionaries={dictionaries}
+                onSubmit={handleSubmit}
+              />
+            ) : showPaymentFrame && paymentUrl ? (
+              <div>
+                <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>
+                  אנא השלם את התשלום
+                </h2>
+                <div
+                  style={{
+                    position: 'relative',
+                    width: '150%',
+                    height: '600px',
+                    border: '0px solid #ccc',
+                    borderRadius: '4px',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <iframe
+                    src={paymentUrl}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      border: 'none',
+                    }}
+                    title="Payment Form"
+                  />
+                </div>
+                {/* <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                  <button 
+                    onClick={handlePaymentComplete}
+                    style={{
+                      padding: '10px 20px',
+                      backgroundColor: '#4CAF50',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      fontSize: '16px'
+                    }}
+                  >
+                    סיימתי את התשלום
+                  </button>
+                </div> */}
+              </div>
+            ) : null}
           </main>
 
           <style jsx>{`
@@ -160,7 +234,6 @@ function register({ dictionaries }) {
 
 // This gets called on every request
 export async function getServerSideProps() {
-  // Fetch data from external API
   const res = await fetch(
     `https://summer-camp-manager.herokuapp.com/api/dictionaries`,
   )
