@@ -4,7 +4,9 @@
 
 ## 1.3.0 - Version 2025
 
-- Add CC payments
+- Add CC payments; la página calcula cuánto tienen que pagar y lo manda a la
+  página de pagar en un iFrame
+- Página para los padres no es pdf, es link a la web de Ale
 
 ## 1.2.3
 

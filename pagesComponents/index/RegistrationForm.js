@@ -428,8 +428,9 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
                       אני מאשר/ת כי כל הפרטים נכונים ומאשר/ת את רישום בני/בתי
                       לקייטנה לאחר שקראתי את כל הפרטים והתנאים המופיעים ב-
                       <a
-                        download="דף הורים 2024.pdf"
-                        href="/דף הורים 2024.pdf"
+                        href="https://sportfun.co.il/%d7%9e%d7%99%d7%93%d7%a2-%d7%9c%d7%94%d7%95%d7%a8%d7%99%d7%9d/"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style={{ display: 'block' }}
                       >
                         דף המידע להורים

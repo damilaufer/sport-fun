@@ -1,7 +1,7 @@
+import { Container } from '@material-ui/core'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { Container } from '@material-ui/core'
 
 import { configuration } from '../configuration'
 
@@ -18,7 +18,6 @@ const styles = {
     backgroundColor: 'transparent',
     cursor: 'pointer',
   },
-  warning: { color: '#FA9D16', fontSize: '20px', marginTop: 20 },
 }
 
 const ThankYou = () => {
@@ -46,13 +45,16 @@ const ThankYou = () => {
         <button style={styles.button} onClick={goToPayments}>
           פרטי הרישום נקלטו בהצלחה.
           <br />
+          <br />
           <b>
-            <u>לחצו כאן</u>
-          </b>{' '}
-          למעבר לעמוד התשלום המאובטח.
-          <div style={styles.warning}>
-            יש להקפיד להוסיף לעגלת התשלום את כל הפריטים שנבחרו בדף הרישום.
-          </div>
+            על מנת להשלים את הרישום ולהבטיח את מקומכם בקייטנה יש להסדיר תשלום
+            מול המשרד
+          </b>
+          <br />
+          <br />
+          <a href="tel:+972523670576" style={{ color: '#2D6BB5' }}>
+            <b>052-3670576</b>
+          </a>
         </button>
       </main>
     </Container>
