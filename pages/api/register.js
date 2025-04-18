@@ -1,4 +1,5 @@
 import { configuration } from '../../configuration'
+import { calculatePayment } from '../../lib/calculatePayment'
 
 export default async function handler(req, res) {
   const values = req.body.values
@@ -104,8 +105,8 @@ export default async function handler(req, res) {
         },
       ],
     }
-    values.amount = 10 // @@@ Calculate amount
-    values.ccPaid = true
+
+    values.amount = calculatePayment(values)
 
     // If payment is needed, process with Invoice4U
     if (values.amount > 0 && values.ccPaid) {

@@ -36,7 +36,7 @@ const getInitialValues = (isSubscriber, isGroupal) => ({
   fatherCellPhone: '0542428889',
   phone: '0542428890',
   emergencyPhone: '',
-  email: 'coco@gmail.com',
+  email: 'damilaufer@gmail.com',
   friends: '',
   sportId: '2',
   classId: '1',
@@ -78,7 +78,7 @@ const getInitialValues = (isSubscriber, isGroupal) => ({
   amount: 0,
   cashPaid: false,
   chequePaid: false,
-  ccPaid: false,
+  ccPaid: true,
   ccNumber: '',
   ccExpiration: '',
   ccOwnerID: '',
@@ -302,7 +302,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               items={settlements}
               disabled={isSubmitting}
               required={
-                addressRequired && values.settlements === modiinSettlementId
+                addressRequired && values.settlementId === modiinSettlementId
               }
               onChange={(value) => {
                 // TODO: make it generic. If no neighbours for the new value, clear it
@@ -369,7 +369,6 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               busName="busForth"
               lunchName="lunchId"
               disabled={isSubmitting}
-              disableLunch
               clearField={clearField}
               full={configuration.rounds[0].full}
             />
@@ -401,6 +400,23 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               name="comments"
               disabled={isSubmitting}
             />
+
+            <div style={styles.termsAndConditions}>
+              <Field
+                component={CheckboxWithLabel}
+                type="checkbox"
+                name="ccPaid"
+                Label={{
+                  label: 'משלם בכרטיס אשראי',
+                }}
+              />
+              {!values.ccPaid && (
+                <div className="MuiFormHelperText-root Mui-error Mui-required">
+                  נא ליצור קשר עם המשרד על מנת לסיים את התשלום בתום הרישום
+                </div>
+              )}
+            </div>
+
             <div style={styles.termsAndConditions}>
               <Field
                 component={CheckboxWithLabel}

@@ -1,7 +1,6 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { Container } from '@material-ui/core'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 const styles = {
@@ -33,16 +32,6 @@ const styles = {
     marginTop: '20px',
     color: '#333',
   },
-  button: {
-    marginTop: '40px',
-    padding: '15px 30px',
-    border: '2px solid #2D6BB5',
-    borderRadius: '10px',
-    fontSize: '20px',
-    color: '#2D6BB5',
-    backgroundColor: 'transparent',
-    cursor: 'pointer',
-  },
 }
 
 const RegistrationComplete = () => {
@@ -53,22 +42,22 @@ const RegistrationComplete = () => {
   // Process URL parameters when the component mounts
   useEffect(() => {
     if (!router.isReady) return
-    
+
     // Check for success or error parameters from Invoice4U redirect
     const { success, error, paymentId, clearingLogId } = router.query
-    
+
     if (success === 'true') {
       setPaymentStatus('success')
       setPaymentDetails({
         paymentId,
         clearingLogId,
-        timestamp: new Date().toLocaleString('he-IL')
+        timestamp: new Date().toLocaleString('he-IL'),
       })
     } else if (error) {
       setPaymentStatus('error')
       setPaymentDetails({
         error,
-        timestamp: new Date().toLocaleString('he-IL')
+        timestamp: new Date().toLocaleString('he-IL'),
       })
     } else {
       // Default case - we don't have clear status indicators
@@ -87,7 +76,6 @@ const RegistrationComplete = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main style={styles.main}>
-
         <div style={styles.message}>
           {paymentStatus === 'processing' && (
             <>
@@ -135,10 +123,6 @@ const RegistrationComplete = () => {
               </div>
             </>
           )}
-
-          <button style={styles.button} onClick={goToHomePage}>
-            חזרה לדף הבית
-          </button>
         </div>
       </main>
     </Container>

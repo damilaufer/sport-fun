@@ -13,16 +13,16 @@ const configuration = {
   currentGroup: 30, // 2024
   rounds: [
     {
-      label: 'מחזור ראשון (11/7 - 1/7)',
+      label: 'מחזור ראשון (24/7 - 13/7)',
       full: false,
     },
     {
-      label: 'מחזור שני (25/7 - 14/7)',
+      label: 'מחזור שני (7/8 - 27/7)',
       full: false,
     },
     {
-      label: 'מחזור שלישי (8/8 - 28/7)',
-      full: true,
+      label: 'מחזור שלישי (21/8 - 10/8)',
+      full: false,
     },
   ],
   getPaymentUrl: getPaymentUrl,

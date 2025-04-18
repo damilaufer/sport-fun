@@ -38,12 +38,14 @@ function register({ dictionaries }) {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
+      const valuesWithForm = { ...values, form: router.query.form }
+
       const response = await fetch(`/api/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ values }),
+        body: JSON.stringify({ valuesWithForm }),
       })
       const json = await response.json() // parses JSON response into native JavaScript objects
       setSubmitting(false)
