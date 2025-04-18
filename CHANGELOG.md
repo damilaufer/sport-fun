@@ -2,6 +2,10 @@
 
 # Changelog
 
+## 1.3.0 - Version 2025
+
+- Add CC payments
+
 ## 1.2.3
 
 - New links for registration (no more early bird discounts)

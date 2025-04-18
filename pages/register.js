@@ -45,7 +45,7 @@ function register({ dictionaries }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ valuesWithForm }),
+        body: JSON.stringify({ values: valuesWithForm }),
       })
       const json = await response.json() // parses JSON response into native JavaScript objects
       setSubmitting(false)

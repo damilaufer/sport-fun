@@ -1,6 +1,6 @@
 {
   "name": "sport-fun",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "private": true,
   "scripts": {
     "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 next dev",
