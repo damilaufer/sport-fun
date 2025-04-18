@@ -87,9 +87,6 @@ const RegistrationComplete = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main style={styles.main}>
-        <div style={styles.image}>
-          <Image src="/logo.jpg" alt="Sport-fun" width="350" height="200" priority />
-        </div>
 
         <div style={styles.message}>
           {paymentStatus === 'processing' && (
