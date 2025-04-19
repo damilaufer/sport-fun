@@ -433,7 +433,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               />
               {!values.ccPaid && (
                 <div className="MuiFormHelperText-root Mui-error Mui-required">
-                  נא ליצור קשר עם המשרד על מנת לסיים את התשלום בתום הרישום
+                  נא ליצור קשר עם המשרד על מנת להסדיר את התשלום בתום הרישום
                 </div>
               )}
             </div>
