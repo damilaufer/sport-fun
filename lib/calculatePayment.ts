@@ -1,3 +1,4 @@
+import { RegistrationFields } from '../types/RegistrationFields'
 import {
   kfarOranimSettlementId,
   lapidSettlementId,
@@ -14,7 +15,7 @@ import {
     10% discount for manui le park hamaim
     5% discount for groups
      */
-function calculatePayment(values) {
+function calculatePayment(values: RegistrationFields) {
   const roundBusAmount = [
     kfarOranimSettlementId,
     lapidSettlementId,

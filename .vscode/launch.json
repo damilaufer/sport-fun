@@ -2,22 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Next.js: debug server-side",
-      "type": "node-terminal",
+      "name": "Debug nextjs with typescript and breakpoints",
+      "type": "node",
       "request": "launch",
-      "command": "npm run dev"
-    },
-    {
-      "name": "Next.js: debug client-side",
-      "type": "chrome",
-      "request": "launch",
-      "url": "http://localhost:3000"
-    },
-    {
-      "name": "Next.js: debug full stack",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "cd /Users/dalaufer/Documents/DamiL\\ Personal/Projects/sport-fun && npm run dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "/Users/dalaufer/Documents/DamiL Personal/Projects/sport-fun",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
       "serverReadyAction": {
         "pattern": "started server on .+, url: (https?://.+)",
         "uriFormat": "%s",

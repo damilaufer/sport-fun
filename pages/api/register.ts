@@ -1,7 +1,11 @@
+import { NextApiRequest, NextApiResponse } from 'next'
 import { configuration } from '../../configuration'
 import { calculatePayment } from '../../lib/calculatePayment'
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const values = req.body.values
 
   const kid = {

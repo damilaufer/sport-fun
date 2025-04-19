@@ -7,6 +7,7 @@
 - Add CC payments; la página calcula cuánto tienen que pagar y lo manda a la
   página de pagar en un iFrame
 - Página para los padres no es pdf, es link a la web de Ale
+- Use typescript
 
 ## 1.2.3
 

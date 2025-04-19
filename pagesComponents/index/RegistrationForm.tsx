@@ -4,7 +4,7 @@ import { CheckboxWithLabel } from 'formik-material-ui'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import PropTypes from 'prop-types'
-import React from 'react'
+import { CSSProperties } from 'react'
 
 import { MyRadioGroup } from '../../components/MyRadioGroup'
 import { MySelect } from '../../components/MySelect'
@@ -20,15 +20,20 @@ import {
 } from '../../lib/constants'
 import { hasBus } from '../../lib/utils'
 import { getValidationSchema } from '../../lib/validations'
+import { RegistrationFields } from '../../types/RegistrationFields'
 
-const styles = {
+const styles: Record<string, CSSProperties> = {
   title: { color: '#3668AB', textAlign: 'center' },
   termsAndConditions: { marginBottom: '20px' },
   link: { color: '#FA9D16', marginBottom: 20, display: 'block' },
   warning: { color: 'red', fontSize: '20px', marginTop: 10 },
 }
 
-const getInitialValues = (isSubscriber, isGroupal) => ({
+const getInitialValues = (
+  isSubscriber: boolean,
+  isGroupal: boolean,
+): RegistrationFields => ({
+  form: isSubscriber ? 'manui' : isGroupal ? 'group' : '',
   firstName: '',
   lastName: 'laufer',
   sex: 'M',
@@ -38,13 +43,13 @@ const getInitialValues = (isSubscriber, isGroupal) => ({
   emergencyPhone: '',
   email: 'damilaufer@gmail.com',
   friends: '',
-  sportId: '2',
-  classId: '1',
-  schoolId: '1',
+  sportId: 2,
+  classId: 1,
+  schoolId: 1,
   otherSchool: '',
   address: 'miau 292',
-  settlementId: '2',
-  neighbourhoodId: '',
+  settlementId: 2,
+  neighbourhoodId: 0,
   vegetarian: 'N',
   vegetarianComments: '',
   parkHaMaimSubscriber: isSubscriber ? 'Y' : 'N',
@@ -91,7 +96,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
   const isSubscriber = router.query.form === 'manui'
   const isGroupal = router.query.form === 'group'
 
-  let title
+  let title: string
   if (isSubscriber) {
     title = 'למנויי פארק המים רעות בלבד'
   } else if (isGroupal) {
@@ -137,6 +142,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
         if (hasErrors) {
           console.warn('Errors:', errors)
         }
+        // console.log(values)
 
         const addressRequired = hasBus(
           values.busForth,
@@ -309,7 +315,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
                 // Clear the neighbourhood if not modiin
                 if (
                   value !== modiinSettlementId &&
-                  values.neighbourhoodId !== ''
+                  values.neighbourhoodId !== 0
                 ) {
                   setFieldValue('neighbourhoodId', '')
                 }
