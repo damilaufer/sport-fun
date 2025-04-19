@@ -12,6 +12,7 @@ import { MyTextField } from '../../components/MyTextField'
 import { Round } from '../../components/Round'
 import { Telephone } from '../../components/Telephone'
 import { configuration } from '../../configuration'
+import { calculatePayment } from '../../lib/calculatePayment'
 import {
   modiinSettlementId,
   otherSchoolId,
@@ -143,6 +144,8 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
           console.warn('Errors:', errors)
         }
         // console.log(values)
+
+        const amount = calculatePayment(values)
 
         const addressRequired = hasBus(
           values.busForth,
@@ -451,6 +454,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
             </div>
             {isSubmitting && <LinearProgress />}
             <br />
+            <div>Amount {amount}</div>
             <Button
               variant="contained"
               color="primary"
