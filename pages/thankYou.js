@@ -3,8 +3,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import { configuration } from '../configuration'
-
 const styles = {
   main: { textAlign: 'center', padding: '1rem 0 5rem 0' },
   image: { marginBottom: '20px' },
@@ -25,10 +23,8 @@ const ThankYou = () => {
 
   function goToPayments() {
     // Goes to one of the product pages
-
-    const paymentUrl = configuration.getPaymentUrl(router.query.form)
-
-    window.location = paymentUrl
+    // const paymentUrl = configuration.getPaymentUrl(router.query.form)
+    // window.location = paymentUrl
   }
 
   return (

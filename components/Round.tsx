@@ -38,7 +38,7 @@ const Round = ({
         return item.id !== '1Way'
       })
     : yesNoOneWay
-
+  //  @@@ si pongo no, hacer clearField
   return (
     <Accordion
       elevation={4}

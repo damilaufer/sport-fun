@@ -31,6 +31,12 @@ const styles: Record<string, CSSProperties> = {
   amountToPay: { color: 'rgba(0, 0, 0, 0.54)', marginBottom: '20px' },
 }
 
+const Payments = [
+  { name: 'תשלום אחד', id: '1' },
+  { name: '2 תשלומים', id: '2' },
+  { name: '3 תשלומים', id: '3' },
+]
+
 const getInitialValues = (
   isSubscriber: boolean,
   isGroupal: boolean,
@@ -83,6 +89,7 @@ const getInitialValues = (
   // non visible fields (to be compatible with the old API)
   busPaid: false,
   amount: 0,
+  payments: 1,
   cashPaid: false,
   chequePaid: false,
   ccPaid: true,
@@ -431,6 +438,16 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               )}
             </div>
 
+            <div style={styles.amountToPay}>סכום לתשלום ₪{amount}</div>
+
+            <MySelect
+              label="תשלומים"
+              name="payments"
+              items={Payments}
+              disabled={isSubmitting}
+              required
+            />
+
             <div style={styles.termsAndConditions}>
               <Field
                 component={CheckboxWithLabel}
@@ -459,7 +476,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
             </div>
             {isSubmitting && <LinearProgress />}
             <br />
-            <div style={styles.amountToPay}>סכום לתשלום ₪{amount}</div>
+
             <Button
               variant="contained"
               color="primary"

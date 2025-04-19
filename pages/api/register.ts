@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { configuration } from '../../configuration'
 import { calculatePayment } from '../../lib/calculatePayment'
+import { RegistrationFields } from '../../types/RegistrationFields'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const values = req.body.values
+  const values = req.body.values as RegistrationFields
 
   const kid = {
     id: -1, // Some negative number for a new kid
@@ -122,35 +123,35 @@ export default async function handler(
             Invoice4UUserApiKey:
               configuration.invoice4u?.apiKey ||
               '85d06623-cfae-4015-9bbd-cee3c2ca4798', //Prod token: b41718a4-6739-443e-838d-3065985c73be
-            Type: '1', // Regular clearing
-            CreditCardCompanyType: '1', // Default company type
+            Type: 1, // Regular clearing
+            CreditCardCompanyType: 1, // Default company type
             FullName: `${values.firstName} ${values.lastName}`,
             Phone:
               values.fatherCellPhone || values.motherCellPhone || values.phone,
             Email: values.email,
-            Sum: values.amount.toString(),
+            Sum: values.amount,
             Description: `Sport Fun Registration - ${values.firstName} ${values.lastName}`,
-            PaymentsNum: '1', // Single payment
+            PaymentsNum: values.payments,
             Currency: 'ILS',
             OrderIdClientUsage: kidData.id?.toString() || 'new-registration',
-            IsDocCreate: 'true',
+            IsDocCreate: true,
             DocHeadline: 'Sport Fun Registration',
             Comments: `Registration for ${values.firstName} ${values.lastName}`,
-            IsManualDocCreationsWithParams: 'false',
+            IsManualDocCreationsWithParams: false,
             DocItemQuantity: '1',
             DocItemPrice: values.amount.toString(),
             DocItemTaxRate: '17',
-            IsItemsBase64Encoded: 'false',
+            IsItemsBase64Encoded: false,
             DocItemName: 'Sport Fun Registration Fee',
-            IsGeneralClient: 'false',
-            IsAutoCreateCustomer: 'true',
-            ReturnUrl: `${req.headers.origin}:3000/registration-complete`, // Adjust to your success page
-            AddToken: 'false',
-            AddTokenAndCharge: 'false',
-            ChargeWithToken: 'false',
-            Refund: 'false',
-            IsStandingOrderClearance: 'false',
-            StandingOrderDuration: '0',
+            IsGeneralClient: false,
+            IsAutoCreateCustomer: true,
+            ReturnUrl: `${req.headers.origin}/registration-complete`, // Adjust to your success page
+            AddToken: false,
+            AddTokenAndCharge: false,
+            ChargeWithToken: false,
+            Refund: false,
+            IsStandingOrderClearance: false,
+            StandingOrderDuration: 0,
           },
         }
 
