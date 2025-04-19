@@ -3,6 +3,7 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from '@material-ui/core'
+import { useFormikContext } from 'formik'
 import PropTypes from 'prop-types'
 import { farAwaySettlements, yesNo, yesNoOneWay } from '../lib/constants'
 import { MyRadioGroup } from './MyRadioGroup'
@@ -24,6 +25,8 @@ const Round = ({
   clearField,
   full,
 }) => {
+  const { setFieldValue } = useFormikContext()
+
   const finalDisabled = disabled || full
   const registeredForThisRound = values[roundName] === 'Y'
 
@@ -51,6 +54,12 @@ const Round = ({
           name={roundName}
           items={yesNo}
           disabled={finalDisabled}
+          onChange={(value) => {
+            if (value === 'N') {
+              setFieldValue(busName, 'N')
+              setFieldValue(lunchName, 'N')
+            }
+          }}
         />
 
         {full && roundName === 'secondRound' && (
