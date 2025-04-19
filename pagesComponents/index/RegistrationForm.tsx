@@ -28,6 +28,7 @@ const styles: Record<string, CSSProperties> = {
   termsAndConditions: { marginBottom: '20px' },
   link: { color: '#FA9D16', marginBottom: 20, display: 'block' },
   warning: { color: 'red', fontSize: '20px', marginTop: 10 },
+  amountToPay: { color: 'rgba(0, 0, 0, 0.54)', marginBottom: '20px' },
 }
 
 const getInitialValues = (
@@ -322,6 +323,10 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
                 ) {
                   setFieldValue('neighbourhoodId', '')
                 }
+
+                setFieldValue('busForth', 'N')
+                setFieldValue('secondRoundBus', 'N')
+                setFieldValue('thirdRoundBus', 'N')
               }}
             />
             <MySelect
@@ -454,7 +459,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
             </div>
             {isSubmitting && <LinearProgress />}
             <br />
-            <div>Amount {amount}</div>
+            <div style={styles.amountToPay}>סכום לתשלום ₪{amount}</div>
             <Button
               variant="contained"
               color="primary"

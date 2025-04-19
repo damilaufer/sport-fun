@@ -1,61 +1,79 @@
 import { RegistrationFields } from '../types/RegistrationFields'
-import {
-  kfarOranimSettlementId,
-  lapidSettlementId,
-  shilatSettlementId,
-} from './constants'
+import { Bus, YesNo } from '../types/Round'
+import { farAwaySettlements } from './constants'
 
-/*
-    majzor: 2250
-    tzaharon: 900
-    mejir asaa le majzor: 380
-    kfar oranim/lapid/shilat: 500
-    asaa kivun ejad: 220
+const RoundPrice = 2250
+const LunchPrice = 900
+const BusPrice = 380
+const FarFarAwayBusPrice = 500
+const OneWayBusPrice = 220
+const GroupDiscount = 0.05
+const ManuiDiscount = 0.1
 
-    10% discount for manui le park hamaim
-    5% discount for groups
-     */
+function calculateBusCost(
+  round: YesNo,
+  bus: Bus,
+  settlementId: number,
+): number {
+  if (round === 'N') {
+    return 0
+  }
+
+  switch (bus) {
+    case 'Y':
+      return farAwaySettlements.includes(settlementId)
+        ? FarFarAwayBusPrice
+        : BusPrice
+    case '1Way':
+      return OneWayBusPrice
+    default:
+      return 0
+  }
+}
+
 function calculatePayment(values: RegistrationFields) {
-  const roundBusAmount = [
-    kfarOranimSettlementId,
-    lapidSettlementId,
-    shilatSettlementId,
-  ].includes(values.settlementId)
-    ? 500
-    : 380
-
   let amount = 0
   if (values.firstRound === 'Y') {
-    amount += 2250
-    amount += values.lunchId === 'Y' ? 900 : 0
-    amount += values.busForth === 'Y' ? roundBusAmount : 0
+    amount += RoundPrice
+    amount += values.lunchId === 'Y' ? LunchPrice : 0
   }
   if (values.secondRound === 'Y') {
-    amount += 2250
-    amount += values.secondRoundBus === 'Y' ? roundBusAmount : 0
-    amount += values.secondRoundLunchId === 'Y' ? 900 : 0
+    amount += RoundPrice
+    amount += values.secondRoundLunchId === 'Y' ? LunchPrice : 0
   }
   if (values.thirdRound === 'Y') {
-    amount += 2250
-    amount += values.thirdRoundBus === 'Y' ? roundBusAmount : 0
-    amount += values.thirdRoundLunchId === 'Y' ? 900 : 0
+    amount += RoundPrice
+    amount += values.thirdRoundLunchId === 'Y' ? LunchPrice : 0
   }
 
-  console.log('before', amount, values.form)
-
+  // la asaa no tiene discount
   switch (values.form) {
     case 'manui':
-      amount -= amount * 0.1 // 10%
+      amount -= amount * ManuiDiscount
       break
     case 'group':
-      amount -= amount * 0.05 // 10% // 5%
+      amount -= amount * GroupDiscount
       break
     default:
       break
   }
 
-  console.log('after discount', amount, values.form)
+  amount += calculateBusCost(
+    values.firstRound,
+    values.busForth,
+    values.settlementId,
+  )
+  amount += calculateBusCost(
+    values.secondRound,
+    values.secondRoundBus,
+    values.settlementId,
+  )
+  amount += calculateBusCost(
+    values.thirdRound,
+    values.thirdRoundBus,
+    values.settlementId,
+  )
 
-  return amount
+  return Math.floor(amount)
 }
 export { calculatePayment }

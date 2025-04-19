@@ -111,6 +111,7 @@ export default async function handler(
     }
 
     values.amount = calculatePayment(values)
+    console.log('Amount to pay', values.amount)
 
     // If payment is needed, process with Invoice4U
     if (values.amount > 0 && values.ccPaid) {

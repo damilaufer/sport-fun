@@ -1,13 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
 } from '@material-ui/core'
-
-import { yesNo } from '../lib/constants'
+import PropTypes from 'prop-types'
+import { farAwaySettlements, yesNo, yesNoOneWay } from '../lib/constants'
 import { MyRadioGroup } from './MyRadioGroup'
+import { MySelect } from './MySelect'
 // import { MyTextField } from './MyTextField'
 
 const styles = {
@@ -32,6 +31,13 @@ const Round = ({
     registeredForThisRound &&
     values[busName] === 'Y' &&
     values[lunchName] === 'Y'
+
+  // don't show 1way if it's a far away settlement
+  const busItems = farAwaySettlements.includes(values.settlementId)
+    ? yesNoOneWay.filter((item) => {
+        return item.id !== '1Way'
+      })
+    : yesNoOneWay
 
   return (
     <Accordion
@@ -61,14 +67,16 @@ const Round = ({
         )}
       </AccordionSummary>
       <AccordionDetails style={{ display: 'block' }}>
-        <MyRadioGroup
-          label="הסעה"
-          name={busName}
-          items={yesNo}
-          disabled={finalDisabled}
-          required={registeredForThisRound}
-          onChange={(value) => clearField(value, `${busName}Comments`)}
-        />
+        <div style={{ width: '50%' }}>
+          <MySelect
+            label="הסעה"
+            name={busName}
+            items={busItems}
+            disabled={finalDisabled}
+            required={registeredForThisRound}
+            onChange={(value) => clearField(value, `${busName}Comments`)}
+          />
+        </div>
         {/* <MyTextField
           label="הערות"
           name={`${busName}Comments`}

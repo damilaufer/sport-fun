@@ -1,3 +1,5 @@
+import { Bus, YesNo } from './Round'
+
 type RegistrationFields = {
   form: 'manui' | 'group' | ''
   firstName: string
@@ -29,19 +31,19 @@ type RegistrationFields = {
   comments: string
   medicalComments: string
   medicalCommentsYesNo: string
-  firstRound: 'Y' | 'N'
-  busForth: 'Y' | 'N'
+  firstRound: YesNo
+  busForth: Bus
   busForthComments: string
-  lunchId: 'Y' | 'N'
+  lunchId: YesNo
   busStop: string
-  secondRound: 'Y' | 'N'
-  secondRoundBus: 'Y' | 'N'
+  secondRound: YesNo
+  secondRoundBus: Bus
   secondRoundBusComments: string
-  secondRoundLunchId: 'Y' | 'N'
-  thirdRound: 'Y' | 'N'
-  thirdRoundBus: 'Y' | 'N'
+  secondRoundLunchId: YesNo
+  thirdRound: YesNo
+  thirdRoundBus: Bus
   thirdRoundBusComments: string
-  thirdRoundLunchId: 'Y' | 'N'
+  thirdRoundLunchId: YesNo
   termsAndConditions: boolean
   roundSelected: string
   busPaid: boolean

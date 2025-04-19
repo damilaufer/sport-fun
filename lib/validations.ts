@@ -1,8 +1,15 @@
 import * as Yup from 'yup'
 
-import { otherSchoolId, modiinSettlementId } from '../lib/constants'
+import { modiinSettlementId, otherSchoolId } from '../lib/constants'
 import { hasBus } from '../lib/utils'
 import './validationFunctions'
+
+// declaration to allow Typescript to understand the new function
+declare module 'yup' {
+  interface StringSchema {
+    isValidPhone(validLengths: number[]): this
+  }
+}
 
 const getValidationSchema = () => {
   const validationSchema = {

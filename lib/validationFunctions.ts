@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 
-function isValidPhone(validLengths) {
+function isValidPhone(validLengths: number[]) {
   // Do not use ES6 arrow functions here
   return this.test({
     name: 'isValidPhone',
