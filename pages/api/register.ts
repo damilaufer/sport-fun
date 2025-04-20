@@ -120,9 +120,7 @@ export default async function handler(
         // Prepare Invoice4U API request
         const invoice4uRequest = {
           request: {
-            Invoice4UUserApiKey:
-              configuration.invoice4u?.apiKey ||
-              '85d06623-cfae-4015-9bbd-cee3c2ca4798', //Prod token: b41718a4-6739-443e-838d-3065985c73be
+            Invoice4UUserApiKey: process.env.Invoice4U_Key,
             Type: 1, // Regular clearing
             CreditCardCompanyType: 1, // Default company type
             FullName: `${values.firstName} ${values.lastName}`,
@@ -156,16 +154,13 @@ export default async function handler(
         }
 
         // Call Invoice4U API
-        const invoice4uResponse = await fetch(
-          'https://apiqa.invoice4u.co.il/Services/ApiService.svc/ProcessApiRequestV2',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(invoice4uRequest),
+        const invoice4uResponse = await fetch(process.env.Invoice4U_Url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        )
+          body: JSON.stringify(invoice4uRequest),
+        })
 
         if (!invoice4uResponse.ok) {
           const errorData = await invoice4uResponse.json()
