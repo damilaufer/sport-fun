@@ -76,6 +76,6 @@ function calculatePayment(values: RegistrationFields) {
     values.settlementId,
   )
 
-  return Math.floor(amount)
+  return Math.floor(amount / 1000)
 }
 export { calculatePayment }
