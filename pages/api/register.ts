@@ -3,6 +3,39 @@ import { configuration } from '../../configuration'
 import { calculatePayment } from '../../lib/calculatePayment'
 import { RegistrationFields } from '../../types/RegistrationFields'
 
+async function saveRegistration(
+  kid: any,
+  round: any,
+): Promise<{ error: string }> {
+  const kidResponse = await fetch(
+    'https://summer-camp-manager.herokuapp.com/api/kids',
+    // 'http://localhost:5000/api/kids',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ kid, round }),
+    },
+  )
+
+  const contentType = kidResponse.headers.get('Content-Type')
+  let message = ''
+  if (kidResponse.status !== 200) {
+    if (contentType.startsWith('text/html')) {
+      const text = await kidResponse.text()
+      console.log(text)
+      message = /<pre>(.*?)<br>/gm.exec(text)?.[1] || 'Unknown error'
+    } else {
+      const json = await kidResponse.json()
+      message = json.statusCode
+        ? ` ${json.statusCode}-${json.statusText}`
+        : json.statusText
+    }
+  }
+  return { error: message }
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -66,32 +99,10 @@ export default async function handler(
 
   try {
     // First register the kid with the existing backend
-    const kidResponse = await fetch(
-      'https://summer-camp-manager.herokuapp.com/api/kids',
-      // 'http://localhost:5000/api/kids',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ kid, round }),
-      },
-    )
-
-    const contentType = kidResponse.headers.get('Content-Type')
-    if (kidResponse.status !== 200) {
-      let message
-      if (contentType.startsWith('text/html')) {
-        const text = await kidResponse.text()
-        console.log(text)
-        message = /<pre>(.*?)<br>/gm.exec(text)?.[1] || 'Unknown error'
-      } else {
-        const json = await kidResponse.json()
-        message = json.statusCode
-          ? ` ${json.statusCode}-${json.statusText}`
-          : json.statusText
-      }
-      return res.status(500).json({ message })
+    const registrationResponse = await saveRegistration(kid, round)
+    if (registrationResponse.error) {
+      console.error('Registration error:', registrationResponse.error)
+      return res.status(500).json({ message: registrationResponse.error })
     }
 
     // Create a mock kidData object with the properties expected by the client
@@ -183,6 +194,13 @@ export default async function handler(
             paymentError: invoice4uData.Errors,
           })
         }
+
+        // Success, so update the round in the database
+        console.log(JSON.stringify(invoice4uData))
+        // const registrationResponse = await saveRegistration(kid, round)
+        //   if (registrationResponse.error) {
+        //     console.error('Update kid error:', registrationResponse.error)
+        //   }
 
         // Return success with payment redirect URL and instruct client to open popup
         return res.status(200).json({
