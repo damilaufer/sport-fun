@@ -48,7 +48,7 @@ type RegistrationFields = {
   roundSelected: string
   busPaid: boolean
   amount: number
-  payments: string // @@@
+  payments: number
   cashPaid: boolean
   chequePaid: boolean
   ccPaid: boolean
