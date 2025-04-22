@@ -89,7 +89,7 @@ const RegistrationComplete = () => {
               <div>תודה שנרשמתם ל-Sport-Fun</div>
               {paymentDetails && (
                 <div style={styles.details}>
-                  <div>מספר אסמכתא: {paymentDetails.paymentId}</div>
+                  <div>מספר אסמכתא: {paymentDetails.clearingLogId}</div>
                   <div>תאריך: {paymentDetails.timestamp}</div>
                 </div>
               )}

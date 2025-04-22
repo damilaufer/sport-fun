@@ -89,7 +89,7 @@ const getInitialValues = (
   // non visible fields (to be compatible with the old API)
   busPaid: false,
   amount: 0,
-  payments: 1,
+  payments: '1|2|3',
   cashPaid: false,
   chequePaid: false,
   ccPaid: true,
@@ -440,13 +440,13 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
 
             <div style={styles.amountToPay}>סכום לתשלום ₪{amount}</div>
 
-            <MySelect
+            {/* <MySelect
               label="תשלומים"
               name="payments"
               items={Payments}
               disabled={isSubmitting}
               required
-            />
+            /> */}
 
             <div style={styles.termsAndConditions}>
               <Field

@@ -196,11 +196,17 @@ export default async function handler(
         }
 
         // Success, so update the round in the database
-        console.log(JSON.stringify(invoice4uData))
-        // const registrationResponse = await saveRegistration(kid, round)
-        //   if (registrationResponse.error) {
-        //     console.error('Update kid error:', registrationResponse.error)
-        //   }
+        const clearingLogId = invoice4uData.d.OpenInfo?.find(
+          (i) => i.Key === 'I4UClearingLogId',
+        )?.Value
+        console.log('Response from invoice4u', JSON.stringify(invoice4uData))
+        if (clearingLogId) {
+          round.receiptNumber = clearingLogId
+          const registrationResponse = await saveRegistration(kid, round)
+          if (registrationResponse.error) {
+            console.error('Update kid error:', registrationResponse.error)
+          }
+        }
 
         // Return success with payment redirect URL and instruct client to open popup
         return res.status(200).json({
@@ -213,9 +219,7 @@ export default async function handler(
             paymentId: invoice4uData.d.OpenInfo?.find(
               (i) => i.Key === 'PaymentId',
             )?.Value,
-            clearingLogId: invoice4uData.d.OpenInfo?.find(
-              (i) => i.Key === 'I4UClearingLogId',
-            )?.Value,
+            clearingLogId,
             clearingTraceId: invoice4uData.d.OpenInfo?.find(
               (i) => i.Key === 'ClearingTraceId',
             )?.Value,
