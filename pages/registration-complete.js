@@ -43,6 +43,8 @@ const RegistrationComplete = () => {
   useEffect(() => {
     if (!router.isReady) return
 
+    console.log('router.query', router.query)
+
     // Check for success or error parameters from Invoice4U redirect
     const { success, error, paymentId, clearingLogId } = router.query
 

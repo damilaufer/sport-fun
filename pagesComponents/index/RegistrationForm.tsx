@@ -153,7 +153,8 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
         }
         // console.log(values)
 
-        const amount = calculatePayment(values)
+        // It's ok to modify the object because it will re-render because of the other changes
+        values.amount = calculatePayment(values)
 
         const addressRequired = hasBus(
           values.busForth,
@@ -438,7 +439,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               )}
             </div>
 
-            <div style={styles.amountToPay}>סכום לתשלום ₪{amount}</div>
+            <div style={styles.amountToPay}>סכום לתשלום ₪{values.amount}</div>
 
             <MySelect
               label="תשלומים"

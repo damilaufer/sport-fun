@@ -1,12 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { configuration } from '../../configuration'
-import { calculatePayment } from '../../lib/calculatePayment'
 import { RegistrationFields } from '../../types/RegistrationFields'
 
 async function saveRegistration(
   kid: any,
   round: any,
-): Promise<{ error: string }> {
+): Promise<{ error: string; kidId?: number }> {
   const kidResponse = await fetch(
     'https://summer-camp-manager.herokuapp.com/api/kids',
     // 'http://localhost:5000/api/kids',
@@ -21,7 +20,11 @@ async function saveRegistration(
 
   const contentType = kidResponse.headers.get('Content-Type')
   let message = ''
-  if (kidResponse.status !== 200) {
+  let kidId: undefined
+  if (kidResponse.status === 200) {
+    const json = await kidResponse.json()
+    kidId = json.kid.id
+  } else {
     if (contentType.startsWith('text/html')) {
       const text = await kidResponse.text()
       console.log(text)
@@ -33,7 +36,7 @@ async function saveRegistration(
         : json.statusText
     }
   }
-  return { error: message }
+  return { error: message, kidId }
 }
 
 export default async function handler(
@@ -103,6 +106,9 @@ export default async function handler(
     if (registrationResponse.error) {
       console.error('Registration error:', registrationResponse.error)
       return res.status(500).json({ message: registrationResponse.error })
+    } else {
+      // Save the kid.id to we can update with the invoice4u id
+      kid.id = registrationResponse.kidId
     }
 
     // Create a mock kidData object with the properties expected by the client
@@ -121,9 +127,6 @@ export default async function handler(
         },
       ],
     }
-
-    values.amount = calculatePayment(values)
-    console.log('Amount to pay', values.amount)
 
     // If payment is needed, process with Invoice4U
     if (values.amount > 0 && values.ccPaid) {
