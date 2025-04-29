@@ -167,6 +167,11 @@ export default async function handler(
           },
         }
 
+        console.log(
+          'Calling invoice4u with request:',
+          JSON.stringify(invoice4uRequest),
+        )
+
         // Call Invoice4U API
         const invoice4uResponse = await fetch(process.env.Invoice4U_Url, {
           method: 'POST',
@@ -197,6 +202,8 @@ export default async function handler(
             paymentError: invoice4uData.Errors,
           })
         }
+
+        console.log('Invoice4U response:', JSON.stringify(invoice4uData))
 
         // Success, so update the round in the database
         const clearingLogId = invoice4uData.d.OpenInfo?.find(
