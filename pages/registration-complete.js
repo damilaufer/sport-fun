@@ -36,14 +36,13 @@ const styles = {
 
 const RegistrationComplete = () => {
   const router = useRouter()
+  console.log('router.query', router.query)
   const [paymentStatus, setPaymentStatus] = useState('processing')
   const [paymentDetails, setPaymentDetails] = useState(null)
 
   // Process URL parameters when the component mounts
   useEffect(() => {
     if (!router.isReady) return
-
-    console.log('router.query', router.query)
 
     // Check for success or error parameters from Invoice4U redirect
     const { success, error, paymentId, clearingLogId } = router.query

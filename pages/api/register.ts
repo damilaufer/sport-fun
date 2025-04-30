@@ -209,7 +209,7 @@ export default async function handler(
         const clearingLogId = invoice4uData.d.OpenInfo?.find(
           (i) => i.Key === 'I4UClearingLogId',
         )?.Value
-        console.log('Response from invoice4u', JSON.stringify(invoice4uData))
+
         if (clearingLogId) {
           round.receiptNumber = clearingLogId
           const registrationResponse = await saveRegistration(kid, round)
