@@ -143,7 +143,7 @@ function register({ dictionaries }) {
                 <div
                   style={{
                     position: 'relative',
-                    width: '150vw',
+                    width: '90vw',
                     height: '600px',
                     border: '0px solid #ccc',
                     borderRadius: '4px',
