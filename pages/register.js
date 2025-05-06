@@ -140,13 +140,10 @@ function register({ dictionaries }) {
               />
             ) : showPaymentFrame && paymentUrl ? (
               <div>
-                <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>
-                  אנא השלם את התשלום
-                </h2>
                 <div
                   style={{
                     position: 'relative',
-                    width: '150%',
+                    width: '150vw',
                     height: '600px',
                     border: '0px solid #ccc',
                     borderRadius: '4px',
