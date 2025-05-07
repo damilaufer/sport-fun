@@ -89,6 +89,7 @@ const getInitialValues = (
   // non visible fields (to be compatible with the old API)
   busPaid: false,
   amount: 0,
+  amountDetails: [],
   payments: 1,
   cashPaid: false,
   chequePaid: false,
@@ -154,7 +155,9 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
         // console.log(values)
 
         // It's ok to modify the object because it will re-render because of the other changes
-        values.amount = calculatePayment(values)
+        const payments = calculatePayment(values)
+        values.amount = payments.amount
+        values.amountDetails = payments.items
 
         const addressRequired = hasBus(
           values.busForth,

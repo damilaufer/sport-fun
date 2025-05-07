@@ -32,28 +32,62 @@ function calculateBusCost(
   }
 }
 
-function calculatePayment(values: RegistrationFields) {
+function getRoundDetails(roundName: string, lunchId: YesNo, bus: Bus): string {
+  let details = roundName
+  if (bus === 'Y') {
+    details += ', כולל הסעה'
+  } else if (bus === '1Way') {
+    details += ', כולל הסעה כוון אחד'
+  }
+  if (lunchId === 'Y') {
+    details += ', כולל צהרון'
+  }
+  return details
+}
+
+function calculatePayment(values: RegistrationFields): {
+  amount: number
+  items: string[]
+} {
+  const items: string[] = []
   let amount = 0
   if (values.firstRound === 'Y') {
     amount += RoundPrice
     amount += values.lunchId === 'Y' ? LunchPrice : 0
+    items.push(getRoundDetails('מחזור ראשון', values.lunchId, values.busForth))
   }
   if (values.secondRound === 'Y') {
     amount += RoundPrice
     amount += values.secondRoundLunchId === 'Y' ? LunchPrice : 0
+    items.push(
+      getRoundDetails(
+        'מחזור שני',
+        values.secondRoundLunchId,
+        values.secondRoundBus,
+      ),
+    )
   }
   if (values.thirdRound === 'Y') {
     amount += RoundPrice
     amount += values.thirdRoundLunchId === 'Y' ? LunchPrice : 0
+    items.push(
+      getRoundDetails(
+        'מחזור שלישי',
+        values.thirdRoundLunchId,
+        values.thirdRoundBus,
+      ),
+    )
   }
 
   // la asaa no tiene discount
   switch (values.form) {
     case 'manui':
       amount -= amount * ManuiDiscount
+      items.push(`הנחת מנוי ${ManuiDiscount * 100}%`)
       break
     case 'group':
       amount -= amount * GroupDiscount
+      items.push(`הנחת קבוצה ${ManuiDiscount * 100}%`)
       break
     default:
       amount -= amount * NoDiscount
@@ -76,6 +110,7 @@ function calculatePayment(values: RegistrationFields) {
     values.settlementId,
   )
 
-  return Math.floor(amount)
+  // @@@ / 1000
+  return { amount: Math.floor(amount / 1000), items }
 }
 export { calculatePayment }

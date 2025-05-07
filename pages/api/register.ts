@@ -155,7 +155,7 @@ export default async function handler(
             TaxIncluded: true,
             // DocItemTaxRate: '17',
             IsItemsBase64Encoded: false,
-            DocItemName: 'Sport Fun Registration Fee',
+            DocItemName: values.amountDetails.join('|'),
             IsGeneralClient: false,
             IsAutoCreateCustomer: true,
             ReturnUrl: `${req.headers.origin}/registration-complete`, // Adjust to your success page
