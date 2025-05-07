@@ -45,13 +45,13 @@ const RegistrationComplete = () => {
     if (!router.isReady) return
 
     // Check for success or error parameters from Invoice4U redirect
-    const { success, error, paymentId, clearingLogId } = router.query
+    const { success, error, paymentId, clearingTraceId } = router.query
 
     if (success === 'true') {
       setPaymentStatus('success')
       setPaymentDetails({
         paymentId,
-        clearingLogId,
+        clearingTraceId,
         timestamp: new Date().toLocaleString('he-IL'),
       })
     } else if (error) {
@@ -90,7 +90,7 @@ const RegistrationComplete = () => {
               <div>תודה שנרשמתם ל-Sport-Fun</div>
               {paymentDetails && (
                 <div style={styles.details}>
-                  <div>מספר אסמכתא: {paymentDetails.clearingLogId}</div>
+                  <div>מספר אסמכתא: {paymentDetails.clearingTraceId}</div>
                   <div>תאריך: {paymentDetails.timestamp}</div>
                 </div>
               )}
