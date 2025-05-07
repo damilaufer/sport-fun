@@ -4,7 +4,7 @@ type RegistrationFields = {
   form: 'manui' | 'group' | ''
   firstName: string
   lastName: string
-  sex: 'M' | 'F'
+  sex: 'M' | 'F' | ''
   motherCellPhone: string
   fatherCellPhone: string
   phone: string

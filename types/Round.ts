@@ -1,4 +1,4 @@
-type YesNo = 'Y' | 'N'
+type YesNo = 'Y' | 'N' | ''
 
 type Bus = YesNo | '1Way'
 
