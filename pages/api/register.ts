@@ -147,7 +147,6 @@ export default async function handler(
             Currency: 'ILS',
             OrderIdClientUsage: kidData.id?.toString() || 'new-registration',
             IsDocCreate: true,
-            IsDocCreated: true, // @@@ The documentation is not clear about this
             DocHeadline: 'השרמה לספורט Fun',
             Comments: `Registration for ${values.firstName} ${values.lastName}`,
             IsManualDocCreationsWithParams: false,
@@ -161,7 +160,7 @@ export default async function handler(
             // DocItemTaxRate: '17',
             IsItemsBase64Encoded: false,
             DocItemName: values.amountDetails.join('|'),
-            IsGeneralClient: false,
+            IsGeneralClient: true,
             IsAutoCreateCustomer: true,
             ReturnUrl: `${req.headers.origin}/registration-complete`, // Adjust to your success page
             AddToken: false,
