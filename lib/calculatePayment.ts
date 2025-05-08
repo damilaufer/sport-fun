@@ -110,7 +110,6 @@ function calculatePayment(values: RegistrationFields): {
     values.settlementId,
   )
 
-  // @@@ / 1000
-  return { amount: Math.floor(amount / 1000), items }
+  return { amount: Math.floor(amount), items }
 }
 export { calculatePayment }
