@@ -142,16 +142,21 @@ export default async function handler(
               values.fatherCellPhone || values.motherCellPhone || values.phone,
             Email: values.email,
             Sum: values.amount,
-            Description: `Sport Fun Registration - ${values.firstName} ${values.lastName}`,
+            Description: `השרמה לספורט Fun עבור - ${values.firstName} ${values.lastName}`,
             PaymentsNum: values.payments,
             Currency: 'ILS',
             OrderIdClientUsage: kidData.id?.toString() || 'new-registration',
             IsDocCreate: true,
-            DocHeadline: 'Sport Fun Registration',
+            DocHeadline: 'השרמה לספורט Fun',
             Comments: `Registration for ${values.firstName} ${values.lastName}`,
-            IsManualDocCreationsWithParams: false,
-            DocItemQuantity: '1',
-            DocItemPrice: values.amount.toString(),
+            IsManualDocCreationsWithParams: true,
+            DocItemQuantity: Array(values.amountDetails.length)
+              .fill('1')
+              .join('|'),
+            DocItemPrice: Array(values.amountDetails.length)
+              .fill('0')
+              .join('|'),
+            DocItemDetails: values.amountDetails.join('|'),
             TaxIncluded: true,
             // DocItemTaxRate: '17',
             IsItemsBase64Encoded: false,
