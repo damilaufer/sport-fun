@@ -150,7 +150,7 @@ export default async function handler(
             IsDocCreated: true, // @@@ The documentation is not clear about this
             DocHeadline: 'השרמה לספורט Fun',
             Comments: `Registration for ${values.firstName} ${values.lastName}`,
-            IsManualDocCreationsWithParams: true,
+            IsManualDocCreationsWithParams: false,
             DocItemQuantity: Array(values.amountDetails.length)
               .fill('1')
               .join('|'),
