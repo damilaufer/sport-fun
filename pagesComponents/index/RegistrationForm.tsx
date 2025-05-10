@@ -435,6 +435,11 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
                   label: 'משלם בכרטיס אשראי',
                 }}
               />
+              {values.ccPaid && (
+                <div className="MuiFormHelperText-root Mui-error Mui-required">
+                  אין אפשרות לתשלום בדיינרס או אמריקן אקספרס, תודה
+                </div>
+              )}
               {!values.ccPaid && (
                 <div className="MuiFormHelperText-root Mui-error Mui-required">
                   נא ליצור קשר עם המשרד על מנת להסדיר את התשלום בתום הרישום
