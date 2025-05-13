@@ -39,6 +39,12 @@ async function saveRegistration(
   return { error: message, kidId }
 }
 
+const formBusToApiBus = {
+  Y: 1,
+  N: 0,
+  '1Way': 2,
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -77,7 +83,7 @@ export default async function handler(
   const round = {
     groupId: configuration.currentGroup,
     amount: values.amount,
-    busForth: values.busForth === 'Y',
+    busForth: formBusToApiBus[values.busForth],
     busForthComments: values.busForthComments,
     busPaid: values.busPaid,
     cashPaid: values.cashPaid,
@@ -91,11 +97,11 @@ export default async function handler(
     lunchId: values.lunchId === 'Y',
     receiptNumber: values.receiptNumber,
     secondRound: values.secondRound === 'Y',
-    secondRoundBus: values.secondRoundBus === 'Y',
+    secondRoundBus: formBusToApiBus[values.secondRoundBus],
     secondRoundBusComments: values.secondRoundBusComments,
     secondRoundLunchId: values.secondRoundLunchId === 'Y',
     thirdRound: values.thirdRound === 'Y',
-    thirdRoundBus: values.thirdRoundBus === 'Y',
+    thirdRoundBus: formBusToApiBus[values.thirdRoundBus],
     thirdRoundBusComments: values.thirdRoundBusComments,
     thirdRoundLunchId: values.thirdRoundLunchId === 'Y',
   }

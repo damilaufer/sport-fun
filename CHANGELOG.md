@@ -2,6 +2,10 @@
 
 # Changelog
 
+## 1.3.1 - 2025-May-13
+
+- Change Bus columns from bool to int, to store 1-way as 2.
+
 ## 1.3.0 - Version 2025
 
 - Add CC payments; la página calcula cuánto tienen que pagar y lo manda a la
