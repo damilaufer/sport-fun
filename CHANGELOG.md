@@ -1,6 +1,8 @@
 # Changelog
 
-# Changelog
+## 1.3.2 - 2025-May-27
+
+- End of early registration
 
 ## 1.3.1 - 2025-May-13
 

@@ -7,8 +7,8 @@ const LunchPrice = 900
 const BusPrice = 380
 const FarFarAwayBusPrice = 500
 const OneWayBusPrice = 220
-const NoDiscount = 0.05 // will be 1 after rishum mukdam
-const GroupDiscount = 0.1 // will be 0.05 after rishum mukdam
+const NoDiscount = 0
+const GroupDiscount = 0.05
 const ManuiDiscount = 0.1
 
 function calculateBusCost(
@@ -87,7 +87,7 @@ function calculatePayment(values: RegistrationFields): {
       break
     case 'group':
       amount -= amount * GroupDiscount
-      items.push(`הנחת קבוצה ${ManuiDiscount * 100}%`)
+      items.push(`הנחת קבוצה ${GroupDiscount * 100}%`)
       break
     default:
       amount -= amount * NoDiscount
