@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.3 - 2025-May-28
+
+- Close 2nd round
+
 ## 1.3.2 - 2025-May-27
 
 - End of early registration

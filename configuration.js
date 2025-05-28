@@ -18,7 +18,7 @@ const configuration = {
     },
     {
       label: 'מחזור שני (7/8 - 27/7)',
-      full: false,
+      full: true,
     },
     {
       label: 'מחזור שלישי (21/8 - 10/8)',
