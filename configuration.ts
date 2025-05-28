@@ -9,7 +9,16 @@ function getPaymentUrl(form) {
   }
 }
 
-const configuration = {
+type Configuration = {
+  currentGroup: number
+  rounds: Array<{
+    label: string
+    full: boolean
+  }>
+  getPaymentUrl: (form: string) => string
+}
+
+const configuration: Configuration = {
   currentGroup: 30, // 2024
   rounds: [
     {

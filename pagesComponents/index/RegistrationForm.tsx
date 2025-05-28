@@ -37,69 +37,81 @@ const Payments = [
   { name: '3 תשלומים', id: '3' },
 ]
 
-const getInitialValues = (
+function getInitialValues(
   isSubscriber: boolean,
   isGroupal: boolean,
-): RegistrationFields => ({
-  form: isSubscriber ? 'manui' : isGroupal ? 'group' : '',
-  firstName: '',
-  lastName: '',
-  sex: '',
-  motherCellPhone: '',
-  fatherCellPhone: '',
-  phone: '',
-  emergencyPhone: '',
-  email: '',
-  friends: '',
-  sportId: 0,
-  classId: 0,
-  schoolId: 0,
-  otherSchool: '',
-  address: '',
-  settlementId: 0,
-  neighbourhoodId: 0,
-  vegetarian: '',
-  vegetarianComments: '',
-  parkHaMaimSubscriber: isSubscriber ? 'Y' : 'N',
-  parkHaMaimSubscriberName: '',
-  parkHaMaimSubscriberId: '',
-  groupRegistration: isGroupal ? 'Y' : 'N',
-  groupRegistrationName: '',
-  groupRegistrationCode: '',
-  swims: '',
-  swimsComments: '',
-  comments: '',
-  medicalComments: '',
-  medicalCommentsYesNo: '',
-  firstRound: '',
-  busForth: '',
-  busForthComments: '',
-  lunchId: '',
-  busStop: '',
-  secondRound: '',
-  secondRoundBus: '',
-  secondRoundBusComments: '',
-  secondRoundLunchId: '',
-  thirdRound: '',
-  thirdRoundBus: '',
-  thirdRoundBusComments: '',
-  thirdRoundLunchId: '',
-  termsAndConditions: false,
-  roundSelected: '', // Special field (not editable)
-  // non visible fields (to be compatible with the old API)
-  busPaid: false,
-  amount: 0,
-  amountDetails: [],
-  payments: 1,
-  cashPaid: false,
-  chequePaid: false,
-  ccPaid: true,
-  ccNumber: '',
-  ccExpiration: '',
-  ccOwnerID: '',
-  ccOwnerName: '',
-  receiptNumber: '',
-})
+): RegistrationFields {
+  const initialValues: RegistrationFields = {
+    form: isSubscriber ? 'manui' : isGroupal ? 'group' : '',
+    firstName: '',
+    lastName: '',
+    sex: '',
+    motherCellPhone: '',
+    fatherCellPhone: '',
+    phone: '',
+    emergencyPhone: '',
+    email: '',
+    friends: '',
+    sportId: 0,
+    classId: 0,
+    schoolId: 0,
+    otherSchool: '',
+    address: '',
+    settlementId: 0,
+    neighbourhoodId: 0,
+    vegetarian: '',
+    vegetarianComments: '',
+    parkHaMaimSubscriber: isSubscriber ? 'Y' : 'N',
+    parkHaMaimSubscriberName: '',
+    parkHaMaimSubscriberId: '',
+    groupRegistration: isGroupal ? 'Y' : 'N',
+    groupRegistrationName: '',
+    groupRegistrationCode: '',
+    swims: '',
+    swimsComments: '',
+    comments: '',
+    medicalComments: '',
+    medicalCommentsYesNo: '',
+    firstRound: '',
+    busForth: '',
+    busForthComments: '',
+    lunchId: '',
+    busStop: '',
+    secondRound: '',
+    secondRoundBus: '',
+    secondRoundBusComments: '',
+    secondRoundLunchId: '',
+    thirdRound: '',
+    thirdRoundBus: '',
+    thirdRoundBusComments: '',
+    thirdRoundLunchId: '',
+    termsAndConditions: false,
+    roundSelected: '', // Special field (not editable)
+    // non visible fields (to be compatible with the old API)
+    busPaid: false,
+    amount: 0,
+    amountDetails: [],
+    payments: 1,
+    cashPaid: false,
+    chequePaid: false,
+    ccPaid: true,
+    ccNumber: '',
+    ccExpiration: '',
+    ccOwnerID: '',
+    ccOwnerName: '',
+    receiptNumber: '',
+  }
+  if (configuration.rounds[0].full) {
+    initialValues.firstRound = 'N'
+  }
+  if (configuration.rounds[1].full) {
+    initialValues.secondRound = 'N'
+  }
+  if (configuration.rounds[2].full) {
+    initialValues.thirdRound = 'N'
+  }
+  return initialValues
+}
 
 const RegistrationForm = ({ dictionaries, onSubmit }) => {
   const router = useRouter()
