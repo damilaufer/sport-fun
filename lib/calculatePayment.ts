@@ -1,15 +1,9 @@
 import { RegistrationFields } from '../types/RegistrationFields'
 import { Bus, YesNo } from '../types/Round'
 import { farAwaySettlements } from './constants'
+import { configuration } from '../configuration'
 
-const RoundPrice = 2250
-const LunchPrice = 900
-const BusPrice = 380
-const FarFarAwayBusPrice = 500
-const OneWayBusPrice = 220
-const NoDiscount = 0
-const GroupDiscount = 0.05
-const ManuiDiscount = 0.1
+const prices = configuration.prices
 
 function calculateBusCost(
   round: YesNo,
@@ -23,10 +17,10 @@ function calculateBusCost(
   switch (bus) {
     case 'Y':
       return farAwaySettlements.includes(settlementId)
-        ? FarFarAwayBusPrice
-        : BusPrice
+        ? prices.farFarAwayBusPrice
+        : prices.busPrice
     case '1Way':
-      return OneWayBusPrice
+      return prices.oneWayBusPrice
     default:
       return 0
   }
@@ -52,13 +46,13 @@ function calculatePayment(values: RegistrationFields): {
   const items: string[] = []
   let amount = 0
   if (values.firstRound === 'Y') {
-    amount += RoundPrice
-    amount += values.lunchId === 'Y' ? LunchPrice : 0
+    amount += prices.roundPrice
+    amount += values.lunchId === 'Y' ? prices.lunchPrice : 0
     items.push(getRoundDetails('מחזור ראשון', values.lunchId, values.busForth))
   }
   if (values.secondRound === 'Y') {
-    amount += RoundPrice
-    amount += values.secondRoundLunchId === 'Y' ? LunchPrice : 0
+    amount += prices.roundPrice
+    amount += values.secondRoundLunchId === 'Y' ? prices.lunchPrice : 0
     items.push(
       getRoundDetails(
         'מחזור שני',
@@ -68,8 +62,8 @@ function calculatePayment(values: RegistrationFields): {
     )
   }
   if (values.thirdRound === 'Y') {
-    amount += RoundPrice
-    amount += values.thirdRoundLunchId === 'Y' ? LunchPrice : 0
+    amount += prices.roundPrice
+    amount += values.thirdRoundLunchId === 'Y' ? prices.lunchPrice : 0
     items.push(
       getRoundDetails(
         'מחזור שלישי',
@@ -82,15 +76,15 @@ function calculatePayment(values: RegistrationFields): {
   // la asaa no tiene discount
   switch (values.form) {
     case 'manui':
-      amount -= amount * ManuiDiscount
-      items.push(`הנחת מנוי ${ManuiDiscount * 100}%`)
+      amount -= amount * prices.manuiDiscount
+      items.push(`הנחת מנוי ${prices.manuiDiscount * 100}%`)
       break
     case 'group':
-      amount -= amount * GroupDiscount
-      items.push(`הנחת קבוצה ${GroupDiscount * 100}%`)
+      amount -= amount * prices.groupDiscount
+      items.push(`הנחת קבוצה ${prices.groupDiscount * 100}%`)
       break
     default:
-      amount -= amount * NoDiscount
+      amount -= amount * prices.noDiscount
       break
   }
 

@@ -16,6 +16,16 @@ type Configuration = {
     full: boolean
   }>
   getPaymentUrl: (form: string) => string
+  prices: {
+    roundPrice: number
+    lunchPrice: number
+    busPrice: number
+    farFarAwayBusPrice: number
+    oneWayBusPrice: number
+    noDiscount: number
+    groupDiscount: number
+    manuiDiscount: number
+  }
 }
 
 const configuration: Configuration = {
@@ -35,6 +45,16 @@ const configuration: Configuration = {
     },
   ],
   getPaymentUrl: getPaymentUrl,
+  prices: {
+    roundPrice: 2250,
+    lunchPrice: 900,
+    busPrice: 380,
+    farFarAwayBusPrice: 500,
+    oneWayBusPrice: 220,
+    noDiscount: 0.05,
+    groupDiscount: 0.1,
+    manuiDiscount: 0.1,
+  },
 }
 
 export { configuration }
