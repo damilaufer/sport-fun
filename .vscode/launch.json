@@ -7,7 +7,7 @@
       "request": "launch",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "cwd": "/Users/dalaufer/Documents/DamiL Personal/Projects/sport-fun",
+      "cwd": "/Users/dalaufer/Documents/DamiL-Personal/Projects/sport-fun",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "serverReadyAction": {

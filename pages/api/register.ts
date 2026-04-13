@@ -7,7 +7,8 @@ async function saveRegistration(
   round: any,
 ): Promise<{ error: string; kidId?: number }> {
   const kidResponse = await fetch(
-    'https://summer-camp-manager.herokuapp.com/api/kids',
+    'https://sport-fun-backoffice-46c1b3691bb1.herokuapp.com/api/kids',
+    // 'https://summer-camp-manager.herokuapp.com/api/kids',
     // 'http://localhost:5000/api/kids',
     {
       method: 'POST',

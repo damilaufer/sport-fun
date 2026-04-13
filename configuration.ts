@@ -22,15 +22,15 @@ const configuration: Configuration = {
   currentGroup: 30, // 2024
   rounds: [
     {
-      label: 'מחזור ראשון (24/7 - 13/7)',
+      label: 'מחזור ראשון (16/7 - 5/7)',
       full: false,
     },
     {
-      label: 'מחזור שני (7/8 - 27/7)',
-      full: true,
+      label: 'מחזור שני (30/7 - 19/7)',
+      full: false,
     },
     {
-      label: 'מחזור שלישי (21/8 - 10/8)',
+      label: 'מחזור שלישי (13/8 - 2/8)',
       full: false,
     },
   ],

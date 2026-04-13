@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0 - 2026-Apr-13
+
+- New year, use new heroku server
+
 ## 1.3.3 - 2025-May-28
 
 - Close 2nd round

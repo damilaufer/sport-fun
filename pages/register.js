@@ -241,7 +241,7 @@ function register({ dictionaries }) {
 // This gets called on every request
 export async function getServerSideProps() {
   const res = await fetch(
-    `https://summer-camp-manager.herokuapp.com/api/dictionaries`,
+    `https://sport-fun-backoffice-46c1b3691bb1.herokuapp.com/api/dictionaries`,
   )
   const dictionaries = await res.json()
 
