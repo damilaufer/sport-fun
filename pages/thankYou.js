@@ -4,18 +4,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 const styles = {
-  main: { textAlign: 'center', padding: '1rem 0 5rem 0' },
+  main: { textAlign: 'center', padding: '3rem 0 5rem 0' },
   image: { marginBottom: '20px' },
-  button: {
-    marginTop: '50px',
-    padding: '20px',
-    border: '2px solid #2D6BB5',
-    borderRadius: '10px',
-    fontSize: '26px',
-    color: '#2D6BB5',
-    backgroundColor: 'transparent',
-    cursor: 'pointer',
-  },
 }
 
 const ThankYou = () => {
@@ -34,24 +24,26 @@ const ThankYou = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main style={styles.main}>
-        <div style={styles.image}>
+        <div className="logo-container" style={styles.image}>
           <Image src="/logo.jpg" alt="Sport-fun" width="350" height="200" />
         </div>
 
-        <button style={styles.button} onClick={goToPayments}>
-          פרטי הרישום נקלטו בהצלחה.
-          <br />
-          <br />
-          <b>
-            על מנת להשלים את הרישום ולהבטיח את מקומכם בקייטנה יש להסדיר תשלום
-            מול המשרד
-          </b>
-          <br />
-          <br />
-          <a href="tel:+972523670576" style={{ color: '#2D6BB5' }}>
-            <b>052-3670576</b>
-          </a>
-        </button>
+        <div className="success-card animate-success" style={{ marginTop: '40px', cursor: 'pointer' }} onClick={goToPayments}>
+          <div style={{ fontSize: '28px', fontWeight: 700, color: '#4CAF50', marginBottom: '16px' }}>
+            פרטי הרישום נקלטו בהצלחה.
+          </div>
+          <div style={{ fontSize: '20px', color: '#333', lineHeight: 1.6 }}>
+            <b>
+              על מנת להשלים את הרישום ולהבטיח את מקומכם בקייטנה יש להסדיר תשלום
+              מול המשרד
+            </b>
+          </div>
+          <div style={{ marginTop: '20px' }}>
+            <a href="tel:+972523670576" className="btn-primary" style={{ display: 'inline-block', textDecoration: 'none', padding: '12px 32px', fontSize: '22px' }}>
+              052-3670576
+            </a>
+          </div>
+        </div>
       </main>
     </Container>
   )

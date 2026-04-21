@@ -1,5 +1,7 @@
 # Changelog
 
+- New CSS
+
 ## 1.4.1 - 2026-Apr-13
 
 - New year, use new heroku server

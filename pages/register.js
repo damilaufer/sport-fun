@@ -109,7 +109,7 @@ function register({ dictionaries }) {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <main>
-            <div style={{ marginBottom: '20px' }}>
+            <div className="logo-container" style={{ marginBottom: '28px' }}>
               <Image
                 src="/logo.jpg"
                 alt="Sport-fun"

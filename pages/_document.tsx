@@ -8,15 +8,16 @@ class MyDocument extends Document {
       <Html
         style={{
           fontSize: '20px',
-
           padding: 0,
           margin: 0,
           fontFamily:
-            '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,sans-serif',
+            '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
         }}
       >
-        <Head />
-        <body dir="rtl">
+        <Head>
+          <meta name="theme-color" content="#2D6BB5" />
+        </Head>
+        <body dir="rtl" style={{ margin: 0, minHeight: '100vh' }}>
           <div style={{ display: 'none' }}>{packageJson.version}</div>
           <Main />
           <NextScript />

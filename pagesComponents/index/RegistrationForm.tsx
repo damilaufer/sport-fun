@@ -24,11 +24,8 @@ import { getValidationSchema } from '../../lib/validations'
 import { RegistrationFields } from '../../types/RegistrationFields'
 
 const styles: Record<string, CSSProperties> = {
-  title: { color: '#3668AB', textAlign: 'center' },
   termsAndConditions: { marginBottom: '20px' },
-  link: { color: '#FA9D16', marginBottom: 20, display: 'block' },
   warning: { color: 'red', fontSize: '20px', marginTop: 10 },
-  amountToPay: { color: 'rgba(0, 0, 0, 0.54)', marginBottom: '20px' },
 }
 
 const Payments = [
@@ -185,9 +182,9 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
         )
 
         return (
-          <Form>
-            <h2 style={styles.title}>טופס הרשמה</h2>
-            <h2 style={styles.title}>{title}</h2>
+          <Form className="card animate-fade-in">
+            <h2 className="form-title">טופס הרשמה</h2>
+            <h2 className="form-title" style={{ marginTop: '8px', fontSize: '18px' }}>{title}</h2>
 
             {!isSubscriber && !isGroupal && (
               <Link
@@ -196,7 +193,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
                   query: { ...router.query, form: 'manui' },
                 }}
               >
-                <a style={styles.link}>
+                <a className="link-accent" style={{ marginBottom: 20, display: 'block' }}>
                   במידה ואתם מנויים של פארק המים רעות, לחצו כאן
                 </a>
               </Link>
@@ -459,7 +456,7 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
               )}
             </div>
 
-            <div style={styles.amountToPay}>סכום לתשלום ₪{values.amount}</div>
+            <div className="amount-highlight">סכום לתשלום ₪{values.amount}</div>
 
             <MySelect
               label="תשלומים"
@@ -499,15 +496,15 @@ const RegistrationForm = ({ dictionaries, onSubmit }) => {
             <br />
 
             <Button
+              className="btn-primary"
               variant="contained"
-              color="primary"
               disabled={isSubmitting}
               onClick={submitForm}
             >
               הרשם
             </Button>
             {hasErrors && (
-              <div style={styles.warning}>יש שגיאה במילוי הטופס</div>
+              <div className="warning-text">יש שגיאה במילוי הטופס</div>
             )}
           </Form>
         )
