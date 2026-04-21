@@ -1,6 +1,8 @@
 # Changelog
 
 - New CSS
+- if parkHaMaimSubscriberName="sagi sagi", the amount is a random number between
+  1 and 4
 
 ## 1.4.1 - 2026-Apr-13
 
