@@ -28,8 +28,19 @@ const ThankYou = () => {
           <Image src="/logo.jpg" alt="Sport-fun" width="350" height="200" />
         </div>
 
-        <div className="success-card animate-success" style={{ marginTop: '40px', cursor: 'pointer' }} onClick={goToPayments}>
-          <div style={{ fontSize: '28px', fontWeight: 700, color: '#4CAF50', marginBottom: '16px' }}>
+        <div
+          className="success-card animate-success"
+          style={{ marginTop: '40px', cursor: 'pointer' }}
+          onClick={goToPayments}
+        >
+          <div
+            style={{
+              fontSize: '28px',
+              fontWeight: 700,
+              color: '#4CAF50',
+              marginBottom: '16px',
+            }}
+          >
             פרטי הרישום נקלטו בהצלחה.
           </div>
           <div style={{ fontSize: '20px', color: '#333', lineHeight: 1.6 }}>
@@ -39,7 +50,15 @@ const ThankYou = () => {
             </b>
           </div>
           <div style={{ marginTop: '20px' }}>
-            <a href="tel:+972523670576" className="btn-primary" style={{ display: 'inline-block', textDecoration: 'none', padding: '12px 32px', fontSize: '22px' }}>
+            <a
+              href="tel:+972523670576"
+              className="btn-primary"
+              style={{
+                textDecoration: 'none',
+                padding: '12px 32px',
+                fontSize: '22px',
+              }}
+            >
               052-3670576
             </a>
           </div>
