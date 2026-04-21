@@ -5,22 +5,21 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 const styles = {
-  main: { textAlign: 'center', padding: '1rem 0 5rem 0' },
+  main: { textAlign: 'center', padding: '3rem 0 5rem 0' },
   image: { marginBottom: '20px' },
   question: {
-    marginTop: '50px',
-    padding: '20px',
+    marginTop: '20px',
+    marginBottom: '28px',
+    padding: '0',
     fontSize: '26px',
     color: '#2D6BB5',
+    fontWeight: 600,
   },
-  link: {
-    margin: '30px',
-    padding: '10px',
-    border: '2px solid #2D6BB5',
-    borderRadius: '10px',
-    fontSize: '26px',
-    color: '#2D6BB5',
-    textDecoration: 'none',
+  buttonRow: {
+    display: 'flex',
+    gap: '16px',
+    justifyContent: 'center',
+    marginTop: '12px',
   },
 }
 
@@ -45,27 +44,29 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main style={styles.main}>
-        <div style={styles.image}>
+        <div className="logo-container" style={styles.image}>
           <Image src="/logo.jpg" alt="Sport-fun" width="350" height="200" />
         </div>
 
         {redirecting && <CircularProgress style={{ marginTop: 100 }} />}
 
         {!redirecting && (
-          <div>
+          <div className="question-card">
             <div style={styles.question}>האם אתם מנויים בפארק המים רעות?</div>
-            <Button
-              style={styles.link}
-              onClick={() => redirect('/register?form=manui')}
-            >
-              כן
-            </Button>
-            <Button
-              style={styles.link}
-              onClick={() => redirect(`/register?form=${router.query.form}`)}
-            >
-              לא
-            </Button>
+            <div style={styles.buttonRow}>
+              <Button
+                className="btn-outline"
+                onClick={() => redirect('/register?form=manui')}
+              >
+                כן
+              </Button>
+              <Button
+                className="btn-outline"
+                onClick={() => redirect(`/register?form=${router.query.form}`)}
+              >
+                לא
+              </Button>
+            </div>
           </div>
         )}
       </main>

@@ -4,17 +4,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 const styles = {
-  main: { textAlign: 'center', padding: '1rem 0 5rem 0' },
-  image: { marginBottom: '20px' },
-  message: {
-    marginTop: '30px',
-    padding: '20px',
-    border: '2px solid #2D6BB5',
-    borderRadius: '10px',
-    fontSize: '26px',
-    color: '#2D6BB5',
-    backgroundColor: 'transparent',
-  },
+  main: { textAlign: 'center', padding: '3rem 0 5rem 0' },
   success: {
     color: '#4CAF50',
     fontSize: '28px',
@@ -30,7 +20,7 @@ const styles = {
   details: {
     fontSize: '20px',
     marginTop: '20px',
-    color: '#333',
+    color: '#555',
   },
 }
 
@@ -77,17 +67,16 @@ const RegistrationComplete = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main style={styles.main}>
-        <div style={styles.message}>
           {paymentStatus === 'processing' && (
-            <>
+            <div className="card animate-fade-in" style={{ fontSize: '24px', color: '#2D6BB5' }}>
               <div>מעבד את פרטי התשלום...</div>
-            </>
+            </div>
           )}
 
           {paymentStatus === 'success' && (
-            <>
+            <div className="success-card animate-success">
               <div style={styles.success}>הרישום והתשלום הושלמו בהצלחה!</div>
-              <div>תודה שנרשמתם ל-Sport-Fun</div>
+              <div style={{ fontSize: '22px' }}>תודה שנרשמתם ל-Sport-Fun</div>
               {paymentDetails && (
                 <div style={styles.details}>
                   <div>מספר אסמכתא: {paymentDetails.clearingTraceId}</div>
@@ -97,34 +86,33 @@ const RegistrationComplete = () => {
               <div style={styles.details}>
                 אישור רישום נשלח לכתובת המייל שהזנתם
               </div>
-            </>
+            </div>
           )}
 
           {paymentStatus === 'error' && (
-            <>
+            <div className="error-card animate-error">
               <div style={styles.error}>אירעה שגיאה בתהליך התשלום</div>
-              <div>הרישום נקלט במערכת, אך התשלום לא הושלם</div>
+              <div style={{ fontSize: '20px' }}>הרישום נקלט במערכת, אך התשלום לא הושלם</div>
               {paymentDetails?.error && (
                 <div style={styles.details}>
                   <div>פרטי השגיאה: {paymentDetails.error}</div>
                   <div>אנא צרו קשר עם צוות Sport-Fun לסיוע</div>
                 </div>
               )}
-            </>
+            </div>
           )}
 
           {paymentStatus === 'unknown' && (
-            <>
-              <div>הרישום התקבל במערכת</div>
+            <div className="card animate-fade-in">
+              <div style={{ fontSize: '24px', color: '#2D6BB5' }}>הרישום התקבל במערכת</div>
               <div style={styles.details}>
                 אם ביצעתם תשלום, אנא המתינו לקבלת אישור במייל
               </div>
               <div style={styles.details}>
                 אם לא השלמתם את התשלום, אנא צרו קשר עם צוות Sport-Fun
               </div>
-            </>
+            </div>
           )}
-        </div>
       </main>
     </Container>
   )
