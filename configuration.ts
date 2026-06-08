@@ -51,8 +51,8 @@ const configuration: Configuration = {
     busPrice: 380,
     farFarAwayBusPrice: 500,
     oneWayBusPrice: 220,
-    noDiscount: 0.05,
-    groupDiscount: 0.1,
+    noDiscount: 0.0,
+    groupDiscount: 0.05,
     manuiDiscount: 0.1,
   },
 }
