@@ -1,11 +1,14 @@
 # Changelog
 
-- New CSS
-- if parkHaMaimSubscriberName="sagi sagi", the amount is a random number between
-  1 and 4
+## 1.4.2 - 2026-Jun-8
+
+- Change discount percentages
 
 ## 1.4.1 - 2026-Apr-13
 
+- New CSS
+- if parkHaMaimSubscriberName="sagi sagi", the amount is a random number between
+  1 and 4
 - New year, use new heroku server
 
 ## 1.3.3 - 2025-May-28
