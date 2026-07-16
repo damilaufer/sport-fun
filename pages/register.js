@@ -14,6 +14,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
+import { configuration } from '../configuration'
 import { RegistrationForm } from '../pagesComponents/index/RegistrationForm'
 
 // Configure JSS
@@ -100,6 +101,8 @@ function register({ dictionaries }) {
     })
   }
 
+  const registrationClosed = configuration.rounds.every((x) => x.full)
+
   return (
     <StylesProvider jss={jss}>
       <ThemeProvider theme={theme}>
@@ -118,22 +121,22 @@ function register({ dictionaries }) {
                 priority="true"
               />
             </div>
-            {/* <div style={{ textAlign: 'center' }}>
-              <h1>הרישום הסתיים</h1>
-              <h2>
-                ניתן להירשם לרשימת המתנה{' '}
-                <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSdUIcrKz3m2S25OkITOc_4ObDLBi8c0tpUx7-efqUuyzk6UIw/viewform?usp=sf_link"
-                  rel="noopener noreferrer"
-                  style={{ color: 'blue' }}
-                >
-                  בקישור הזה
-                </a>
-              </h2>
-              <h2>לפרטים: 052-367-0576</h2>
-            </div> */}
-
-            {!registrationComplete ? (
+            {registrationClosed && (
+              <div
+                className="card animate-fade-in"
+                style={{ textAlign: 'center', color: 'rgba(0, 0, 0, 0.54)' }}
+              >
+                <h1 className="form-title">הרישום הסתיים</h1>
+                <h2>לפרטים נוספים ורישום, ניתן להתקשר או לשלוח הודעה ל-:</h2>
+                <h2>
+                  <a href="tel:052-367-0576">
+                    <u>052-367-0576</u>
+                  </a>
+                </h2>
+                <h2>אלכס</h2>
+              </div>
+            )}
+            {!registrationComplete && !registrationClosed ? (
               <RegistrationForm
                 dictionaries={dictionaries}
                 onSubmit={handleSubmit}

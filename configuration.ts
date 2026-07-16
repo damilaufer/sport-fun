@@ -33,15 +33,15 @@ const configuration: Configuration = {
   rounds: [
     {
       label: 'מחזור ראשון (16/7 - 5/7)',
-      full: false,
+      full: true,
     },
     {
       label: 'מחזור שני (30/7 - 19/7)',
-      full: false,
+      full: true,
     },
     {
       label: 'מחזור שלישי (13/8 - 2/8)',
-      full: false,
+      full: true,
     },
   ],
   getPaymentUrl: getPaymentUrl,
