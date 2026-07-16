@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.3 - 2026-Jul-16
+
+- Close all rounds
+
 ## 1.4.2 - 2026-Jun-8
 
 - Change discount percentages
